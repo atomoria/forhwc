@@ -872,10 +872,22 @@ h1 {max-width:850px;text-shadow:0 3px 8px #050c19,0 0 20px #050c19;}
 @media(prefers-reduced-motion:reduce){.element{transition:none}}
 
 
+/* Saturated category palettes beneath the transparent SVG illustrations. */
+.periodic-table .element.alkali {--tile-color:linear-gradient(150deg,#a3293b,#571a30)}
+.periodic-table .element.alkaline {--tile-color:linear-gradient(150deg,#bb7821,#60320e)}
+.periodic-table .element.transition {--tile-color:linear-gradient(150deg,#127eb8,#08335f)}
+.periodic-table .element.post-transition {--tile-color:linear-gradient(150deg,#637caa,#303d69)}
+.periodic-table .element.metalloid {--tile-color:linear-gradient(150deg,#157b78,#124448)}
+.periodic-table .element.nonmetal {--tile-color:linear-gradient(150deg,#178c67,#114d3e)}
+.periodic-table .element.halogen {--tile-color:linear-gradient(150deg,#a444ac,#542466)}
+.periodic-table .element.noble {--tile-color:linear-gradient(150deg,#7946d0,#392778)}
+.periodic-table .element.lanthanide {--tile-color:linear-gradient(150deg,#d38a28,#754316)}
+.periodic-table .element.actinide {--tile-color:linear-gradient(150deg,#a044ae,#50205d)}
+
 /* Moonlit illustrated element cards — preview refinement */
 .periodic-table .element {
-    background-image: linear-gradient(180deg,rgba(0,0,0,.02) 0%,rgba(0,0,0,.05) 47%,rgba(0,0,0,.2) 100%), var(--element-landscape);
-    background-size: 100% 100%, cover;
+    background-image: linear-gradient(180deg,rgba(0,0,0,.02) 0%,rgba(0,0,0,.05) 47%,rgba(0,0,0,.2) 100%), var(--element-landscape), var(--tile-color);
+    background-size: 100% 100%, cover, 100% 100%;
     background-position: center;
     border: 1px solid rgba(234,200,149,.54);
     box-shadow: inset 0 1px 0 rgba(255,255,255,.2), inset 0 -9px 14px rgba(0,0,0,.2), 0 2px 5px rgba(0,0,0,.45);
