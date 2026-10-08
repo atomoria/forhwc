@@ -905,6 +905,13 @@ h1 {max-width:850px;text-shadow:0 3px 8px #050c19,0 0 20px #050c19;}
     box-shadow:0 0 0 1px #edc17c,0 8px 22px #000b,0 0 18px #d7a65a55;
 }
 
+/* Bilingual language switch */
+.header-top { align-items:center; }
+.language-switch { display:flex; gap:3px; flex-shrink:0; padding:4px; border:1px solid #c6a16b; border-radius:12px; background:#101d2d; box-shadow:0 3px 14px #0006; }
+.language-switch button { border:0; border-radius:8px; padding:10px 14px; background:transparent; color:#d4c4a9; font-weight:800; letter-spacing:.05em; }
+.language-switch button.active { background:linear-gradient(145deg,#e8c68b,#b98b4b); color:#182234; box-shadow:0 2px 7px #0007; }
+.language-switch button:focus-visible { outline:2px solid #fff; outline-offset:2px; }
+@media(max-width:600px){.header-top{flex-direction:row;align-items:flex-start;flex-wrap:wrap}.language-switch{margin-top:5px}}
 </style>
 </head>
 
@@ -919,6 +926,10 @@ h1 {max-width:850px;text-shadow:0 3px 8px #050c19,0 0 20px #050c19;}
             <p class="subtitle">
                 Explore the elements and their electron structures.
             </p>
+        </div>
+        <div class="language-switch" role="group" aria-label="Language / Ngôn ngữ">
+            <button type="button" id="langEN" class="active" aria-pressed="true">EN</button>
+            <button type="button" id="langVI" aria-pressed="false">VI</button>
         </div>
     </div>
 
@@ -1704,6 +1715,43 @@ const elements = [
    DESCRIPTION GENERATOR
 ========================================================= */
 
+/* Bilingual EN/VI interface; original element data and artwork remain unchanged. */
+const vietnameseElementNames = ["Hiđro", "Heli", "Liti", "Beri", "Bo", "Cacbon", "Nitơ", "Oxi", "Flo", "Neon", "Natri", "Magie", "Nhôm", "Silic", "Photpho", "Lưu huỳnh", "Clo", "Argon", "Kali", "Canxi", "Scandi", "Titan", "Vanadi", "Crom", "Mangan", "Sắt", "Coban", "Niken", "Đồng", "Kẽm", "Gali", "Gecmani", "Asen", "Selen", "Brom", "Krypton", "Rubidi", "Stronti", "Ytri", "Zirconi", "Niobi", "Molypden", "Tecneti", "Ruteni", "Rodi", "Paladi", "Bạc", "Cadimi", "Indi", "Thiếc", "Antimon", "Telua", "Iot", "Xenon", "Xesi", "Bari", "Lantan", "Xeri", "Praseodymi", "Neodymi", "Promethi", "Samari", "Europi", "Gadolini", "Terbi", "Dysprosi", "Holmi", "Erbi", "Tuli", "Yterbi", "Luteti", "Hafni", "Tantan", "Vonfram", "Rheni", "Osmi", "Iridi", "Platin", "Vàng", "Thủy ngân", "Tali", "Chì", "Bitmut", "Poloni", "Astatin", "Radon", "Franci", "Radi", "Actini", "Thori", "Protactini", "Urani", "Neptuni", "Plutoni", "Americi", "Curi", "Berkeli", "Californi", "Einsteini", "Fermi", "Mendelevi", "Nobeli", "Lawrenci", "Rutherfordi", "Dubni", "Seaborgi", "Bohri", "Hassi", "Meitneri", "Darmstadti", "Roentgeni", "Copernici", "Nihoni", "Flerovi", "Moscovi", "Livermori", "Tennessine", "Oganesson"];
+let currentLanguage = 'en';
+let selectedElement = null;
+const interfaceTranslations = {"Periodic Table of the Elements": "Bảng tuần hoàn các nguyên tố hóa học", "Explore the elements and their electron structures.": "Khám phá các nguyên tố và cấu trúc electron của chúng.", "Clear": "Xóa", "All": "Tất cả", "Alkali metals": "Kim loại kiềm", "Alkaline earth": "Kim loại kiềm thổ", "Transition metals": "Kim loại chuyển tiếp", "Post-transition": "Kim loại sau chuyển tiếp", "Metalloids": "Á kim", "Nonmetals": "Phi kim", "Halogens": "Halogen", "Noble gases": "Khí hiếm", "Lanthanides": "Họ Lantan", "Actinides": "Họ Actini", "Selected element": "Nguyên tố đã chọn", "Atomic number": "Số hiệu nguyên tử", "Atomic mass": "Nguyên tử khối", "Period": "Chu kì", "Group": "Nhóm", "Electron shells": "Các lớp electron", "Valence electrons": "Electron hóa trị", "Electron configuration": "Cấu hình electron", "Full configuration": "Cấu hình đầy đủ", "Noble-gas shorthand": "Cấu hình rút gọn", "Electron structure": "Cấu trúc electron", "Copy": "Sao chép", "↑ Back to periodic table": "↑ Quay lại bảng tuần hoàn"};
+const categoryTranslations = {"alkali": "Kim loại kiềm", "alkaline": "Kim loại kiềm thổ", "transition": "Kim loại chuyển tiếp", "post-transition": "Kim loại sau chuyển tiếp", "metalloid": "Á kim", "nonmetal": "Phi kim", "halogen": "Halogen", "noble": "Khí hiếm", "lanthanide": "Họ Lantan", "actinide": "Họ Actini"};
+function viName(element) { return vietnameseElementNames[element.n - 1] || element.name; }
+function displayName(element) { return currentLanguage === 'vi' ? viName(element) : element.name; }
+function categoryLabel(category) { return currentLanguage === 'vi' ? categoryTranslations[category] : category.replace('-', ' ').replace(/\b\w/g, c => c.toUpperCase()); }
+function translateStaticUI() {
+    document.documentElement.lang = currentLanguage;
+    document.title = currentLanguage === 'vi' ? 'Bảng tuần hoàn các nguyên tố hóa học' : 'Interactive Periodic Table';
+    document.querySelectorAll('[data-original-text]').forEach(node => {
+        node.textContent = currentLanguage === 'vi' ? (interfaceTranslations[node.dataset.originalText] || node.dataset.originalText) : node.dataset.originalText;
+    });
+    document.getElementById('searchInput').placeholder = currentLanguage === 'vi'
+      ? 'Tìm theo tên nguyên tố, kí hiệu hoặc số hiệu nguyên tử...'
+      : 'Search element name, symbol, or atomic number...';
+    document.querySelectorAll('[data-copy-config]').forEach(button => { button.textContent = currentLanguage === 'vi' ? 'Sao chép' : 'Copy'; });
+    document.getElementById('langEN').classList.toggle('active', currentLanguage === 'en');
+    document.getElementById('langVI').classList.toggle('active', currentLanguage === 'vi');
+    document.getElementById('langEN').setAttribute('aria-pressed', String(currentLanguage === 'en'));
+    document.getElementById('langVI').setAttribute('aria-pressed', String(currentLanguage === 'vi'));
+}
+function setLanguage(language) {
+    currentLanguage = language;
+    try { localStorage.setItem('periodic-table-language', language); } catch (e) {}
+    translateStaticUI();
+    buildTable();
+    if (selectedElement) selectElement(selectedElement);
+    performSearch();
+    const activeCategory = document.querySelector('.legend button.active')?.dataset.category || 'all';
+    if (activeCategory !== 'all') document.querySelectorAll('.element').forEach(card => {
+        if (card.dataset.category !== activeCategory) card.classList.add('dimmed');
+    });
+}
+
 function getDescription(element) {
 
     const descriptions = {
@@ -1739,6 +1787,21 @@ function getDescription(element) {
             `${element.name} belongs to the actinide series. Many actinides are radioactive and have partially filled f subshells.`
     };
 
+    if (currentLanguage === 'vi') {
+        const descriptionsVI = {
+            alkali: `${viName(element)} là kim loại kiềm. Các kim loại kiềm có tính phản ứng cao và thường có một electron ở lớp ngoài cùng.`,
+            alkaline: `${viName(element)} là kim loại kiềm thổ. Các nguyên tố này thường có hai electron ở lớp ngoài cùng.`,
+            transition: `${viName(element)} thuộc nhóm kim loại chuyển tiếp. Nhiều kim loại chuyển tiếp có phân lớp d chưa bão hòa và có thể có nhiều số oxi hóa.`,
+            'post-transition': `${viName(element)} là kim loại sau chuyển tiếp, có những tính chất khác với kim loại chuyển tiếp.`,
+            metalloid: `${viName(element)} là á kim, thể hiện cả tính chất kim loại và phi kim.`,
+            nonmetal: `${viName(element)} là phi kim. Các electron lớp ngoài cùng ảnh hưởng lớn đến khả năng tạo liên kết hóa học.`,
+            halogen: `${viName(element)} thuộc nhóm halogen. Các halogen thường có bảy electron lớp ngoài cùng và có xu hướng nhận thêm một electron.`,
+            noble: `${viName(element)} thuộc nhóm khí hiếm. Lớp electron ngoài cùng đã được điền đầy theo mô hình thông thường, nên nhóm này nhìn chung ít phản ứng.`,
+            lanthanide: `${viName(element)} thuộc họ Lantan, một dãy nguyên tố kim loại liên quan đến khối f.`,
+            actinide: `${viName(element)} thuộc họ Actini. Nhiều nguyên tố trong họ này có tính phóng xạ và có phân lớp f chưa bão hòa.`
+        };
+        return descriptionsVI[element.category] || '';
+    }
     return descriptions[element.category] || "";
 }
 
@@ -1879,6 +1942,7 @@ function createElementCard(element, allowUnpositioned = false) {
 
     button.dataset.number = element.n;
     button.dataset.name = element.name.toLowerCase();
+    button.dataset.viName = viName(element).toLocaleLowerCase("vi");
     button.dataset.symbol = element.s.toLowerCase();
     button.dataset.category = element.category;
 
@@ -1892,7 +1956,7 @@ function createElementCard(element, allowUnpositioned = false) {
         </div>
 
         <div class="element-name">
-            ${element.name}
+            ${displayName(element)}
         </div>
 
         <div class="element-mass">
@@ -1937,7 +2001,7 @@ function buildTable() {
     lanthanideLabel.className = "f-label lanthanide-series";
     lanthanideLabel.style.gridRow = "8";
     lanthanideLabel.style.gridColumn = "1 / span 2";
-    lanthanideLabel.textContent = "Lanthanides";
+    lanthanideLabel.textContent = currentLanguage === "vi" ? "Họ Lantan" : "Lanthanides";
 
     table.appendChild(lanthanideLabel);
 
@@ -1948,7 +2012,7 @@ function buildTable() {
     actinideLabel.className = "f-label actinide-series";
     actinideLabel.style.gridRow = "9";
     actinideLabel.style.gridColumn = "1 / span 2";
-    actinideLabel.textContent = "Actinides";
+    actinideLabel.textContent = currentLanguage === "vi" ? "Họ Actini" : "Actinides";
 
     table.appendChild(actinideLabel);
 
@@ -2014,7 +2078,7 @@ function createElectronDiagram(element) {
         shells[outermost];
 
     valenceCount.textContent =
-        `${valence} valence e⁻`;
+        `${valence} ${currentLanguage === "vi" ? "e⁻ hóa trị" : "valence e⁻"}`;
 
     /*
        Nucleus
@@ -2162,10 +2226,10 @@ function createElectronDiagram(element) {
                 (isOuter ? " outer" : "");
 
             label.textContent =
-                `Shell ${shellIndex + 1}: ${electronCount} e⁻` +
+                `${currentLanguage === "vi" ? "Lớp" : "Shell"} ${shellIndex + 1}: ${electronCount} e⁻` +
                 (
                     isOuter
-                        ? " • OUTERMOST"
+                        ? (currentLanguage === "vi" ? " • NGOÀI CÙNG" : " • OUTERMOST")
                         : ""
                 );
 
@@ -2277,8 +2341,8 @@ function updateConfiguration(element) {
     document.getElementById('configurationFull').innerHTML = full;
     document.getElementById('configurationShort').innerHTML = abbreviated;
     document.getElementById('configurationNote').textContent = element.n >= 104
-        ? 'Predicted electron configuration; superheavy-element structures may not be experimentally confirmed.'
-        : 'Ground-state electron configuration of a neutral atom.';
+        ? (currentLanguage === 'vi' ? 'Cấu hình electron dự đoán; cấu trúc của các nguyên tố siêu nặng chưa được xác nhận đầy đủ bằng thực nghiệm.' : 'Predicted electron configuration; superheavy-element structures may not be experimentally confirmed.')
+        : (currentLanguage === 'vi' ? 'Cấu hình electron trạng thái cơ bản của nguyên tử trung hòa.' : 'Ground-state electron configuration of a neutral atom.');
     document.querySelectorAll('[data-copy-config]').forEach(button => {
         button.dataset.copyText = configurationText(button.dataset.copyConfig === 'full' ? full : abbreviated);
     });
@@ -2288,8 +2352,8 @@ document.querySelectorAll('[data-copy-config]').forEach(button => {
         const text = button.dataset.copyText || '';
         try {
             await navigator.clipboard.writeText(text);
-            button.textContent = 'Copied!';
-            setTimeout(() => button.textContent = 'Copy', 1400);
+            button.textContent = currentLanguage === 'vi' ? 'Đã sao chép!' : 'Copied!';
+            setTimeout(() => button.textContent = currentLanguage === 'vi' ? 'Sao chép' : 'Copy', 1400);
         } catch (error) {
             const field = document.createElement('textarea');
             field.value = text;
@@ -2297,13 +2361,14 @@ document.querySelectorAll('[data-copy-config]').forEach(button => {
             field.select();
             document.execCommand('copy');
             field.remove();
-            button.textContent = 'Copied!';
-            setTimeout(() => button.textContent = 'Copy', 1400);
+            button.textContent = currentLanguage === 'vi' ? 'Đã sao chép!' : 'Copied!';
+            setTimeout(() => button.textContent = currentLanguage === 'vi' ? 'Sao chép' : 'Copy', 1400);
         }
     });
 });
 
 function selectElement(element) {
+    selectedElement = element;
     const japanesePalettes = {
         alkali: ["#b54b4b", "#802e3a"],
         alkaline: ["#c17a36", "#805128"],
@@ -2327,7 +2392,7 @@ function selectElement(element) {
     infoPanel.style.setProperty("--japan-base", shiftColor(palette[0], variation));
     infoPanel.style.setProperty("--japan-ink", shiftColor(palette[1], variation));
     const japaneseHeader = infoPanel.querySelector(".info-heading");
-    japaneseHeader.dataset.elementName = element.name;
+    japaneseHeader.dataset.elementName = displayName(element);
     japaneseHeader.classList.remove("reveal");
     void japaneseHeader.offsetWidth;
     japaneseHeader.classList.add("reveal");
@@ -2341,12 +2406,9 @@ function selectElement(element) {
         element.s;
 
     infoName.textContent =
-        element.name;
+        displayName(element);
 
-    infoCategory.textContent =
-        element.category
-            .replace("-", " ")
-            .replace(/\b\w/g, c => c.toUpperCase());
+    infoCategory.textContent = categoryLabel(element.category);
 
     infoNumber.textContent =
         element.n;
@@ -2477,7 +2539,7 @@ function performSearch() {
 
         const matches =
             card.dataset.number === query ||
-            card.dataset.name.includes(query) ||
+            (card.dataset.name.includes(query) || card.dataset.viName.includes(query)) ||
             card.dataset.symbol === query;
 
         card.classList.toggle(
@@ -2600,7 +2662,7 @@ searchInput.addEventListener(
             elements.find(element =>
                 String(element.n) === query ||
                 element.s.toLowerCase() === query ||
-                element.name.toLowerCase() === query
+                (element.name.toLowerCase() === query || viName(element).toLocaleLowerCase("vi") === query)
             );
 
 
@@ -2615,6 +2677,13 @@ searchInput.addEventListener(
    INITIALIZE
 ========================================================= */
 
+document.querySelectorAll('h1, .subtitle, .clear-btn, .legend button, .info-label, .info-card-label, .configuration-section h3, .configuration-label, .electron-section .section-title strong, .back-btn').forEach(node => {
+    node.dataset.originalText = node.textContent.trim();
+});
+document.getElementById('langEN').addEventListener('click', () => setLanguage('en'));
+document.getElementById('langVI').addEventListener('click', () => setLanguage('vi'));
+try { currentLanguage = localStorage.getItem('periodic-table-language') === 'vi' ? 'vi' : 'en'; } catch (e) {}
+translateStaticUI();
 buildTable();
 
 
