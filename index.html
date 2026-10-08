@@ -905,6 +905,9 @@ h1 {max-width:850px;text-shadow:0 3px 8px #050c19,0 0 20px #050c19;}
     box-shadow:0 0 0 1px #edc17c,0 8px 22px #000b,0 0 18px #d7a65a55;
 }
 
+/* Keep the language control conspicuous and above all scenery. */
+.language-switch { position:fixed !important; top:18px; right:26px; z-index:9999 !important; background:#101d2d !important; border:2px solid #e8c68b !important; }
+@media(max-width:600px){.language-switch{top:10px;right:10px}.language-switch button{padding:8px 11px}}
 /* Bilingual language switch */
 .header-top { align-items:center; }
 .language-switch { display:flex; gap:3px; flex-shrink:0; padding:4px; border:1px solid #c6a16b; border-radius:12px; background:#101d2d; box-shadow:0 3px 14px #0006; }
