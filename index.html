@@ -912,6 +912,27 @@ h1 {max-width:850px;text-shadow:0 3px 8px #050c19,0 0 20px #050c19;}
 .legend { display:flex; flex-wrap:wrap; gap:9px; align-items:stretch; overflow:visible; }
 .legend button { box-sizing:border-box; width:auto; min-width:max-content; max-width:none; flex:0 0 auto; white-space:nowrap; overflow:visible; text-overflow:clip; word-break:normal; line-height:1.5; padding:9px 13px; font-family:Arial, "Noto Sans", sans-serif; font-size:12px; letter-spacing:0; }
 @media (max-width:600px) { .legend { gap:7px; } .legend button { padding:8px 10px; font-size:12px; } }
+/* Vietnamese header: readable diacritics and restrained heading scale. */
+html[lang="vi"] .header-top > div:first-child { min-width:0; flex:1 1 auto; }
+html[lang="vi"] .header-top h1 {
+  font-family: "Segoe UI", "Noto Sans", Arial, sans-serif;
+  font-size: clamp(1.75rem, 2.45vw, 2.8rem);
+  font-weight: 750;
+  line-height: 1.23;
+  letter-spacing: -0.025em;
+  max-width: 850px;
+  text-wrap: balance;
+}
+html[lang="vi"] .header-top .subtitle {
+  font-family: "Segoe UI", "Noto Sans", Arial, sans-serif;
+  font-size: clamp(.88rem, 1vw, 1rem);
+  line-height: 1.55;
+  letter-spacing: 0;
+  max-width: 850px;
+}
+@media(max-width:700px) {
+  html[lang="vi"] .header-top h1 { font-size: clamp(1.55rem, 5.4vw, 2rem); }
+}
 /* Bilingual language switch */
 .header-top { align-items:center; }
 .language-switch { display:flex; gap:3px; flex-shrink:0; padding:4px; border:1px solid #c6a16b; border-radius:12px; background:#101d2d; box-shadow:0 3px 14px #0006; }
@@ -919,6 +940,29 @@ h1 {max-width:850px;text-shadow:0 3px 8px #050c19,0 0 20px #050c19;}
 .language-switch button.active { background:linear-gradient(145deg,#e8c68b,#b98b4b); color:#182234; box-shadow:0 2px 7px #0007; }
 .language-switch button:focus-visible { outline:2px solid #fff; outline-offset:2px; }
 @media(max-width:600px){.header-top{flex-direction:row;align-items:flex-start;flex-wrap:wrap}.language-switch{margin-top:5px}}
+
+/* Vietnamese text: consistent glyph coverage and readable accent spacing. */
+html[lang="vi"] .info-panel .description,
+html[lang="vi"] .info-panel .info-label,
+html[lang="vi"] .info-panel .info-value,
+html[lang="vi"] .info-panel .info-subtitle,
+html[lang="vi"] .info-panel .config-note,
+html[lang="vi"] .info-panel button,
+html[lang="vi"] .subtitle,
+html[lang="vi"] .legend button {
+  font-family: "Segoe UI", Arial, "Noto Sans", sans-serif !important;
+  font-variant-ligatures: none;
+  letter-spacing: normal;
+  line-height: 1.65;
+  overflow-wrap: break-word;
+}
+html[lang="vi"] .info-panel .description {
+  font-size: 15px;
+  font-weight: 400;
+  white-space: normal;
+  word-spacing: normal;
+  text-rendering: optimizeLegibility;
+}
 </style>
 </head>
 
@@ -1796,16 +1840,16 @@ function getDescription(element) {
 
     if (currentLanguage === 'vi') {
         const descriptionsVI = {
-            alkali: `${viName(element)} là kim loại kiềm. Các kim loại kiềm có tính phản ứng cao và thường có một electron ở lớp ngoài cùng.`,
-            alkaline: `${viName(element)} là kim loại kiềm thổ. Các nguyên tố này thường có hai electron ở lớp ngoài cùng.`,
-            transition: `${viName(element)} thuộc nhóm kim loại chuyển tiếp. Nhiều kim loại chuyển tiếp có phân lớp d chưa bão hòa và có thể có nhiều số oxi hóa.`,
-            'post-transition': `${viName(element)} là kim loại sau chuyển tiếp, có những tính chất khác với kim loại chuyển tiếp.`,
-            metalloid: `${viName(element)} là á kim, thể hiện cả tính chất kim loại và phi kim.`,
-            nonmetal: `${viName(element)} là phi kim. Các electron lớp ngoài cùng ảnh hưởng lớn đến khả năng tạo liên kết hóa học.`,
-            halogen: `${viName(element)} thuộc nhóm halogen. Các halogen thường có bảy electron lớp ngoài cùng và có xu hướng nhận thêm một electron.`,
-            noble: `${viName(element)} thuộc nhóm khí hiếm. Lớp electron ngoài cùng đã được điền đầy theo mô hình thông thường, nên nhóm này nhìn chung ít phản ứng.`,
-            lanthanide: `${viName(element)} thuộc họ Lantan, một dãy nguyên tố kim loại liên quan đến khối f.`,
-            actinide: `${viName(element)} thuộc họ Actini. Nhiều nguyên tố trong họ này có tính phóng xạ và có phân lớp f chưa bão hòa.`
+            alkali: `${element.name} là kim loại kiềm. Các kim loại kiềm có tính phản ứng cao và thường có một electron ở lớp ngoài cùng.`,
+            alkaline: `${element.name} là kim loại kiềm thổ. Các nguyên tố này thường có hai electron ở lớp ngoài cùng.`,
+            transition: `${element.name} thuộc nhóm kim loại chuyển tiếp. Nhiều kim loại chuyển tiếp có phân lớp d chưa bão hòa và có thể có nhiều số oxi hóa.`,
+            'post-transition': `${element.name} là kim loại sau chuyển tiếp, có những tính chất khác với kim loại chuyển tiếp.`,
+            metalloid: `${element.name} là á kim, thể hiện cả tính chất kim loại và phi kim.`,
+            nonmetal: `${element.name} là phi kim. Các electron lớp ngoài cùng ảnh hưởng lớn đến khả năng tạo liên kết hóa học.`,
+            halogen: `${element.name} thuộc nhóm halogen. Các halogen thường có bảy electron lớp ngoài cùng và có xu hướng nhận thêm một electron.`,
+            noble: `${element.name} thuộc nhóm khí hiếm. Lớp electron ngoài cùng đã được điền đầy theo mô hình thông thường, nên nhóm này nhìn chung ít phản ứng.`,
+            lanthanide: `${element.name} thuộc họ Lantan, một dãy nguyên tố kim loại liên quan đến khối f.`,
+            actinide: `${element.name} thuộc họ Actini. Nhiều nguyên tố trong họ này có tính phóng xạ và có phân lớp f chưa bão hòa.`
         };
         return descriptionsVI[element.category] || '';
     }
