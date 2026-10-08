@@ -124,7 +124,7 @@ h1 {
 
 .main-layout {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 300px;
+    grid-template-columns: minmax(0, 1fr) 400px;
     gap: 14px;
     align-items: start;
 }
@@ -260,10 +260,25 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--muted);
-    font-size: .7rem;
-    border: 1px dashed #34404c;
-    border-radius: 8px;
+    padding: 6px 3px;
+    color: #fff9ee;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(.74rem, .95vw, .9rem);
+    font-weight: 700;
+    letter-spacing: .015em;
+    text-align: center;
+    line-height: 1.25;
+    border: 2px solid #efcb8d;
+    border-radius: 9px;
+    background: linear-gradient(140deg, #8b4e65, #4d304d);
+    box-shadow: 0 0 0 2px rgba(239,203,141,.16), 0 5px 13px rgba(0,0,0,.35);
+    text-shadow: 0 1px 3px rgba(0,0,0,.7);
+    overflow-wrap: anywhere;
+}
+.f-label.actinide-series {
+    background: linear-gradient(140deg, #6b385b, #282c59);
+    border-color: #d7b5f0;
+    box-shadow: 0 0 0 2px rgba(215,181,240,.15), 0 5px 13px rgba(0,0,0,.35);
 }
 
 /* =========================
@@ -406,7 +421,7 @@ h1 {
 
 .electron-diagram {
     position: relative;
-    width: min(320px, 100%);
+    width: min(360px, 100%);
     aspect-ratio: 1;
     margin: 8px auto 18px;
     display: flex;
@@ -571,7 +586,7 @@ h1 {
     }
 
     .electron-diagram {
-        width: min(290px, 100%);
+        width: min(360px, 100%);
     }
 }
 
@@ -689,6 +704,195 @@ h1 {
     background-image: linear-gradient(145deg, rgba(28,20,32,.05), rgba(28,20,32,.34)), var(--japanese-pattern);
     background-size: auto, 144px 144px;
 }
+
+/* Electron configuration desk */
+.configuration-section { margin-top: 22px; padding-top: 18px; border-top: 1px solid #cdb994; }
+.configuration-section h3 { margin: 0 0 12px; font-size: .98rem; color: #503c48; }
+.configuration-card { background: #fffaf0; border: 1px solid #dbc8a7; border-radius: 9px; padding: 12px; margin-bottom: 9px; }
+.configuration-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 9px; }
+.configuration-label { font-size: .72rem; font-weight: 700; color: #75615c; }
+.configuration-value { color: #332d3c; font-size: .9rem; line-height: 1.8; overflow-wrap: anywhere; word-spacing: .1em; }
+.configuration-value sup { font-size: .7em; line-height: 0; }
+.configuration-copy { background: #efe4d5; color: #594455; border: 1px solid #d6c2a7; border-radius: 6px; padding: 5px 9px; font-size: .72rem; }
+.configuration-copy:hover { background: #e6d5c0; }
+.configuration-note { margin: 8px 0 0; color: #796458; font-size: .73rem; line-height: 1.5; }
+
+
+/* Subtle refinement — original dark Japanese aesthetic retained */
+.table-panel {
+    position: relative;
+    padding: 16px 14px 18px;
+    border: 1px solid rgba(199,165,111,.32);
+    border-radius: 16px;
+    background: linear-gradient(155deg, rgba(27,35,45,.82), rgba(12,18,26,.94));
+    box-shadow: inset 0 1px 0 rgba(255,236,198,.07), 0 14px 32px rgba(0,0,0,.16);
+}
+.table-panel::before {
+    content: '';
+    display: block;
+    height: 2px;
+    margin: 0 0 14px;
+    background: linear-gradient(90deg, transparent, rgba(215,181,122,.78) 20%, rgba(215,181,122,.35) 80%, transparent);
+}
+.table-scroll { scrollbar-color: #7b6856 #17202a; scrollbar-width: thin; }
+.element {
+    border-color: rgba(236,209,165,.25);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 2px 4px rgba(0,0,0,.13);
+    transition: transform .2s ease, filter .2s ease, opacity .2s ease,
+                border-color .2s ease, box-shadow .2s ease;
+}
+.element:hover, .element:focus-visible {
+    transform: translateY(-3px);
+    border-color: #e6c58e;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.19), 0 5px 14px rgba(0,0,0,.35), 0 0 0 1px rgba(230,197,142,.18);
+}
+.element:focus-visible { outline: 2px solid #f2d6a1; outline-offset: 2px; }
+.element-symbol { letter-spacing: -.035em; text-shadow: 0 1px 3px rgba(0,0,0,.23); }
+.legend { padding-top: 13px; border-top: 1px solid rgba(211,177,121,.16); }
+.legend button {
+    border-color: rgba(198,167,117,.27);
+    border-radius: 8px;
+    transition: background .18s ease, border-color .18s ease, transform .18s ease;
+}
+.legend button:hover { transform: translateY(-1px); border-color: #caa777; }
+.legend button.active { border-color: #d6b681; box-shadow: inset 0 0 0 1px rgba(214,182,129,.18); }
+.search-area input { border-color: rgba(198,167,117,.32); }
+.search-area input:focus { border-color: #d6b681; box-shadow: 0 0 0 3px rgba(214,182,129,.13); }
+.clear-btn { border-color: rgba(198,167,117,.32); }
+@media (max-width: 600px) {
+    .table-panel { padding: 12px 9px 14px; border-radius: 12px; }
+    .table-panel::before { margin-bottom: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .element, .legend button { transition: none; }
+    .element:hover, .element:focus-visible, .legend button:hover { transform: none; }
+}
+
+
+/* High-contrast f-block series markers — restore clear visual hierarchy. */
+.periodic-table .f-label {
+    position: relative;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(.9rem, 1.1vw, 1.04rem);
+    font-weight: 900;
+    letter-spacing: .01em;
+    line-height: 1.15;
+    color: #30212d;
+    background: linear-gradient(145deg, #fff4d8 0%, #e9c889 100%);
+    border: 3px solid #ffe3a5;
+    border-left: 6px solid #bd7a36;
+    border-radius: 10px;
+    box-shadow: 0 0 0 2px rgba(255,219,152,.22), 0 5px 16px rgba(0,0,0,.4);
+    text-shadow: 0 1px 0 rgba(255,255,255,.55);
+    padding: 6px 4px;
+    overflow-wrap: normal;
+}
+.periodic-table .f-label.actinide-series {
+    color: #301d3c;
+    background: linear-gradient(145deg, #f8e8ff 0%, #d7b4e8 100%);
+    border-color: #efd5ff;
+    border-left-color: #9452a9;
+    box-shadow: 0 0 0 2px rgba(228,185,250,.23), 0 5px 16px rgba(0,0,0,.4);
+}
+
+
+/* ===== Version 2: Moonlit Japan visual system ===== */
+:root { --bg:#070e19; --panel:#0c1724; --border:#85683f; --accent:#dfbb78; --accent-soft:rgba(223,187,120,.17); }
+body { background:radial-gradient(ellipse at 70% 13%,rgba(41,71,94,.48),transparent 40%),radial-gradient(ellipse at 12% 65%,rgba(25,45,67,.75),transparent 58%),#060d17; color:#f7eddb; }
+body::before {content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.23;background-image:radial-gradient(circle at 78% 16%,#f9d795 0 43px,transparent 45px),linear-gradient(150deg,transparent 0 48%,#162d3b 48.2% 49.2%,transparent 49.5%),linear-gradient(25deg,transparent 0 50%,#182f3e 50.2% 51.3%,transparent 51.6%),repeating-radial-gradient(ellipse at 50% 110%,transparent 0 36px,rgba(204,167,101,.2) 38px 40px,transparent 42px 66px);}
+.container {width:min(1770px,calc(100% - 32px));}
+header {padding:27px 0 20px;}
+h1 {font-family:Georgia,'Times New Roman',serif;font-size:clamp(2rem,3.1vw,3.6rem);letter-spacing:-.025em;color:#f1d39c;text-shadow:0 3px 14px #000;}
+h1::after {content:'  元素の周期表';display:block;font-size:clamp(.9rem,1.3vw,1.4rem);font-weight:400;letter-spacing:.16em;color:#d6b47b;margin-top:4px;}
+.subtitle {color:#b8a990;font-family:Georgia,serif;}
+.search-area {max-width:920px;margin:18px 0 19px;}
+.search-area input {background:rgba(7,15,26,.9);border:1px solid #ab8755;border-radius:25px;color:#f7eddb;}
+.clear-btn {background:#172638;border-color:#b38a4e;color:#f0d7a8;border-radius:25px;}
+.main-layout {grid-template-columns:minmax(0,1fr) 405px;gap:18px;}
+.table-panel {position:relative;background:linear-gradient(140deg,rgba(8,20,33,.94),rgba(7,13,23,.93));border:1px solid #b68c50;border-radius:22px;padding:19px 13px 20px;box-shadow:inset 0 0 0 3px rgba(188,141,77,.08),0 15px 38px #0009;}
+.table-panel::before {content:'✦  THE ELEMENTS  ✦';font:700 12px Georgia,serif;letter-spacing:.25em;color:#e6c28c;text-align:center;display:block;margin:0 0 14px;}
+.periodic-table {grid-template-rows:repeat(9,72px);gap:5px;}
+.element {border:1px solid rgba(245,216,156,.35);border-radius:8px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.05),inset 0 -15px 20px rgba(0,0,0,.12);isolation:isolate;}
+.element::before {content:'';position:absolute;inset:0;z-index:-1;opacity:.22;background-image:repeating-radial-gradient(circle at 85% 105%,transparent 0 8px,#fff 9px 10px,transparent 11px 18px);pointer-events:none;}
+.element::after {content:'✦';position:absolute;bottom:3px;right:5px;color:#f5e1ac;opacity:.35;font-size:10px;pointer-events:none;}
+.element:hover,.element:focus-visible {transform:translateY(-4px) scale(1.045);border-color:#ffdda2;box-shadow:0 0 0 1px #e8bb79,0 10px 24px #000b,0 0 18px rgba(246,199,119,.24);}
+.element-symbol {font-family:Georgia,'Times New Roman',serif;font-size:1.5rem;text-shadow:0 2px 4px #0007;}
+.element-name {color:#fff0d4;}
+.legend {border-top:1px solid #8b693d;margin-top:18px;}
+.legend button {font-family:Georgia,serif;background:linear-gradient(140deg,#19283b,#101b2b);border:1px solid #80643e;color:#f0d6a5;border-radius:8px;}
+.legend button.active {background:#e8c992;color:#2b1b1b;border-color:#ffe5ad;}
+.info-panel {background:linear-gradient(160deg,#101c2b,#080f1c);border:2px solid #d0a562;border-radius:22px;padding:15px;color:#f8e8c9;box-shadow:inset 0 0 0 3px rgba(215,166,88,.09),0 18px 38px #0009;}
+.info-panel .info-label {color:#e7c58d;text-align:center;}
+.info-panel .info-heading {position:relative;min-height:300px;margin:12px 0 15px;padding:17px 12px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:8px;border:3px double #f0c784;border-radius:13px;overflow:hidden;background-image:linear-gradient(0deg,rgba(6,8,16,.86),rgba(9,13,21,.04) 65%),var(--japanese-pattern);background-color:var(--japan-base);background-size:auto,110px 110px;}
+.info-panel .info-heading::before {content:attr(data-element-name);position:absolute;top:10px;left:-4px;right:-4px;text-align:center;font-family:Georgia,'Times New Roman',serif;font-weight:900;font-size:clamp(2.7rem,5vw,5.1rem);line-height:1.03;letter-spacing:-.06em;text-transform:uppercase;color:#fff5d9;opacity:.87;text-shadow:0 4px 12px #0008;overflow-wrap:anywhere;pointer-events:none;}
+.info-panel .big-symbol {position:relative;z-index:1;width:122px;height:122px;flex:none;border:3px double #f5dfb7;border-radius:20px;background:#090d17;color:#fff9e9;font-size:3.7rem;box-shadow:0 0 0 5px #090d17a6,0 9px 26px #000b;}
+.info-panel .info-heading h2 {position:relative;z-index:1;font-family:Georgia,serif;font-size:1.6rem;color:#fff2d5;text-shadow:0 2px 5px #000;}
+.info-panel .info-heading p {position:relative;z-index:1;color:#f5d8a4;}
+.info-panel .info-card {background:#132233;border:1px solid #67583f;}
+.info-panel .info-card-label {color:#c1b39d;}
+.info-panel .info-card-value {color:#fff1d7;}
+.info-panel .electron-section {border-color:#80643e;}
+.info-panel .section-title strong {color:#f6dcae;}
+.info-panel .valence-badge {background:#28334a;color:#f0d19a;border-color:#927248;}
+.info-panel .shell-count {background:#152337;color:#e4d2b6;border-color:#6e5b3e;}
+.info-panel .shell-count.outer {background:#2c304d;color:#f0d5f3;border-color:#a97bb7;}
+.info-panel .description {background:#122132;color:#e6d8c2;border-left-color:#cda46c;}
+.info-panel .back-btn {background:#23354a;color:#f7dcb1;border-color:#af8955;}
+.info-panel .back-btn:hover {background:#354b63;color:#fff;}
+.periodic-table .f-label {background:linear-gradient(140deg,#f8dca7,#b98243);color:#211729;border-color:#ffdf9e;}
+.periodic-table .f-label.actinide-series {background:linear-gradient(140deg,#efd4ff,#9d69b5);color:#211729;border-color:#f2d6ff;}
+@media(max-width:1100px){.main-layout{grid-template-columns:1fr}.info-panel{position:relative;top:auto;order:-1;max-width:720px;width:100%;margin:auto}.info-panel .info-heading{min-height:290px}.info-panel .info-heading::before{font-size:clamp(2.8rem,8vw,5.5rem)}}
+@media(max-width:600px){.container{width:calc(100% - 18px)}.table-panel{padding:12px 8px}.info-panel{padding:12px}.info-panel .info-heading{min-height:265px}.info-panel .info-heading::before{font-size:clamp(2.3rem,11vw,4rem)}.info-panel .big-symbol{width:105px;height:105px;font-size:3rem}}
+
+
+/* Moonlit Japan V2.1: scenic, polished and responsive */
+body {background:linear-gradient(180deg,rgba(3,8,17,.12),#07111f 840px),url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20450%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22sky%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23081226%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231b2d40%22%2F%3E%3C%2FlinearGradient%3E%3CradialGradient%20id%3D%22moon%22%3E%3Cstop%20stop-color%3D%22%23fff5c9%22%2F%3E%3Cstop%20offset%3D%22.75%22%20stop-color%3D%22%23edc98d%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23b97d4a%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Cpath%20fill%3D%22url%28%23sky%29%22%20d%3D%22M0%200h1600v450H0z%22%2F%3E%3Cg%20fill%3D%22%23e7c994%22%20opacity%3D%22.7%22%3E%3Ccircle%20cx%3D%22110%22%20cy%3D%2265%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22300%22%20cy%3D%2295%22%20r%3D%221.5%22%2F%3E%3Ccircle%20cx%3D%22510%22%20cy%3D%2245%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22960%22%20cy%3D%2270%22%20r%3D%221.5%22%2F%3E%3Ccircle%20cx%3D%221300%22%20cy%3D%2260%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%221480%22%20cy%3D%22125%22%20r%3D%222%22%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%221210%22%20cy%3D%22140%22%20r%3D%2287%22%20fill%3D%22url%28%23moon%29%22%20opacity%3D%22.9%22%2F%3E%3Cpath%20fill%3D%22%23182d41%22%20d%3D%22M0%20325%20240%20205%20360%20260%20590%2080%20810%20275%20970%20190%201120%20320%201350%20220%201600%20330v120H0z%22%2F%3E%3Cpath%20fill%3D%22%23e5d5c1%22%20opacity%3D%22.85%22%20d%3D%22m485%20166%20105-86%20110%20142-95-67-28%2031-26-25-25%2031z%22%2F%3E%3Cpath%20fill%3D%22%230b1b2c%22%20d%3D%22M0%20365%20180%20295%20340%20355%20510%20285%20690%20360%20870%20300%201030%20345%201210%20290%201400%20365%201600%20310v140H0z%22%2F%3E%3Cg%20fill%3D%22%23070f1c%22%3E%3Cpath%20d%3D%22M0%20390h1600v60H0z%22%2F%3E%3Cpath%20d%3D%22M180%20365h12v65h-12zM147%20365h79v9h-79zM161%20345h51v9h-51zM169%20330h35v8h-35zM1400%20360h13v70h-13zM1370%20360h72v8h-72zM1382%20342h48v8h-48zM1390%20326h32v8h-32z%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23c18c53%22%20stroke-width%3D%225%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M1030%20338v82m92-82v82m-115-82h138m-129-12h120m-115-12h110%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23f1a7b6%22%20opacity%3D%22.88%22%3E%3Ccircle%20cx%3D%2272%22%20cy%3D%22122%22%20r%3D%227%22%2F%3E%3Ccircle%20cx%3D%2290%22%20cy%3D%22140%22%20r%3D%225%22%2F%3E%3Ccircle%20cx%3D%2258%22%20cy%3D%22150%22%20r%3D%226%22%2F%3E%3Ccircle%20cx%3D%221510%22%20cy%3D%2295%22%20r%3D%228%22%2F%3E%3Ccircle%20cx%3D%221480%22%20cy%3D%22118%22%20r%3D%226%22%2F%3E%3Ccircle%20cx%3D%221540%22%20cy%3D%22140%22%20r%3D%227%22%2F%3E%3Ccircle%20cx%3D%22420%22%20cy%3D%22255%22%20r%3D%224%22%2F%3E%3Ccircle%20cx%3D%22925%22%20cy%3D%22110%22%20r%3D%225%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23cda16d%22%20fill%3D%22none%22%20stroke-width%3D%222%22%20opacity%3D%22.7%22%3E%3Cpath%20d%3D%22M55%20195q30-18%2060%200t60%200m110-30q40-20%2080%200t80%200m880%2035q40-18%2080%200t80%200%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center top / 1600px 450px repeat-x,#07111f;}
+body::before {display:none;}
+header {min-height:194px;padding:28px 10px 18px;position:relative;}
+header::after {content:'✿   ✦   ✿';position:absolute;right:22px;top:15px;color:#e6b2bd;letter-spacing:1.2em;opacity:.75;pointer-events:none;}
+h1 {max-width:850px;text-shadow:0 3px 8px #050c19,0 0 20px #050c19;}
+.subtitle {color:#ead9bb;text-shadow:0 2px 6px #050c19;}
+.search-area {max-width:690px;}
+.main-layout {gap:20px;}
+.table-panel {background:linear-gradient(180deg,rgba(5,13,24,.67),rgba(5,12,23,.94) 68%),url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201600%20450%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22sky%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23081226%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%231b2d40%22%2F%3E%3C%2FlinearGradient%3E%3CradialGradient%20id%3D%22moon%22%3E%3Cstop%20stop-color%3D%22%23fff5c9%22%2F%3E%3Cstop%20offset%3D%22.75%22%20stop-color%3D%22%23edc98d%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23b97d4a%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Cpath%20fill%3D%22url%28%23sky%29%22%20d%3D%22M0%200h1600v450H0z%22%2F%3E%3Cg%20fill%3D%22%23e7c994%22%20opacity%3D%22.7%22%3E%3Ccircle%20cx%3D%22110%22%20cy%3D%2265%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22300%22%20cy%3D%2295%22%20r%3D%221.5%22%2F%3E%3Ccircle%20cx%3D%22510%22%20cy%3D%2245%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22960%22%20cy%3D%2270%22%20r%3D%221.5%22%2F%3E%3Ccircle%20cx%3D%221300%22%20cy%3D%2260%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%221480%22%20cy%3D%22125%22%20r%3D%222%22%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%221210%22%20cy%3D%22140%22%20r%3D%2287%22%20fill%3D%22url%28%23moon%29%22%20opacity%3D%22.9%22%2F%3E%3Cpath%20fill%3D%22%23182d41%22%20d%3D%22M0%20325%20240%20205%20360%20260%20590%2080%20810%20275%20970%20190%201120%20320%201350%20220%201600%20330v120H0z%22%2F%3E%3Cpath%20fill%3D%22%23e5d5c1%22%20opacity%3D%22.85%22%20d%3D%22m485%20166%20105-86%20110%20142-95-67-28%2031-26-25-25%2031z%22%2F%3E%3Cpath%20fill%3D%22%230b1b2c%22%20d%3D%22M0%20365%20180%20295%20340%20355%20510%20285%20690%20360%20870%20300%201030%20345%201210%20290%201400%20365%201600%20310v140H0z%22%2F%3E%3Cg%20fill%3D%22%23070f1c%22%3E%3Cpath%20d%3D%22M0%20390h1600v60H0z%22%2F%3E%3Cpath%20d%3D%22M180%20365h12v65h-12zM147%20365h79v9h-79zM161%20345h51v9h-51zM169%20330h35v8h-35zM1400%20360h13v70h-13zM1370%20360h72v8h-72zM1382%20342h48v8h-48zM1390%20326h32v8h-32z%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23c18c53%22%20stroke-width%3D%225%22%20fill%3D%22none%22%3E%3Cpath%20d%3D%22M1030%20338v82m92-82v82m-115-82h138m-129-12h120m-115-12h110%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23f1a7b6%22%20opacity%3D%22.88%22%3E%3Ccircle%20cx%3D%2272%22%20cy%3D%22122%22%20r%3D%227%22%2F%3E%3Ccircle%20cx%3D%2290%22%20cy%3D%22140%22%20r%3D%225%22%2F%3E%3Ccircle%20cx%3D%2258%22%20cy%3D%22150%22%20r%3D%226%22%2F%3E%3Ccircle%20cx%3D%221510%22%20cy%3D%2295%22%20r%3D%228%22%2F%3E%3Ccircle%20cx%3D%221480%22%20cy%3D%22118%22%20r%3D%226%22%2F%3E%3Ccircle%20cx%3D%221540%22%20cy%3D%22140%22%20r%3D%227%22%2F%3E%3Ccircle%20cx%3D%22420%22%20cy%3D%22255%22%20r%3D%224%22%2F%3E%3Ccircle%20cx%3D%22925%22%20cy%3D%22110%22%20r%3D%225%22%2F%3E%3C%2Fg%3E%3Cg%20stroke%3D%22%23cda16d%22%20fill%3D%22none%22%20stroke-width%3D%222%22%20opacity%3D%22.7%22%3E%3Cpath%20d%3D%22M55%20195q30-18%2060%200t60%200m110-30q40-20%2080%200t80%200m880%2035q40-18%2080%200t80%200%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") center 15% / 1350px auto no-repeat; border:2px solid #bb8a4b;box-shadow:inset 0 0 0 3px #0b1627,inset 0 0 0 5px #8d653a55,0 16px 40px #000a;}
+.table-panel::before {content:'❀   THE ELEMENTS   ❀';font-size:13px;color:#f5d39a;text-shadow:0 2px 8px #000;}
+.element {background-blend-mode:soft-light,normal;border-color:#d9b47a88;box-shadow:inset 0 0 0 1px #ffffff14,inset 0 -20px 22px #02071355,0 2px 5px #0005;}
+.element::before {opacity:.24;background-image:radial-gradient(ellipse at 85% 95%,#f7d79a 0 2px,transparent 3px),repeating-radial-gradient(ellipse at 25% 105%,transparent 0 9px,#f4e3c7 10px 11px,transparent 12px 20px);}
+.element::after {content:'❀';font-size:11px;opacity:.44;}
+.element:hover,.element:focus-visible {z-index:20;filter:saturate(1.18);}
+.legend {gap:8px;padding-top:17px;}
+.legend button {box-shadow:inset 0 1px 0 #ffffff16,0 3px 8px #0004;}
+.info-panel {border:2px solid #e3b66d;box-shadow:inset 0 0 0 3px #091422,inset 0 0 0 5px #a9793c77,0 18px 40px #000a;}
+.info-panel .info-heading {min-height:345px;border:2px solid #f1c67c;box-shadow:inset 0 0 0 4px #11152488,0 8px 22px #0009;background-image:linear-gradient(0deg,#080c1bee,transparent 52%),linear-gradient(145deg,#fae0a122,#130d1b44),var(--japanese-pattern);background-size:auto,auto,112px 112px;}
+.info-panel .info-heading::before {font-size:clamp(2.7rem,4.4vw,4.8rem);color:#fff4da;text-shadow:2px 3px 5px #000;}
+.info-panel .big-symbol {border-radius:16px;box-shadow:0 0 0 4px #0a0c17c9,0 0 0 6px #f0c88f,0 8px 25px #000b;}
+.periodic-table .f-label,.periodic-table .f-label.actinide-series {box-shadow:inset 0 0 0 2px #ffffff55,0 0 0 1px #16101e,0 5px 14px #0008;}
+@media(max-width:1100px){header{min-height:155px}.info-panel{max-width:720px}}
+@media(max-width:600px){body{background-size:auto,1100px 310px,auto}header{min-height:160px}header::after{display:none}.info-panel .info-heading{min-height:285px}.table-panel{background-size:auto,1000px auto}}
+@media(prefers-reduced-motion:reduce){.element{transition:none}}
+
+
+/* Moonlit illustrated element cards — preview refinement */
+.periodic-table .element {
+    background-image: linear-gradient(180deg,rgba(0,0,0,.02) 0%,rgba(0,0,0,.05) 47%,rgba(0,0,0,.2) 100%), var(--element-landscape);
+    background-size: 100% 100%, cover;
+    background-position: center;
+    border: 1px solid rgba(234,200,149,.54);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), inset 0 -9px 14px rgba(0,0,0,.2), 0 2px 5px rgba(0,0,0,.45);
+}
+.periodic-table .element::before {opacity:.12;}
+.periodic-table .element::after {opacity:.25;}
+.periodic-table .element-number,.periodic-table .element-symbol,
+.periodic-table .element-name,.periodic-table .element-mass {
+    position:relative; z-index:1; text-shadow:0 1px 3px rgba(0,0,0,.9);
+}
+.periodic-table .element-number {position:absolute;}
+.periodic-table .element-symbol {font-family:Georgia,'Times New Roman',serif;font-weight:700;}
+.periodic-table .element:hover,.periodic-table .element:focus-visible {
+    border-color:#ffe0a6;
+    box-shadow:0 0 0 1px #edc17c,0 8px 22px #000b,0 0 18px #d7a65a55;
+}
+
 </style>
 </head>
 
@@ -796,6 +1000,20 @@ h1 {
 
     </div>
 
+
+
+    <section class="configuration-section" aria-label="Electron configurations">
+        <h3>Electron configuration</h3>
+        <div class="configuration-card">
+            <div class="configuration-top"><span class="configuration-label">Full configuration</span><button class="configuration-copy" data-copy-config="full" type="button">Copy</button></div>
+            <div class="configuration-value" id="configurationFull"></div>
+        </div>
+        <div class="configuration-card">
+            <div class="configuration-top"><span class="configuration-label">Noble-gas shorthand</span><button class="configuration-copy" data-copy-config="short" type="button">Copy</button></div>
+            <div class="configuration-value" id="configurationShort"></div>
+        </div>
+        <p class="configuration-note" id="configurationNote"></p>
+    </section>
 
     <!-- ELECTRON STRUCTURE -->
 
@@ -1645,6 +1863,8 @@ function createElementCard(element, allowUnpositioned = false) {
         button.style.gridColumn = position.col;
     }
 
+    button.style.setProperty("--element-landscape", elementLandscape(element));
+
     button.dataset.number = element.n;
     button.dataset.name = element.name.toLowerCase();
     button.dataset.symbol = element.s.toLowerCase();
@@ -1702,7 +1922,7 @@ function buildTable() {
     const lanthanideLabel =
         document.createElement("div");
 
-    lanthanideLabel.className = "f-label";
+    lanthanideLabel.className = "f-label lanthanide-series";
     lanthanideLabel.style.gridRow = "8";
     lanthanideLabel.style.gridColumn = "1 / span 2";
     lanthanideLabel.textContent = "Lanthanides";
@@ -1713,7 +1933,7 @@ function buildTable() {
     const actinideLabel =
         document.createElement("div");
 
-    actinideLabel.className = "f-label";
+    actinideLabel.className = "f-label actinide-series";
     actinideLabel.style.gridRow = "9";
     actinideLabel.style.gridColumn = "1 / span 2";
     actinideLabel.textContent = "Actinides";
@@ -1811,6 +2031,8 @@ function createElectronDiagram(element) {
        Shell diameters.
     */
 
+    const diagramWidth = electronDiagram.clientWidth || 320;
+    const shellScale = Math.min(1, (diagramWidth - 24) / 304);
     const sizes = [
         78,
         116,
@@ -1841,7 +2063,7 @@ function createElectronDiagram(element) {
                         shellIndex,
                         sizes.length - 1
                     )
-                ];
+                ] * shellScale;
 
             shell.style.width =
                 `${size}px`;
@@ -1946,6 +2168,28 @@ function createElectronDiagram(element) {
 ========================================================= */
 
 
+/* Decorative tile landscape: distinct, lightweight SVG for each element. */
+function elementLandscape(element) {
+    const n = element.n;
+    const shift = (n * 17) % 45;
+    const peak = 40 + (n * 11) % 22;
+    const isTransition = element.category === 'transition';
+    const skyline = isTransition
+        ? `<path d="M0 112L23 ${peak+18} 43 84 68 ${peak-12} 90 77 115 ${peak+9} 144 101V144H0Z" fill="#061e36" opacity=".66"/><path d="M53 ${peak+9}L68 ${peak-12} 84 ${peak+8} 72 ${peak+4} 67 ${peak-3} 62 ${peak+8}Z" fill="#b1d8e8" opacity=".48"/>`
+        : `<path d="M0 116Q18 ${peak+30} 41 107T90 102T144 109V144H0Z" fill="#101a2a" opacity=".48"/>`;
+    const structure = (n % 4 === 0)
+        ? `<g fill="#061726" opacity=".85"><path d="M104 99h26v4h-26zM108 90h18v5h-18zM111 82h12v5h-12zM113 77h8v4h-8zM109 103h3v27h-3zM122 103h3v27h-3z"/></g>`
+        : (n % 4 === 1)
+        ? `<g fill="none" stroke="#f7d29b" stroke-width="2" opacity=".55"><path d="M98 110V83M129 110V83M91 83h45M95 77h37"/></g>`
+        : `<g fill="#081a2a" opacity=".7"><path d="M109 127V91h4v36M100 91h22l-11-10zM107 81h8l-4-8z"/></g>`;
+    const flowers = Array.from({length:4}, (_,i) => {
+        const x=(n*23+i*37)%140, y=85+(n*7+i*13)%54;
+        return `<path d="M${x} ${y-4}q4 3 0 7q-4-4 0-7" fill="#f9c9d5" opacity="${.27+i*.08}"/>`;
+    }).join('');
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144 144" width="144" height="144"><defs><linearGradient id="night" x2="0" y2="1"><stop stop-color="#fff" stop-opacity=".06"/><stop offset="1" stop-color="#000" stop-opacity=".28"/></linearGradient></defs><path fill="url(#night)" d="M0 0h144v144H0z"/><g fill="#d7ebff" opacity=".3"><circle cx="${15+shift}" cy="22" r="1.5"/><circle cx="${102-shift/2}" cy="44" r="1"/><circle cx="120" cy="16" r="1.2"/></g><circle cx="${98+shift/3}" cy="57" r="17" fill="#f8db9b" opacity=".13"/>${skyline}${structure}<path d="M0 132Q28 126 50 133T100 132T144 134" fill="none" stroke="#f4c78c" stroke-width="2" opacity=".4"/>${flowers}</svg>`;
+    return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+}
+
 /* Each pattern is vector artwork generated locally; no external images required. */
 function japaneseMotif(category, seed) {
     const n = seed || 0;
@@ -1968,6 +2212,84 @@ function japaneseMotif(category, seed) {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="144" height="144" viewBox="0 0 144 144"><g fill="none" stroke="#fff7e6" stroke-width="2.4" stroke-opacity=".48" stroke-linejoin="round" transform="rotate(${seed ? turn / 5 : 0} 72 72)">${art}</g>${extra}</svg>`;
     return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
 }
+
+
+/* Subshell configurations: Aufbau order with documented ground-state exceptions. */
+const orbitalOrder = [
+    ['1s',2],['2s',2],['2p',6],['3s',2],['3p',6],['4s',2],['3d',10],
+    ['4p',6],['5s',2],['4d',10],['5p',6],['6s',2],['4f',14],['5d',10],
+    ['6p',6],['7s',2],['5f',14],['6d',10],['7p',6]
+];
+const configExceptions = {
+    24:{'4s':1,'3d':5}, 29:{'4s':1,'3d':10},
+    41:{'5s':1,'4d':4},42:{'5s':1,'4d':5},44:{'5s':1,'4d':7},
+    45:{'5s':1,'4d':8},46:{'5s':0,'4d':10},47:{'5s':1,'4d':10},
+    57:{'4f':0,'5d':1},58:{'4f':1,'5d':1},64:{'4f':7,'5d':1},
+    78:{'6s':1,'5d':9},79:{'6s':1,'5d':10},
+    89:{'5f':0,'6d':1},90:{'5f':0,'6d':2},91:{'5f':2,'6d':1},
+    92:{'5f':3,'6d':1},93:{'5f':4,'6d':1},96:{'5f':7,'6d':1},
+    103:{'6d':0,'7p':1},110:{'7s':1,'6d':9},111:{'7s':1,'6d':10}
+};
+const nobleCores = [[2,'He'],[10,'Ne'],[18,'Ar'],[36,'Kr'],[54,'Xe'],[86,'Rn']];
+function orbitalOccupancy(atomicNumber) {
+    let remaining = atomicNumber;
+    const occupancy = {};
+    orbitalOrder.forEach(([orbital, capacity]) => {
+        const amount = Math.min(capacity, remaining);
+        occupancy[orbital] = amount;
+        remaining -= amount;
+    });
+    Object.assign(occupancy, configExceptions[atomicNumber] || {});
+    return occupancy;
+}
+function formatConfiguration(occupancy, omitCore = 0) {
+    let toOmit = omitCore;
+    return orbitalOrder.map(([orbital, capacity]) => {
+        const count = occupancy[orbital] || 0;
+        const omitted = Math.min(count, Math.max(0, toOmit));
+        toOmit -= omitted;
+        const shown = count - omitted;
+        return shown ? `${orbital}<sup>${shown}</sup>` : '';
+    }).filter(Boolean).join(' ');
+}
+function configurationText(html) {
+    const div = document.createElement('div');
+    div.innerHTML = html.replace(/<sup>(\d+)<\/sup>/g, '^$1');
+    return div.textContent;
+}
+function updateConfiguration(element) {
+    const occupancy = orbitalOccupancy(element.n);
+    const full = formatConfiguration(occupancy);
+    const core = [...nobleCores].reverse().find(([number]) => number < element.n);
+    const abbreviated = core ? `[${core[1]}] ${formatConfiguration(occupancy, core[0])}` : full;
+    document.getElementById('configurationFull').innerHTML = full;
+    document.getElementById('configurationShort').innerHTML = abbreviated;
+    document.getElementById('configurationNote').textContent = element.n >= 104
+        ? 'Predicted electron configuration; superheavy-element structures may not be experimentally confirmed.'
+        : 'Ground-state electron configuration of a neutral atom.';
+    document.querySelectorAll('[data-copy-config]').forEach(button => {
+        button.dataset.copyText = configurationText(button.dataset.copyConfig === 'full' ? full : abbreviated);
+    });
+}
+document.querySelectorAll('[data-copy-config]').forEach(button => {
+    button.addEventListener('click', async () => {
+        const text = button.dataset.copyText || '';
+        try {
+            await navigator.clipboard.writeText(text);
+            button.textContent = 'Copied!';
+            setTimeout(() => button.textContent = 'Copy', 1400);
+        } catch (error) {
+            const field = document.createElement('textarea');
+            field.value = text;
+            document.body.appendChild(field);
+            field.select();
+            document.execCommand('copy');
+            field.remove();
+            button.textContent = 'Copied!';
+            setTimeout(() => button.textContent = 'Copy', 1400);
+        }
+    });
+});
 
 function selectElement(element) {
     const japanesePalettes = {
@@ -1993,6 +2315,7 @@ function selectElement(element) {
     infoPanel.style.setProperty("--japan-base", shiftColor(palette[0], variation));
     infoPanel.style.setProperty("--japan-ink", shiftColor(palette[1], variation));
     const japaneseHeader = infoPanel.querySelector(".info-heading");
+    japaneseHeader.dataset.elementName = element.name;
     japaneseHeader.classList.remove("reveal");
     void japaneseHeader.offsetWidth;
     japaneseHeader.classList.add("reveal");
@@ -2045,6 +2368,7 @@ function selectElement(element) {
     */
 
     createElectronDiagram(element);
+    updateConfiguration(element);
 
 
     /*
