@@ -908,6 +908,10 @@ h1 {max-width:850px;text-shadow:0 3px 8px #050c19,0 0 20px #050c19;}
 /* Keep the language control conspicuous and above all scenery. */
 .language-switch { position:fixed !important; top:18px; right:26px; z-index:9999 !important; background:#101d2d !important; border:2px solid #e8c68b !important; }
 @media(max-width:600px){.language-switch{top:10px;right:10px}.language-switch button{padding:8px 11px}}
+/* Vietnamese category labels: prevent clipped glyphs and cramped buttons. */
+.legend { display:flex; flex-wrap:wrap; gap:9px; align-items:stretch; overflow:visible; }
+.legend button { box-sizing:border-box; width:auto; min-width:max-content; max-width:none; flex:0 0 auto; white-space:nowrap; overflow:visible; text-overflow:clip; word-break:normal; line-height:1.5; padding:9px 13px; font-family:Arial, "Noto Sans", sans-serif; font-size:12px; letter-spacing:0; }
+@media (max-width:600px) { .legend { gap:7px; } .legend button { padding:8px 10px; font-size:12px; } }
 /* Bilingual language switch */
 .header-top { align-items:center; }
 .language-switch { display:flex; gap:3px; flex-shrink:0; padding:4px; border:1px solid #c6a16b; border-radius:12px; background:#101d2d; box-shadow:0 3px 14px #0006; }
@@ -1725,7 +1729,7 @@ let selectedElement = null;
 const interfaceTranslations = {"Periodic Table of the Elements": "Bảng tuần hoàn các nguyên tố hóa học", "Explore the elements and their electron structures.": "Khám phá các nguyên tố và cấu trúc electron của chúng.", "Clear": "Xóa", "All": "Tất cả", "Alkali metals": "Kim loại kiềm", "Alkaline earth": "Kim loại kiềm thổ", "Transition metals": "Kim loại chuyển tiếp", "Post-transition": "Kim loại sau chuyển tiếp", "Metalloids": "Á kim", "Nonmetals": "Phi kim", "Halogens": "Halogen", "Noble gases": "Khí hiếm", "Lanthanides": "Họ Lantan", "Actinides": "Họ Actini", "Selected element": "Nguyên tố đã chọn", "Atomic number": "Số hiệu nguyên tử", "Atomic mass": "Nguyên tử khối", "Period": "Chu kì", "Group": "Nhóm", "Electron shells": "Các lớp electron", "Valence electrons": "Electron hóa trị", "Electron configuration": "Cấu hình electron", "Full configuration": "Cấu hình đầy đủ", "Noble-gas shorthand": "Cấu hình rút gọn", "Electron structure": "Cấu trúc electron", "Copy": "Sao chép", "↑ Back to periodic table": "↑ Quay lại bảng tuần hoàn"};
 const categoryTranslations = {"alkali": "Kim loại kiềm", "alkaline": "Kim loại kiềm thổ", "transition": "Kim loại chuyển tiếp", "post-transition": "Kim loại sau chuyển tiếp", "metalloid": "Á kim", "nonmetal": "Phi kim", "halogen": "Halogen", "noble": "Khí hiếm", "lanthanide": "Họ Lantan", "actinide": "Họ Actini"};
 function viName(element) { return vietnameseElementNames[element.n - 1] || element.name; }
-function displayName(element) { return currentLanguage === 'vi' ? viName(element) : element.name; }
+function displayName(element) { return element.name; } // Element names always remain in English.
 function categoryLabel(category) { return currentLanguage === 'vi' ? categoryTranslations[category] : category.replace('-', ' ').replace(/\b\w/g, c => c.toUpperCase()); }
 function translateStaticUI() {
     document.documentElement.lang = currentLanguage;
