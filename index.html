@@ -1427,6 +1427,22 @@ html[lang="vi"] .nm-practice-overlay h3,html[lang="vi"] .nm-practice-overlay h4 
  font-kerning:none!important;text-transform:none!important;
 }
 html[lang="vi"] #nmPracticeTitle {font-weight:700!important;}
+
+/* Targeted Vietnamese result typography: no decorative serif fallback for accented text. */
+html[lang="vi"] #nmFailureScore,
+html[lang="vi"] #nmFailureSub,
+html[lang="vi"] .nm-failure-eyebrow,
+html[lang="vi"] .nm-failure-actions button,
+html[lang="vi"] .nm-practice-heading h3,
+html[lang="vi"] #nmPracticeQuestion {
+ font-family: Arial, "Segoe UI", "Noto Sans", sans-serif !important;
+ letter-spacing: 0 !important;
+ word-spacing: normal !important;
+ font-variant-ligatures: none !important;
+ font-feature-settings: normal !important;
+ text-transform: none !important;
+}
+html[lang="vi"] #nmFailureScore{font-weight:500!important;line-height:1.65!important;white-space:normal;overflow-wrap:break-word}
 </style>
 </head>
 
@@ -4900,9 +4916,65 @@ const nmPracticeBank=[
  {type:'short',en:'In Period 3, which has greater nonmetallic character: Sodium or Chlorine? Write the English element name or symbol.',vi:'Trong chu kì 3, Sodium hay Chlorine có tính phi kim mạnh hơn? Viết tên tiếng Anh hoặc kí hiệu nguyên tố.',answers:['chlorine','cl'],display:'Chlorine (Cl)',whyEn:'Chlorine lies to the right of Sodium in Period 3.',whyVi:'Chlorine nằm bên phải Sodium trong chu kì 3.'},
  {type:'short',en:'Which Group 17 element is above Chlorine? Write its English name or symbol.',vi:'Nguyên tố nào thuộc nhóm 17 và nằm phía trên Chlorine? Viết tên tiếng Anh hoặc kí hiệu.',answers:['fluorine','f'],display:'Fluorine (F)',whyEn:'Fluorine is directly above Chlorine in Group 17.',whyVi:'Fluorine nằm ngay phía trên Chlorine trong nhóm 17.'},
  {type:'short',en:'Which has greater nonmetallic character in Period 2: Carbon or Oxygen? Write the English name or symbol.',vi:'Trong chu kì 2, Carbon hay Oxygen có tính phi kim mạnh hơn? Viết tên tiếng Anh hoặc kí hiệu.',answers:['oxygen','o'],display:'Oxygen (O)',whyEn:'Oxygen is to the right of Carbon in Period 2.',whyVi:'Oxygen nằm bên phải Carbon trong chu kì 2.'},
- {type:'short',en:'Which Group 16 element has greater nonmetallic character: Oxygen or Sulfur? Write its English name or symbol.',vi:'Trong nhóm 16, Oxygen hay Sulfur có tính phi kim mạnh hơn? Viết tên tiếng Anh hoặc kí hiệu.',answers:['oxygen','o'],display:'Oxygen (O)',whyEn:'Oxygen is above Sulfur in Group 16.',whyVi:'Oxygen nằm phía trên Sulfur trong nhóm 16.'}
+ {type:'short',en:'Which Group 16 element has greater nonmetallic character: Oxygen or Sulfur? Write its English name or symbol.',vi:'Trong nhóm 16, Oxygen hay Sulfur có tính phi kim mạnh hơn? Viết tên tiếng Anh hoặc kí hiệu.',answers:['oxygen','o'],display:'Oxygen (O)',whyEn:'Oxygen is above Sulfur in Group 16.',whyVi:'Oxygen nằm phía trên Sulfur trong nhóm 16.'},
+ {en:'In Period 2, which element lies farther right?',vi:'Trong chu kì 2, nguyên tố nào nằm xa hơn về phía bên phải?',opts:['Lithium','Carbon','Boron','Beryllium'],optsVi:['Lithium','Carbon','Boron','Beryllium'],correct:1,whyEn:'Carbon is in Group 14, to the right of the other choices.',whyVi:'Carbon thuộc nhóm 14, nằm bên phải các nguyên tố còn lại.'},
+ {en:'Which pair belongs to the same group?',vi:'Cặp nguyên tố nào thuộc cùng một nhóm?',opts:['Sodium and Magnesium','Oxygen and Sulfur','Carbon and Nitrogen','Fluorine and Neon'],optsVi:['Sodium và Magnesium','Oxygen và Sulfur','Carbon và Nitrogen','Fluorine và Neon'],correct:1,whyEn:'Oxygen and Sulfur are both in Group 16.',whyVi:'Oxygen và Sulfur đều thuộc nhóm 16.'},
+ {en:'Which statement is true for a main-group family going downward?',vi:'Nhận định nào đúng khi đi từ trên xuống dưới trong một nhóm chính?',opts:['Occupied electron shells generally increase','Occupied electron shells decrease','The period number decreases','All elements become noble gases'],optsVi:['Số lớp electron có electron nhìn chung tăng','Số lớp electron có electron giảm','Số thứ tự chu kì giảm','Mọi nguyên tố đều trở thành khí hiếm'],correct:0,whyEn:'Elements lower in a group have more occupied electron shells.',whyVi:'Nguyên tố nằm thấp hơn trong cùng nhóm có nhiều lớp electron có electron hơn.'},
+ {en:'Which element is higher in Group 16?',vi:'Nguyên tố nào nằm cao hơn trong nhóm 16?',opts:['Tellurium','Selenium','Sulfur','Oxygen'],optsVi:['Tellurium','Selenium','Sulfur','Oxygen'],correct:3,whyEn:'Oxygen is above Sulfur, Selenium, and Tellurium.',whyVi:'Oxygen nằm phía trên Sulfur, Selenium và Tellurium.'},
+ {en:'Why is a comparison across different groups AND periods sometimes uncertain using arrows alone?',vi:'Vì sao không thể luôn so sánh các nguyên tố khác cả nhóm lẫn chu kì chỉ bằng mũi tên?',opts:['The two trends can compete','Atoms have no electrons','Periods have no order','All elements have identical properties'],optsVi:['Hai xu hướng có thể tác động ngược nhau','Nguyên tử không có electron','Các chu kì không có thứ tự','Mọi nguyên tố có tính chất giống hệt nhau'],correct:0,whyEn:'Moving right and moving down can have competing influences.',whyVi:'Việc dịch sang phải và đi xuống có thể tạo ra các ảnh hưởng trái chiều.'},
+ {en:'Which is generally more nonmetallic within Group 15?',vi:'Trong nhóm 15, nguyên tố nào nhìn chung có tính phi kim mạnh hơn?',opts:['Phosphorus','Nitrogen','Arsenic','Antimony'],optsVi:['Phosphorus','Nitrogen','Arsenic','Antimony'],correct:1,whyEn:'Nitrogen is highest among these Group 15 elements.',whyVi:'Nitrogen nằm cao nhất trong các nguyên tố nhóm 15 được nêu.'},
+ {en:'Which pair is in the same period?',vi:'Cặp nguyên tố nào thuộc cùng một chu kì?',opts:['Fluorine and Chlorine','Lithium and Sodium','Carbon and Oxygen','Oxygen and Sulfur'],optsVi:['Fluorine và Chlorine','Lithium và Sodium','Carbon và Oxygen','Oxygen và Sulfur'],correct:2,whyEn:'Carbon and Oxygen are both in Period 2.',whyVi:'Carbon và Oxygen đều thuộc chu kì 2.'},
+ {en:'Which is the best use of the general trend rule?',vi:'Cách vận dụng nào phù hợp nhất với quy luật xu hướng chung?',opts:['Treat it as an absolute law','Compare main-group elements in the same period or group','Assume every property is identical','Ignore element positions'],optsVi:['Xem đó là quy luật tuyệt đối','So sánh các nguyên tố nhóm chính cùng chu kì hoặc cùng nhóm','Cho rằng mọi tính chất đều giống nhau','Bỏ qua vị trí các nguyên tố'],correct:1,whyEn:'The directional rule is most reliable for simple comparisons within one period or group.',whyVi:'Quy luật hướng phù hợp nhất với so sánh đơn giản trong cùng một chu kì hoặc nhóm.'},
+ {type:'short',en:'Which element is farther right in Period 3: Phosphorus or Sulfur? Give its English name or symbol.',vi:'Trong chu kì 3, Phosphorus hay Sulfur nằm bên phải hơn? Viết tên tiếng Anh hoặc kí hiệu.',answers:['sulfur','s'],display:'Sulfur (S)',whyEn:'Sulfur is in Group 16; Phosphorus is in Group 15.',whyVi:'Sulfur thuộc nhóm 16, còn Phosphorus thuộc nhóm 15.'},
+ {type:'short',en:'Which is higher in Group 1: Lithium or Sodium? Give its English name or symbol.',vi:'Trong nhóm 1, Lithium hay Sodium nằm cao hơn? Viết tên tiếng Anh hoặc kí hiệu.',answers:['lithium','li'],display:'Lithium (Li)',whyEn:'Lithium is in Period 2 and Sodium is in Period 3.',whyVi:'Lithium thuộc chu kì 2, còn Sodium thuộc chu kì 3.'},
+ {type:'short',en:'Which has greater nonmetallic character in Period 2: Nitrogen or Fluorine? Give its English name or symbol.',vi:'Trong chu kì 2, Nitrogen hay Fluorine có tính phi kim mạnh hơn? Viết tên tiếng Anh hoặc kí hiệu.',answers:['fluorine','f'],display:'Fluorine (F)',whyEn:'Fluorine is farther right in Period 2.',whyVi:'Fluorine nằm bên phải Nitrogen trong chu kì 2.'},
+ {type:'short',en:'Which Group 17 element lies directly below Chlorine? Give its English name or symbol.',vi:'Nguyên tố nhóm 17 nào nằm ngay dưới Chlorine? Viết tên tiếng Anh hoặc kí hiệu.',answers:['bromine','br'],display:'Bromine (Br)',whyEn:'Bromine is in Period 4, directly below Chlorine in Period 3.',whyVi:'Bromine thuộc chu kì 4, nằm ngay dưới Chlorine ở chu kì 3.'}
+,
+{"en": "In Period 2, which generally has greater nonmetallic character: Lithium or Beryllium?", "vi": "Trong chu kì 2, Lithium hay Beryllium nhìn chung có tính phi kim mạnh hơn?", "opts": ["Lithium", "Beryllium", "Both are equal", "Cannot tell within a period"], "optsVi": ["Lithium", "Beryllium", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng chu kì"], "correct": 1, "whyEn": "Beryllium is farther right than Lithium in Period 2.", "whyVi": "Beryllium nằm bên phải Lithium trong chu kì 2."},
+{"en": "In Period 2, which generally has greater nonmetallic character: Beryllium or Boron?", "vi": "Trong chu kì 2, Beryllium hay Boron nhìn chung có tính phi kim mạnh hơn?", "opts": ["Beryllium", "Boron", "Both are equal", "Cannot tell within a period"], "optsVi": ["Beryllium", "Boron", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng chu kì"], "correct": 1, "whyEn": "Boron is farther right than Beryllium in Period 2.", "whyVi": "Boron nằm bên phải Beryllium trong chu kì 2."},
+{"en": "In Period 2, which generally has greater nonmetallic character: Boron or Carbon?", "vi": "Trong chu kì 2, Boron hay Carbon nhìn chung có tính phi kim mạnh hơn?", "opts": ["Boron", "Carbon", "Both are equal", "Cannot tell within a period"], "optsVi": ["Boron", "Carbon", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng chu kì"], "correct": 1, "whyEn": "Carbon is farther right than Boron in Period 2.", "whyVi": "Carbon nằm bên phải Boron trong chu kì 2."},
+{"en": "In Period 2, which generally has greater nonmetallic character: Carbon or Nitrogen?", "vi": "Trong chu kì 2, Carbon hay Nitrogen nhìn chung có tính phi kim mạnh hơn?", "opts": ["Carbon", "Nitrogen", "Both are equal", "Cannot tell within a period"], "optsVi": ["Carbon", "Nitrogen", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng chu kì"], "correct": 1, "whyEn": "Nitrogen is farther right than Carbon in Period 2.", "whyVi": "Nitrogen nằm bên phải Carbon trong chu kì 2."},
+{"en": "In Period 2, which generally has greater nonmetallic character: Nitrogen or Oxygen?", "vi": "Trong chu kì 2, Nitrogen hay Oxygen nhìn chung có tính phi kim mạnh hơn?", "opts": ["Nitrogen", "Oxygen", "Both are equal", "Cannot tell within a period"], "optsVi": ["Nitrogen", "Oxygen", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng chu kì"], "correct": 1, "whyEn": "Oxygen is farther right than Nitrogen in Period 2.", "whyVi": "Oxygen nằm bên phải Nitrogen trong chu kì 2."},
+{"en": "In Period 2, which generally has greater nonmetallic character: Oxygen or Fluorine?", "vi": "Trong chu kì 2, Oxygen hay Fluorine nhìn chung có tính phi kim mạnh hơn?", "opts": ["Oxygen", "Fluorine", "Both are equal", "Cannot tell within a period"], "optsVi": ["Oxygen", "Fluorine", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng chu kì"], "correct": 1, "whyEn": "Fluorine is farther right than Oxygen in Period 2.", "whyVi": "Fluorine nằm bên phải Oxygen trong chu kì 2."},
+{"en": "In Period 3, which generally has greater nonmetallic character: Sodium or Magnesium?", "vi": "Trong chu kì 3, Sodium hay Magnesium nhìn chung có tính phi kim mạnh hơn?", "opts": ["Sodium", "Magnesium", "Both are equal", "Cannot tell within a period"], "optsVi": ["Sodium", "Magnesium", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng chu kì"], "correct": 1, "whyEn": "Magnesium is farther right than Sodium in Period 3.", "whyVi": "Magnesium nằm bên phải Sodium trong chu kì 3."},
+{"en": "In Period 3, which generally has greater nonmetallic character: Magnesium or Aluminium?", "vi": "Trong chu kì 3, Magnesium hay Aluminium nhìn chung có tính phi kim mạnh hơn?", "opts": ["Magnesium", "Aluminium", "Both are equal", "Cannot tell within a period"], "optsVi": ["Magnesium", "Aluminium", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng chu kì"], "correct": 1, "whyEn": "Aluminium is farther right than Magnesium in Period 3.", "whyVi": "Aluminium nằm bên phải Magnesium trong chu kì 3."},
+{"en": "In Period 3, which generally has greater nonmetallic character: Aluminium or Silicon?", "vi": "Trong chu kì 3, Aluminium hay Silicon nhìn chung có tính phi kim mạnh hơn?", "opts": ["Aluminium", "Silicon", "Both are equal", "Cannot tell within a period"], "optsVi": ["Aluminium", "Silicon", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng chu kì"], "correct": 1, "whyEn": "Silicon is farther right than Aluminium in Period 3.", "whyVi": "Silicon nằm bên phải Aluminium trong chu kì 3."},
+{"en": "In Period 3, which generally has greater nonmetallic character: Silicon or Phosphorus?", "vi": "Trong chu kì 3, Silicon hay Phosphorus nhìn chung có tính phi kim mạnh hơn?", "opts": ["Silicon", "Phosphorus", "Both are equal", "Cannot tell within a period"], "optsVi": ["Silicon", "Phosphorus", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng chu kì"], "correct": 1, "whyEn": "Phosphorus is farther right than Silicon in Period 3.", "whyVi": "Phosphorus nằm bên phải Silicon trong chu kì 3."},
+{"en": "In Period 3, which generally has greater nonmetallic character: Phosphorus or Chlorine?", "vi": "Trong chu kì 3, Phosphorus hay Chlorine nhìn chung có tính phi kim mạnh hơn?", "opts": ["Phosphorus", "Chlorine", "Both are equal", "Cannot tell within a period"], "optsVi": ["Phosphorus", "Chlorine", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng chu kì"], "correct": 1, "whyEn": "Chlorine is farther right than Phosphorus in Period 3.", "whyVi": "Chlorine nằm bên phải Phosphorus trong chu kì 3."},
+{"en": "In Period 3, which generally has greater nonmetallic character: Sulfur or Chlorine?", "vi": "Trong chu kì 3, Sulfur hay Chlorine nhìn chung có tính phi kim mạnh hơn?", "opts": ["Sulfur", "Chlorine", "Both are equal", "Cannot tell within a period"], "optsVi": ["Sulfur", "Chlorine", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng chu kì"], "correct": 1, "whyEn": "Chlorine is farther right than Sulfur in Period 3.", "whyVi": "Chlorine nằm bên phải Sulfur trong chu kì 3."},
+{"en": "Within Group 1, which generally has greater nonmetallic character: Lithium or Potassium?", "vi": "Trong nhóm 1, Lithium hay Potassium nhìn chung có tính phi kim mạnh hơn?", "opts": ["Potassium", "Lithium", "Both are equal", "Cannot tell within a group"], "optsVi": ["Potassium", "Lithium", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng nhóm"], "correct": 1, "whyEn": "Lithium is above Potassium in Group 1.", "whyVi": "Lithium nằm phía trên Potassium trong nhóm 1."},
+{"en": "Within Group 1, which generally has greater nonmetallic character: Sodium or Potassium?", "vi": "Trong nhóm 1, Sodium hay Potassium nhìn chung có tính phi kim mạnh hơn?", "opts": ["Potassium", "Sodium", "Both are equal", "Cannot tell within a group"], "optsVi": ["Potassium", "Sodium", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng nhóm"], "correct": 1, "whyEn": "Sodium is above Potassium in Group 1.", "whyVi": "Sodium nằm phía trên Potassium trong nhóm 1."},
+{"en": "Within Group 2, which generally has greater nonmetallic character: Beryllium or Magnesium?", "vi": "Trong nhóm 2, Beryllium hay Magnesium nhìn chung có tính phi kim mạnh hơn?", "opts": ["Magnesium", "Beryllium", "Both are equal", "Cannot tell within a group"], "optsVi": ["Magnesium", "Beryllium", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng nhóm"], "correct": 1, "whyEn": "Beryllium is above Magnesium in Group 2.", "whyVi": "Beryllium nằm phía trên Magnesium trong nhóm 2."},
+{"en": "Within Group 2, which generally has greater nonmetallic character: Magnesium or Calcium?", "vi": "Trong nhóm 2, Magnesium hay Calcium nhìn chung có tính phi kim mạnh hơn?", "opts": ["Calcium", "Magnesium", "Both are equal", "Cannot tell within a group"], "optsVi": ["Calcium", "Magnesium", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng nhóm"], "correct": 1, "whyEn": "Magnesium is above Calcium in Group 2.", "whyVi": "Magnesium nằm phía trên Calcium trong nhóm 2."},
+{"en": "Within Group 13, which generally has greater nonmetallic character: Boron or Aluminium?", "vi": "Trong nhóm 13, Boron hay Aluminium nhìn chung có tính phi kim mạnh hơn?", "opts": ["Aluminium", "Boron", "Both are equal", "Cannot tell within a group"], "optsVi": ["Aluminium", "Boron", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng nhóm"], "correct": 1, "whyEn": "Boron is above Aluminium in Group 13.", "whyVi": "Boron nằm phía trên Aluminium trong nhóm 13."},
+{"en": "Within Group 14, which generally has greater nonmetallic character: Carbon or Silicon?", "vi": "Trong nhóm 14, Carbon hay Silicon nhìn chung có tính phi kim mạnh hơn?", "opts": ["Silicon", "Carbon", "Both are equal", "Cannot tell within a group"], "optsVi": ["Silicon", "Carbon", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng nhóm"], "correct": 1, "whyEn": "Carbon is above Silicon in Group 14.", "whyVi": "Carbon nằm phía trên Silicon trong nhóm 14."},
+{"en": "Within Group 14, which generally has greater nonmetallic character: Silicon or Germanium?", "vi": "Trong nhóm 14, Silicon hay Germanium nhìn chung có tính phi kim mạnh hơn?", "opts": ["Germanium", "Silicon", "Both are equal", "Cannot tell within a group"], "optsVi": ["Germanium", "Silicon", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng nhóm"], "correct": 1, "whyEn": "Silicon is above Germanium in Group 14.", "whyVi": "Silicon nằm phía trên Germanium trong nhóm 14."},
+{"en": "Within Group 15, which generally has greater nonmetallic character: Nitrogen or Phosphorus?", "vi": "Trong nhóm 15, Nitrogen hay Phosphorus nhìn chung có tính phi kim mạnh hơn?", "opts": ["Phosphorus", "Nitrogen", "Both are equal", "Cannot tell within a group"], "optsVi": ["Phosphorus", "Nitrogen", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng nhóm"], "correct": 1, "whyEn": "Nitrogen is above Phosphorus in Group 15.", "whyVi": "Nitrogen nằm phía trên Phosphorus trong nhóm 15."},
+{"en": "Within Group 15, which generally has greater nonmetallic character: Phosphorus or Arsenic?", "vi": "Trong nhóm 15, Phosphorus hay Arsenic nhìn chung có tính phi kim mạnh hơn?", "opts": ["Arsenic", "Phosphorus", "Both are equal", "Cannot tell within a group"], "optsVi": ["Arsenic", "Phosphorus", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng nhóm"], "correct": 1, "whyEn": "Phosphorus is above Arsenic in Group 15.", "whyVi": "Phosphorus nằm phía trên Arsenic trong nhóm 15."},
+{"en": "Within Group 16, which generally has greater nonmetallic character: Sulfur or Selenium?", "vi": "Trong nhóm 16, Sulfur hay Selenium nhìn chung có tính phi kim mạnh hơn?", "opts": ["Selenium", "Sulfur", "Both are equal", "Cannot tell within a group"], "optsVi": ["Selenium", "Sulfur", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng nhóm"], "correct": 1, "whyEn": "Sulfur is above Selenium in Group 16.", "whyVi": "Sulfur nằm phía trên Selenium trong nhóm 16."},
+{"en": "Within Group 17, which generally has greater nonmetallic character: Chlorine or Bromine?", "vi": "Trong nhóm 17, Chlorine hay Bromine nhìn chung có tính phi kim mạnh hơn?", "opts": ["Bromine", "Chlorine", "Both are equal", "Cannot tell within a group"], "optsVi": ["Bromine", "Chlorine", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng nhóm"], "correct": 1, "whyEn": "Chlorine is above Bromine in Group 17.", "whyVi": "Chlorine nằm phía trên Bromine trong nhóm 17."},
+{"en": "Within Group 17, which generally has greater nonmetallic character: Bromine or Iodine?", "vi": "Trong nhóm 17, Bromine hay Iodine nhìn chung có tính phi kim mạnh hơn?", "opts": ["Iodine", "Bromine", "Both are equal", "Cannot tell within a group"], "optsVi": ["Iodine", "Bromine", "Hai nguyên tố luôn bằng nhau", "Không thể xác định trong cùng nhóm"], "correct": 1, "whyEn": "Bromine is above Iodine in Group 17.", "whyVi": "Bromine nằm phía trên Iodine trong nhóm 17."},
+{"type": "short", "en": "In Period 2, which generally has greater nonmetallic character: Lithium or Beryllium? Answer with an English element name or symbol.", "vi": "Trong chu kì 2, Lithium hay Beryllium nhìn chung có tính phi kim mạnh hơn? Trả lời bằng tên tiếng Anh hoặc kí hiệu.", "answers": ["beryllium", "be"], "display": "Beryllium (Be)", "whyEn": "Beryllium is farther right in Period 2.", "whyVi": "Beryllium nằm bên phải trong chu kì 2."},
+{"type": "short", "en": "In Period 2, which generally has greater nonmetallic character: Beryllium or Boron? Answer with an English element name or symbol.", "vi": "Trong chu kì 2, Beryllium hay Boron nhìn chung có tính phi kim mạnh hơn? Trả lời bằng tên tiếng Anh hoặc kí hiệu.", "answers": ["boron", "b"], "display": "Boron (B)", "whyEn": "Boron is farther right in Period 2.", "whyVi": "Boron nằm bên phải trong chu kì 2."},
+{"type": "short", "en": "In Period 2, which generally has greater nonmetallic character: Boron or Carbon? Answer with an English element name or symbol.", "vi": "Trong chu kì 2, Boron hay Carbon nhìn chung có tính phi kim mạnh hơn? Trả lời bằng tên tiếng Anh hoặc kí hiệu.", "answers": ["carbon", "c"], "display": "Carbon (C)", "whyEn": "Carbon is farther right in Period 2.", "whyVi": "Carbon nằm bên phải trong chu kì 2."},
+{"type": "short", "en": "In Period 2, which generally has greater nonmetallic character: Carbon or Nitrogen? Answer with an English element name or symbol.", "vi": "Trong chu kì 2, Carbon hay Nitrogen nhìn chung có tính phi kim mạnh hơn? Trả lời bằng tên tiếng Anh hoặc kí hiệu.", "answers": ["nitrogen", "n"], "display": "Nitrogen (N)", "whyEn": "Nitrogen is farther right in Period 2.", "whyVi": "Nitrogen nằm bên phải trong chu kì 2."},
+{"type": "short", "en": "In Period 2, which generally has greater nonmetallic character: Nitrogen or Oxygen? Answer with an English element name or symbol.", "vi": "Trong chu kì 2, Nitrogen hay Oxygen nhìn chung có tính phi kim mạnh hơn? Trả lời bằng tên tiếng Anh hoặc kí hiệu.", "answers": ["oxygen", "o"], "display": "Oxygen (O)", "whyEn": "Oxygen is farther right in Period 2.", "whyVi": "Oxygen nằm bên phải trong chu kì 2."},
+{"type": "short", "en": "In Period 2, which generally has greater nonmetallic character: Oxygen or Fluorine? Answer with an English element name or symbol.", "vi": "Trong chu kì 2, Oxygen hay Fluorine nhìn chung có tính phi kim mạnh hơn? Trả lời bằng tên tiếng Anh hoặc kí hiệu.", "answers": ["fluorine", "f"], "display": "Fluorine (F)", "whyEn": "Fluorine is farther right in Period 2.", "whyVi": "Fluorine nằm bên phải trong chu kì 2."},
+{"type": "short", "en": "In Group 1, which generally has greater nonmetallic character: Lithium or Potassium? Answer with an English element name or symbol.", "vi": "Trong nhóm 1, Lithium hay Potassium nhìn chung có tính phi kim mạnh hơn? Trả lời bằng tên tiếng Anh hoặc kí hiệu.", "answers": ["lithium", "li"], "display": "Lithium (Li)", "whyEn": "Lithium is higher in Group 1.", "whyVi": "Lithium nằm cao hơn trong nhóm 1."},
+{"type": "short", "en": "In Group 1, which generally has greater nonmetallic character: Sodium or Potassium? Answer with an English element name or symbol.", "vi": "Trong nhóm 1, Sodium hay Potassium nhìn chung có tính phi kim mạnh hơn? Trả lời bằng tên tiếng Anh hoặc kí hiệu.", "answers": ["sodium", "na"], "display": "Sodium (Na)", "whyEn": "Sodium is higher in Group 1.", "whyVi": "Sodium nằm cao hơn trong nhóm 1."},
+{"type": "short", "en": "In Group 2, which generally has greater nonmetallic character: Beryllium or Magnesium? Answer with an English element name or symbol.", "vi": "Trong nhóm 2, Beryllium hay Magnesium nhìn chung có tính phi kim mạnh hơn? Trả lời bằng tên tiếng Anh hoặc kí hiệu.", "answers": ["beryllium", "be"], "display": "Beryllium (Be)", "whyEn": "Beryllium is higher in Group 2.", "whyVi": "Beryllium nằm cao hơn trong nhóm 2."},
+{"type": "short", "en": "In Group 2, which generally has greater nonmetallic character: Magnesium or Calcium? Answer with an English element name or symbol.", "vi": "Trong nhóm 2, Magnesium hay Calcium nhìn chung có tính phi kim mạnh hơn? Trả lời bằng tên tiếng Anh hoặc kí hiệu.", "answers": ["magnesium", "mg"], "display": "Magnesium (Mg)", "whyEn": "Magnesium is higher in Group 2.", "whyVi": "Magnesium nằm cao hơn trong nhóm 2."},
+{"type": "short", "en": "In Group 13, which generally has greater nonmetallic character: Boron or Aluminium? Answer with an English element name or symbol.", "vi": "Trong nhóm 13, Boron hay Aluminium nhìn chung có tính phi kim mạnh hơn? Trả lời bằng tên tiếng Anh hoặc kí hiệu.", "answers": ["boron", "b"], "display": "Boron (B)", "whyEn": "Boron is higher in Group 13.", "whyVi": "Boron nằm cao hơn trong nhóm 13."},
+{"type": "short", "en": "In Group 14, which generally has greater nonmetallic character: Carbon or Silicon? Answer with an English element name or symbol.", "vi": "Trong nhóm 14, Carbon hay Silicon nhìn chung có tính phi kim mạnh hơn? Trả lời bằng tên tiếng Anh hoặc kí hiệu.", "answers": ["carbon", "c"], "display": "Carbon (C)", "whyEn": "Carbon is higher in Group 14.", "whyVi": "Carbon nằm cao hơn trong nhóm 14."}
 ];
 const nmPracticeOptionVi = {"Right to left": "Từ phải sang trái", "Left to right": "Từ trái sang phải", "Top to bottom": "Từ trên xuống dưới", "No general direction": "Không có hướng chung", "Atoms gain more occupied shells": "Nguyên tử có thêm lớp electron", "Effective nuclear attraction generally increases": "Lực hút hạt nhân hiệu dụng nhìn chung tăng", "Atomic number decreases": "Số hiệu nguyên tử giảm", "Electron shielding always vanishes": "Hiệu ứng chắn electron luôn biến mất", "The upper element": "Nguyên tố ở phía trên", "The lower element": "Nguyên tố ở phía dưới", "Both always equal": "Cả hai luôn bằng nhau", "The one with more occupied shells": "Nguyên tố có nhiều lớp electron hơn"};
+function nmShuffle(list){const a=[...list];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function nmNewRound(){
+ const multiple=nmShuffle(nmPracticeBank.filter(q=>q.type!=='short')).slice(0,8).map(q=>{const order=nmShuffle([0,1,2,3]);return {...q,opts:order.map(i=>q.opts[i]),optsVi:order.map(i=>(q.optsVi||q.opts)[i]),correct:order.indexOf(q.correct)};});
+ const short=nmShuffle(nmPracticeBank.filter(q=>q.type==='short')).slice(0,4);
+ return nmShuffle([...multiple,...short]);
+}
+let nmPracticeRound=nmNewRound();
 const nmPracticeState={index:0,score:0,chosen:null,typed:''};
 const nmPracticeUI={title:document.getElementById('nmPracticeTitle'),kicker:document.getElementById('nmPracticeKicker'),intro:document.getElementById('nmPracticeIntro'),count:document.getElementById('nmPracticeCount'),score:document.getElementById('nmPracticeScore'),bar:document.getElementById('nmPracticeBar'),question:document.getElementById('nmPracticeQuestion'),choices:document.getElementById('nmPracticeChoices'),feedback:document.getElementById('nmPracticeFeedback'),next:document.getElementById('nmPracticeNext'),restart:document.getElementById('nmPracticeRestart')};
 
@@ -4920,11 +4992,32 @@ function closeNmPractice(){nmPracticePanel.hidden=true;document.body.classList.r
 nmPracticeLaunch.addEventListener('click',openNmPractice);
 document.getElementById('nmExitPractice').addEventListener('click',closeNmPractice);
 function closeNmFailure(){nmFailure.hidden=true;document.getElementById('nmPracticeRestart').focus();}
+function playNmFailureSound(){
+ if(!answerSoundEnabled)return;
+ try{
+  const AudioContextClass=window.AudioContext||window.webkitAudioContext;
+  if(!AudioContextClass)return;
+  if(!answerAudioContext)answerAudioContext=new AudioContextClass();
+  const ctx=answerAudioContext;if(ctx.state==='suspended')ctx.resume().catch(()=>{});
+  const t=ctx.currentTime+.1;
+  [146.83,110,73.42].forEach((hz,i)=>{
+   const osc=ctx.createOscillator(),gain=ctx.createGain(),filter=ctx.createBiquadFilter();
+   osc.type='sawtooth';osc.frequency.setValueAtTime(hz,t+i*.17);
+   filter.type='lowpass';filter.frequency.value=400;
+   gain.gain.setValueAtTime(.0001,t+i*.17);
+   gain.gain.exponentialRampToValueAtTime(.027,t+i*.17+.09);
+   gain.gain.exponentialRampToValueAtTime(.0001,t+i*.17+1.25);
+   osc.connect(filter);filter.connect(gain);gain.connect(ctx.destination);
+   osc.start(t+i*.17);osc.stop(t+i*.17+1.3);
+  });
+ }catch(e){/* Audio is optional. */}
+}
 function showNmFailure(score,total){
  const vi=currentLanguage==='vi';
  document.getElementById('nmFailureTitle').textContent='YOU FAILED';
  document.getElementById('nmFailureSub').textContent=vi?'ĐỪNG BỎ CUỘC — HÃY THỬ LẠI':'DON’T GIVE UP JUST YET';
  document.getElementById('nmFailureScore').textContent=vi?`Kết quả · ${score} / ${total} · Cần ôn tập thêm`:`Your score · ${score} / ${total} · Review and rise again`;
+ playNmFailureSound();
  document.getElementById('nmFailureRetry').textContent=vi?'Làm lại':'Try again';
  document.getElementById('nmFailureReview').textContent=vi?'Ôn lại bài học':'Review the lesson';
  document.getElementById('nmFailurePhoto').src=nmLowScorePhotos[Math.floor(Math.random()*nmLowScorePhotos.length)];
@@ -4937,20 +5030,20 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'){if(!nmFailure.hidde
 function renderNmPractice(){
  document.documentElement.lang=currentLanguage==='vi'?'vi':'en';
  document.querySelectorAll('.answer-sound-toggle').forEach(b=>{const vi=currentLanguage==='vi';b.textContent=answerSoundEnabled?(vi?'♪ Âm thanh: Bật':'♪ Sound: On'):(vi?'♪ Âm thanh: Tắt':'♪ Sound: Off');b.setAttribute('aria-pressed',String(answerSoundEnabled))});
- const vi=currentLanguage==='vi',t=vi?'vi':'en',p=nmPracticeState,q=nmPracticeBank[p.index],done=p.index>=nmPracticeBank.length;
- document.getElementById('nmPracticeModeLabel').textContent=vi?'CHƯƠNG 2 · LUYỆN TẬP':'CHAPTER 2 · PRACTICE';nmPracticeLaunch.textContent=vi?'✦ Bắt đầu luyện tập · 12 câu hỏi ↗':'✦ Start practice · 12 questions ↗';
+ const vi=currentLanguage==='vi',t=vi?'vi':'en',p=nmPracticeState,q=nmPracticeRound[p.index],done=p.index>=nmPracticeRound.length;
+ document.getElementById('nmPracticeModeLabel').textContent=vi?'CHƯƠNG 2 · LUYỆN TẬP':'CHAPTER 2 · PRACTICE';nmPracticeLaunch.textContent=vi?`✦ Bắt đầu luyện tập · ${nmPracticeRound.length} câu hỏi ↗`:`✦ Start practice · ${nmPracticeRound.length} questions ↗`;
  nmPracticeUI.kicker.textContent=vi?'BƯỚC 4 · LUYỆN TẬP':'STEP 4 · PRACTISE';
  nmPracticeUI.title.textContent=vi?'Kiểm tra kiến thức':'Test your understanding';
  nmPracticeUI.intro.textContent=vi?'Vận dụng quy luật qua từng câu hỏi.':'Apply the trends, one question at a time.';
- nmPracticeUI.count.textContent=done?(vi?'Hoàn thành':'Completed'):`${vi?'Câu':'Question'} ${p.index+1}/${nmPracticeBank.length}`;
- nmPracticeUI.score.textContent=`${vi?'Điểm':'Score'}: ${p.score}/${nmPracticeBank.length}`;
- nmPracticeUI.bar.style.width=`${100*(done?nmPracticeBank.length:p.index+(p.chosen!==null?1:0))/nmPracticeBank.length}%`;
+ nmPracticeUI.count.textContent=done?(vi?'Hoàn thành':'Completed'):`${vi?'Câu':'Question'} ${p.index+1}/${nmPracticeRound.length}`;
+ nmPracticeUI.score.textContent=`${vi?'Điểm':'Score'}: ${p.score}/${nmPracticeRound.length}`;
+ nmPracticeUI.bar.style.width=`${100*(done?nmPracticeRound.length:p.index+(p.chosen!==null?1:0))/nmPracticeRound.length}%`;
  nmPracticeUI.choices.replaceChildren();
  nmPracticeUI.next.hidden=done;
  nmPracticeUI.restart.textContent=vi?'Làm lại':'Restart';
  if(done){
-  if(!nmCelebrationShown){nmCelebrationShown=true;if(p.score>=8)openNmCelebration(p.score,nmPracticeBank.length);else if(p.score<6&&!nmFailureShown){nmFailureShown=true;showNmFailure(p.score,nmPracticeBank.length)}}
-  nmPracticeUI.question.textContent=vi?`Bạn đạt ${p.score}/${nmPracticeBank.length} điểm!`:`You scored ${p.score}/${nmPracticeBank.length}!`;
+  if(!nmCelebrationShown){nmCelebrationShown=true;if(p.score/p.index>=2/3)openNmCelebration(p.score,nmPracticeRound.length);else if(p.score/p.index<.5&&!nmFailureShown){nmFailureShown=true;showNmFailure(p.score,nmPracticeRound.length)}}
+  nmPracticeUI.question.textContent=vi?`Bạn đạt ${p.score}/${nmPracticeRound.length} điểm!`:`You scored ${p.score}/${nmPracticeRound.length}!`;
   nmPracticeUI.feedback.textContent=vi?'Bạn có thể làm lại để luyện tập thêm.':'You can restart to practise again.';
   return;
  }
@@ -4975,7 +5068,7 @@ function renderNmPractice(){
    wrap.append(input,check);nmPracticeUI.choices.append(wrap);
    nmPracticeUI.feedback.textContent=p.chosen===null?'':`${p.chosen===1?(vi?'Chính xác! ':'Correct! '):(vi?`Chưa đúng. Đáp án: ${q.display}. `:`Not quite. Answer: ${q.display}. `)}${q[vi?'whyVi':'whyEn']}`;
    nmPracticeUI.next.disabled=p.chosen===null;
-   nmPracticeUI.next.textContent=p.index===nmPracticeBank.length-1?(vi?'Xem kết quả →':'See results →'):(vi?'Câu tiếp theo →':'Next question →');
+   nmPracticeUI.next.textContent=p.index===nmPracticeRound.length-1?(vi?'Xem kết quả →':'See results →'):(vi?'Câu tiếp theo →':'Next question →');
    return;
  }
  for(let i=0;i<q.opts.length;i++){
@@ -4986,11 +5079,11 @@ function renderNmPractice(){
  }
  nmPracticeUI.feedback.textContent=p.chosen===null?'':`${p.chosen===q.correct?(vi?'Chính xác! ':'Correct! '):(vi?'Chưa đúng. ':'Not quite. ')}${q[vi?'whyVi':'whyEn']}`;
  nmPracticeUI.next.disabled=p.chosen===null;
- nmPracticeUI.next.textContent=p.index===nmPracticeBank.length-1?(vi?'Xem kết quả →':'See results →'):(vi?'Câu tiếp theo →':'Next question →');
+ nmPracticeUI.next.textContent=p.index===nmPracticeRound.length-1?(vi?'Xem kết quả →':'See results →'):(vi?'Câu tiếp theo →':'Next question →');
  nmPracticeUI.restart.textContent=vi?'Làm lại':'Restart';
 }
 nmPracticeUI.next.addEventListener('click',()=>{if(nmPracticeState.chosen===null)return;nmPracticeState.index++;nmPracticeState.chosen=null;nmPracticeState.typed='';renderNmPractice()});
-nmPracticeUI.restart.addEventListener('click',()=>{nmPracticeState.index=0;nmPracticeState.score=0;nmPracticeState.chosen=null;nmPracticeState.typed='';nmCelebrationShown=false;nmFailureShown=false;nmFailure.hidden=true;closeNmCelebration();renderNmPractice()});
+nmPracticeUI.restart.addEventListener('click',()=>{nmPracticeRound=nmNewRound();nmPracticeState.index=0;nmPracticeState.score=0;nmPracticeState.chosen=null;nmPracticeState.typed='';nmCelebrationShown=false;nmFailureShown=false;nmFailure.hidden=true;closeNmCelebration();renderNmPractice()});
 const soundToggleRefreshers=[
  createAnswerSoundToggle(document.querySelector('.nm-practice-heading')),
  createAnswerSoundToggle(quizUI.dialog)
