@@ -4727,6 +4727,7 @@ const nmPracticeBank=[
  {type:'short',en:'Which has greater nonmetallic character in Period 2: Carbon or Oxygen? Write the English name or symbol.',vi:'Trong chu kì 2, Carbon hay Oxygen có tính phi kim mạnh hơn? Viết tên tiếng Anh hoặc kí hiệu.',answers:['oxygen','o'],display:'Oxygen (O)',whyEn:'Oxygen is to the right of Carbon in Period 2.',whyVi:'Oxygen nằm bên phải Carbon trong chu kì 2.'},
  {type:'short',en:'Which Group 16 element has greater nonmetallic character: Oxygen or Sulfur? Write its English name or symbol.',vi:'Trong nhóm 16, Oxygen hay Sulfur có tính phi kim mạnh hơn? Viết tên tiếng Anh hoặc kí hiệu.',answers:['oxygen','o'],display:'Oxygen (O)',whyEn:'Oxygen is above Sulfur in Group 16.',whyVi:'Oxygen nằm phía trên Sulfur trong nhóm 16.'}
 ];
+const nmPracticeOptionVi = {"Right to left": "Từ phải sang trái", "Left to right": "Từ trái sang phải", "Top to bottom": "Từ trên xuống dưới", "No general direction": "Không có hướng chung", "Atoms gain more occupied shells": "Nguyên tử có thêm lớp electron", "Effective nuclear attraction generally increases": "Lực hút hạt nhân hiệu dụng nhìn chung tăng", "Atomic number decreases": "Số hiệu nguyên tử giảm", "Electron shielding always vanishes": "Hiệu ứng chắn electron luôn biến mất", "The upper element": "Nguyên tố ở phía trên", "The lower element": "Nguyên tố ở phía dưới", "Both always equal": "Cả hai luôn bằng nhau", "The one with more occupied shells": "Nguyên tố có nhiều lớp electron hơn"};
 const nmPracticeState={index:0,score:0,chosen:null,typed:''};
 const nmPracticeUI={title:document.getElementById('nmPracticeTitle'),kicker:document.getElementById('nmPracticeKicker'),intro:document.getElementById('nmPracticeIntro'),count:document.getElementById('nmPracticeCount'),score:document.getElementById('nmPracticeScore'),bar:document.getElementById('nmPracticeBar'),question:document.getElementById('nmPracticeQuestion'),choices:document.getElementById('nmPracticeChoices'),feedback:document.getElementById('nmPracticeFeedback'),next:document.getElementById('nmPracticeNext'),restart:document.getElementById('nmPracticeRestart')};
 function renderNmPractice(){
@@ -4771,7 +4772,7 @@ function renderNmPractice(){
    return;
  }
  for(let i=0;i<q.opts.length;i++){
-  const btn=document.createElement('button');btn.type='button';btn.textContent=`${String.fromCharCode(65+i)}. ${q.opts[i]}`;
+  const btn=document.createElement('button');btn.type='button';btn.textContent=`${String.fromCharCode(65+i)}. ${vi?(nmPracticeOptionVi[q.opts[i]]||q.opts[i]):q.opts[i]}`;
   if(p.chosen!==null){btn.disabled=true;if(i===q.correct)btn.dataset.state='correct';else if(i===p.chosen)btn.dataset.state='incorrect'}
   else btn.addEventListener('click',()=>{p.chosen=i;if(i===q.correct)p.score++;playAnswerSound(i===q.correct);renderNmPractice()});
   nmPracticeUI.choices.append(btn);
