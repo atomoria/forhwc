@@ -1190,6 +1190,23 @@ body.book-at-cover{overflow:hidden}
 @media(max-width:640px){.chapter-choices{grid-template-columns:1fr}.chapter-choice{min-height:145px}.cover-stage{min-height:320px}.cover-object{height:310px;width:240px}.cover-front h2{font-size:1.6rem}.cover-atom{font-size:60px}.book-contents{align-items:start}.contents-panel{margin:auto}}
 @media(prefers-reduced-motion:reduce){.book-intro,.book-contents,.cover-front,.chapter-choice{animation:none!important;transition:none!important}}
 
+
+/* Vietnamese-safe typography for the book cover, contents and chapter transitions. */
+.book-intro, .book-contents, .book-turn-layer {
+  font-family: "Noto Sans", "Segoe UI", Arial, sans-serif;
+}
+.cover-front h2, .contents-panel h2, .chapter-choice strong,
+.book-turn-sheet, .book-turn-sheet small {
+  font-family: "Noto Serif", "Noto Serif Display", "DejaVu Serif", serif !important;
+  font-kerning: normal;
+  letter-spacing: normal;
+  word-break: normal;
+  overflow-wrap: normal;
+}
+.chapter-choice strong {line-height:1.45; font-size:clamp(1.2rem,2.4vw,1.65rem)}
+.contents-panel h2 {line-height:1.4}
+.chapter-choice {min-width:0}
+
 </style>
 </head>
 
