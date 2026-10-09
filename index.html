@@ -1221,6 +1221,24 @@ body.book-at-cover{overflow:hidden}
 .nm-lesson .nm-footnote summary::-webkit-details-marker{display:none}
 .nm-lesson .nm-footnote summary:focus-visible{outline:2px solid #0c9c8c;outline-offset:4px;border-radius:3px}
 .nm-lesson .nm-footnote #nmCaution{font-size:12px!important;line-height:1.7!important;color:#697787!important;background:transparent!important;border:0!important;padding:6px 0 0!important;margin:0!important;box-shadow:none!important}
+
+/* Chapter 2: Vietnamese-complete serif headings; avoid Georgia fallback and forced spacing. */
+.nm-lesson-head h2,
+.nm-lesson-workspace h3,
+.nm-demo-explanation h4,
+.nm-takeaway h3,
+.nm-custom h3 {
+  font-family: "DejaVu Serif", "Noto Serif", "Times New Roman", serif !important;
+  font-kerning: normal;
+  font-variant-ligatures: normal;
+  letter-spacing: 0 !important;
+  word-spacing: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+  line-height: 1.38;
+}
+.nm-lesson-head h2 {font-size:clamp(27px,3.5vw,43px); max-width:100%; text-wrap:balance;}
+
 </style>
 </head>
 
