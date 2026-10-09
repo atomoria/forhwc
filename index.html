@@ -1219,6 +1219,10 @@ body.book-at-cover{overflow:hidden}
 .nm-lesson .nm-footnote summary::after{content:'⌄';font-size:15px;transition:transform .2s}
 .nm-lesson .nm-footnote[open] summary::after{transform:rotate(180deg)}
 .nm-lesson .nm-footnote summary::-webkit-details-marker{display:none}
+/* Keep the note icon, label and chevron precisely aligned on one baseline. */
+.nm-lesson .nm-footnote summary{display:inline-flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;vertical-align:middle!important;gap:8px!important;line-height:1.4!important;white-space:nowrap!important}
+.nm-lesson .nm-footnote summary::before,.nm-lesson .nm-footnote summary::after{display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:0 0 auto!important;line-height:1!important;vertical-align:middle!important;margin:0!important;position:static!important;transform:none}
+.nm-lesson .nm-footnote[open] summary::after{transform:rotate(180deg)!important}
 .nm-lesson .nm-footnote summary:focus-visible{outline:2px solid #0c9c8c;outline-offset:4px;border-radius:3px}
 .nm-lesson .nm-footnote #nmCaution{font-size:12px!important;line-height:1.7!important;color:#697787!important;background:transparent!important;border:0!important;padding:6px 0 0!important;margin:0!important;box-shadow:none!important}
 
