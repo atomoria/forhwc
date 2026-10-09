@@ -1243,6 +1243,30 @@ body.book-at-cover{overflow:hidden}
 }
 .nm-lesson-head h2 {font-size:clamp(27px,3.5vw,43px); max-width:100%; text-wrap:balance;}
 
+
+.nm-practice{margin-top:24px;padding:clamp(18px,3vw,30px);border:1px solid #dcc9aa;border-radius:18px;background:#fffaf1;color:#263b4b}
+.nm-practice-heading h3{font-family:'Noto Serif',Georgia,serif;font-size:clamp(22px,2.8vw,30px);margin:8px 0;line-height:1.4}
+.nm-practice-heading p{color:#617182;line-height:1.6}
+.nm-practice-progress{display:flex;justify-content:space-between;gap:12px;color:#8c673b;font-weight:700;font-size:13px;margin-top:20px}
+.nm-practice-track{height:5px;background:#e7ddcd;border-radius:9px;margin:10px 0 22px;overflow:hidden}
+#nmPracticeBar{height:100%;background:#b48a4c;width:0;transition:width .3s}
+#nmPracticeQuestion{font-family:'Noto Serif',Georgia,serif;font-size:clamp(18px,2.3vw,24px);line-height:1.5;margin:0 0 18px}
+.nm-practice-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.nm-practice-choices button{border:1px solid #cbb99d;border-radius:12px;background:#fffdf8;color:#294454;padding:14px;text-align:left;cursor:pointer;font:inherit;line-height:1.4}
+.nm-practice-choices button:hover:not(:disabled){background:#f1e9da}
+.nm-practice-choices button[data-state="correct"]{border-color:#528b76;background:#e3f1e9}
+.nm-practice-choices button[data-state="incorrect"]{border-color:#bb7b65;background:#f9e9e1}
+.nm-practice-choices button:focus-visible,.nm-practice-footer button:focus-visible{outline:3px solid #078f86;outline-offset:2px}
+.nm-practice-short{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.nm-practice-short input{flex:1;min-width:170px;padding:13px 14px;border:1px solid #cbb99d;border-radius:11px;background:#fffdf8;color:#294454;font:inherit}
+.nm-practice-short button{padding:13px 18px;border:1px solid #bda786;border-radius:11px;background:#28495e;color:white;font-weight:700;cursor:pointer}
+.nm-practice-short button:disabled{opacity:.5}
+.nm-practice-feedback{min-height:48px;line-height:1.6;color:#425d5a;margin:18px 0}
+.nm-practice-footer{display:flex;gap:10px;flex-wrap:wrap}
+.nm-practice-footer button{padding:10px 18px;border:1px solid #bda786;border-radius:10px;background:#fff8ec;color:#294454;cursor:pointer;font-weight:700}
+#nmPracticeNext{background:#28495e;color:white}
+#nmPracticeNext:disabled{opacity:.4;cursor:not-allowed}
+@media(max-width:580px){.nm-practice-choices{grid-template-columns:1fr}}
 </style>
 <style>
 .nm-lab{margin-top:22px;padding:clamp(14px,2.5vw,26px);background:#fffaf1;border:1px solid #dbc8aa;border-radius:18px;color:#263b4b}.nm-lab-heading h3{font-family:'Noto Serif',Georgia,serif;font-size:clamp(21px,2.8vw,30px);margin:8px 0;color:#263b4b}.nm-lab-heading p{color:#667485;line-height:1.6}.nm-lab-grid{display:grid;grid-template-columns:repeat(18,minmax(0,1fr));gap:4px;margin:18px 0}.nm-lab-tile{grid-column:var(--g);grid-row:var(--p);min-width:0;min-height:56px;border:1px solid #b9c9c8;border-radius:7px;background:#e7f1ed;color:#264e51;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px}.nm-lab-tile b{font-size:clamp(11px,1.5vw,19px)}.nm-lab-tile small{font-size:9px}.nm-lab-tile[data-picked="a"]{background:#285b70;color:#fff;border-color:#285b70}.nm-lab-tile[data-picked="b"]{background:#a97b3d;color:#fff;border-color:#a97b3d}.nm-lab-tile:focus-visible,.nm-lab-actions button:focus-visible{outline:3px solid #07998e;outline-offset:2px}.nm-lab-selection{border-top:1px solid #e7dccb;padding-top:15px}.nm-lab-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.nm-lab-actions button{padding:9px 12px;border-radius:10px;border:1px solid #bca886;background:#fff8eb;color:#314b5c;cursor:pointer;font-weight:700}.nm-lab-actions button[aria-pressed="true"],#nmLabReveal{background:#28495e;color:white}.nm-lab-actions button:disabled{opacity:.5;cursor:not-allowed}#nmLabFeedback{min-height:24px;color:#355d59;line-height:1.6}.nm-lab-deep{margin-top:18px;border-top:1px solid #e7dccb;padding-top:16px}.nm-lab-deep summary{cursor:pointer;font-weight:700}.nm-shell-controls{margin:12px 0;display:flex;align-items:center;gap:12px}.nm-shell-controls select{border:1px solid #c7b79c;border-radius:8px;padding:8px;background:white;color:#263b4b}.nm-shell-model{display:flex;justify-content:center;min-height:235px}.nm-shell-model svg{width:min(100%,360px);height:235px}.nm-lab-deep p{font-size:13px;color:#647383;line-height:1.6}@media(max-width:640px){.nm-lab-grid{gap:2px}.nm-lab-tile{min-height:40px;border-radius:4px}.nm-lab-tile b{font-size:10px}.nm-lab-tile small{font-size:7px}.nm-lab-actions button{font-size:12px;padding:8px}}
@@ -1344,6 +1368,16 @@ body.book-at-cover{overflow:hidden}
   <div class="nm-lab-selection"><div id="nmLabPicked" aria-live="polite"></div><div class="nm-lab-actions"><button type="button" id="nmLabPredictA">Element A</button><button type="button" id="nmLabPredictB">Element B</button><button type="button" id="nmLabReveal">Reveal explanation</button><button type="button" id="nmLabReset">Reset</button></div><p id="nmLabFeedback" aria-live="polite"></p></div>
   <details class="nm-lab-deep" id="nmShellDetails"><summary id="nmShellSummary">Explore deeper · electron shells</summary><div class="nm-shell-controls"><label id="nmShellLabel" for="nmShellSelect">Element</label><select id="nmShellSelect"></select></div><div id="nmShellModel" class="nm-shell-model" role="img" aria-label="Simplified electron-shell diagram"></div><p id="nmShellCaption"></p></details>
  </div>
+<section class="nm-practice" id="nmPractice" aria-labelledby="nmPracticeTitle">
+  <div class="nm-practice-heading"><span class="nm-kicker" id="nmPracticeKicker">STEP 4 · PRACTISE</span><h3 id="nmPracticeTitle">Test your understanding</h3><p id="nmPracticeIntro">Apply the trends, one question at a time.</p></div>
+  <div class="nm-practice-progress"><span id="nmPracticeCount"></span><span id="nmPracticeScore"></span></div>
+  <div class="nm-practice-track"><div id="nmPracticeBar"></div></div>
+  <h4 id="nmPracticeQuestion"></h4>
+  <div id="nmPracticeChoices" class="nm-practice-choices"></div>
+  <p id="nmPracticeFeedback" class="nm-practice-feedback" aria-live="polite"></p>
+  <div class="nm-practice-footer"><button type="button" id="nmPracticeNext" disabled>Next question →</button><button type="button" id="nmPracticeRestart">Restart</button></div>
+</section>
+
  <details class="nm-deeper"><summary id="nmWhyTitle">Why does this happen? Explore the science</summary><p id="nmWhy">Across a period, effective nuclear attraction generally increases. Down a group, additional shells and shielding generally reduce attraction.</p></details>
  <details class="nm-footnote"><summary id="nmCautionToggle">Scientific note</summary><p id="nmCaution">This is a qualitative trend. Avoid treating it as an exact ranking for every pair of elements.</p></details>
 </section>
@@ -4601,6 +4635,80 @@ function renderNmLab(){const vi=currentLanguage==='vi',lang=vi?'vi':'en',t=nmLab
 for(const side of ['a','b'])document.getElementById(`nmLabPredict${side.toUpperCase()}`).addEventListener('click',()=>{nmLabState.prediction=side;nmLabState.revealed=false;renderNmLab()});document.getElementById('nmLabReveal').addEventListener('click',()=>{nmLabState.revealed=true;renderNmLab()});document.getElementById('nmLabReset').addEventListener('click',()=>{Object.assign(nmLabState,{a:11,b:17,prediction:null,revealed:false});nmLabNext='a';renderNmLab()});nmLabUI.select.addEventListener('change',renderNmLab);
 const nmLabPriorRender=renderNonmetalTrends;renderNonmetalTrends=function(){nmLabPriorRender();renderNmLab()};renderNmLab();
 
+
+/* Chapter 2: focused practice with bilingual prompts; element names remain English. */
+const nmPracticeBank=[
+ {en:'Across Period 3, which element generally has greater nonmetallic character?',vi:'Trong chu kì 3, nguyên tố nào thường có tính phi kim mạnh hơn?',opts:['Sodium','Magnesium','Sulfur','Aluminium'],correct:2,whyEn:'Sulfur is farther right than the other choices in Period 3.',whyVi:'Sulfur nằm bên phải các lựa chọn còn lại trong chu kì 3.'},
+ {en:'Within Group 17, which element generally has greater nonmetallic character?',vi:'Trong nhóm 17, nguyên tố nào thường có tính phi kim mạnh hơn?',opts:['Iodine','Bromine','Chlorine','Fluorine'],correct:3,whyEn:'Fluorine is highest among these Group 17 elements.',whyVi:'Fluorine nằm cao nhất trong số các nguyên tố nhóm 17 này.'},
+ {en:'Which pair is best compared using the left-to-right trend?',vi:'Cặp nào phù hợp nhất để áp dụng quy luật từ trái sang phải?',opts:['Sodium and Chlorine','Fluorine and Chlorine','Lithium and Sodium','Boron and Aluminium'],correct:0,whyEn:'Sodium and Chlorine are both in Period 3; the other pairs share a group.',whyVi:'Sodium và Chlorine cùng chu kì 3; các cặp còn lại cùng nhóm.'},
+ {en:'Which pair is best compared using the bottom-to-top trend?',vi:'Cặp nào phù hợp nhất để áp dụng quy luật từ dưới lên trên?',opts:['Magnesium and Sulfur','Carbon and Oxygen','Lithium and Sodium','Sodium and Chlorine'],correct:2,whyEn:'Lithium and Sodium are in Group 1, with Lithium above Sodium.',whyVi:'Lithium và Sodium cùng nhóm 1, trong đó Lithium nằm phía trên Sodium.'},
+ {en:'Across a period, nonmetallic character generally becomes stronger in which direction?',vi:'Trong một chu kì, tính phi kim thường mạnh dần theo hướng nào?',opts:['Right to left','Left to right','Top to bottom','No general direction'],correct:1,whyEn:'For main-group elements in a period, the general increase is from left to right.',whyVi:'Đối với các nguyên tố nhóm chính cùng chu kì, tính phi kim nhìn chung tăng từ trái sang phải.'},
+ {en:'Which statement best explains the general left-to-right trend?',vi:'Nhận định nào giải thích phù hợp nhất xu hướng từ trái sang phải?',opts:['Atoms gain more occupied shells','Effective nuclear attraction generally increases','Atomic number decreases','Electron shielding always vanishes'],correct:1,whyEn:'Across a period, effective nuclear attraction generally increases while the number of occupied shells stays the same.',whyVi:'Trong một chu kì, lực hút hạt nhân hiệu dụng nhìn chung tăng, còn số lớp electron có electron không đổi.'},
+ {en:'An element is above another element in the same main group. Which generally has stronger nonmetallic character?',vi:'Hai nguyên tố cùng nhóm chính, một nguyên tố ở phía trên. Nguyên tố nào thường có tính phi kim mạnh hơn?',opts:['The upper element','The lower element','Both always equal','The one with more occupied shells'],correct:0,whyEn:'Within a main group, nonmetallic character generally increases upward.',whyVi:'Trong một nhóm chính, tính phi kim nhìn chung tăng từ dưới lên trên.'},
+ {en:'Which comparison cannot be decided reliably by using only the same-period or same-group arrow rule?',vi:'Cặp nào không thể kết luận chắc chắn chỉ bằng quy tắc mũi tên cùng chu kì hoặc cùng nhóm?',opts:['Sodium and Chlorine','Fluorine and Chlorine','Carbon and Sulfur','Magnesium and Chlorine'],correct:2,whyEn:'Carbon and Sulfur are in different periods and different groups; the simple arrow rules alone do not rank this pair.',whyVi:'Carbon và Sulfur khác cả chu kì lẫn nhóm; chỉ dùng quy tắc mũi tên đơn giản không đủ để kết luận cặp này.'}
+,
+ {type:'short',en:'In Period 3, which has greater nonmetallic character: Sodium or Chlorine? Write the English element name or symbol.',vi:'Trong chu kì 3, Sodium hay Chlorine có tính phi kim mạnh hơn? Viết tên tiếng Anh hoặc kí hiệu nguyên tố.',answers:['chlorine','cl'],display:'Chlorine (Cl)',whyEn:'Chlorine lies to the right of Sodium in Period 3.',whyVi:'Chlorine nằm bên phải Sodium trong chu kì 3.'},
+ {type:'short',en:'Which Group 17 element is above Chlorine? Write its English name or symbol.',vi:'Nguyên tố nào thuộc nhóm 17 và nằm phía trên Chlorine? Viết tên tiếng Anh hoặc kí hiệu.',answers:['fluorine','f'],display:'Fluorine (F)',whyEn:'Fluorine is directly above Chlorine in Group 17.',whyVi:'Fluorine nằm ngay phía trên Chlorine trong nhóm 17.'},
+ {type:'short',en:'Which has greater nonmetallic character in Period 2: Carbon or Oxygen? Write the English name or symbol.',vi:'Trong chu kì 2, Carbon hay Oxygen có tính phi kim mạnh hơn? Viết tên tiếng Anh hoặc kí hiệu.',answers:['oxygen','o'],display:'Oxygen (O)',whyEn:'Oxygen is to the right of Carbon in Period 2.',whyVi:'Oxygen nằm bên phải Carbon trong chu kì 2.'},
+ {type:'short',en:'Which Group 16 element has greater nonmetallic character: Oxygen or Sulfur? Write its English name or symbol.',vi:'Trong nhóm 16, Oxygen hay Sulfur có tính phi kim mạnh hơn? Viết tên tiếng Anh hoặc kí hiệu.',answers:['oxygen','o'],display:'Oxygen (O)',whyEn:'Oxygen is above Sulfur in Group 16.',whyVi:'Oxygen nằm phía trên Sulfur trong nhóm 16.'}
+];
+const nmPracticeState={index:0,score:0,chosen:null,typed:''};
+const nmPracticeUI={title:document.getElementById('nmPracticeTitle'),kicker:document.getElementById('nmPracticeKicker'),intro:document.getElementById('nmPracticeIntro'),count:document.getElementById('nmPracticeCount'),score:document.getElementById('nmPracticeScore'),bar:document.getElementById('nmPracticeBar'),question:document.getElementById('nmPracticeQuestion'),choices:document.getElementById('nmPracticeChoices'),feedback:document.getElementById('nmPracticeFeedback'),next:document.getElementById('nmPracticeNext'),restart:document.getElementById('nmPracticeRestart')};
+function renderNmPractice(){
+ const vi=currentLanguage==='vi',t=vi?'vi':'en',p=nmPracticeState,q=nmPracticeBank[p.index],done=p.index>=nmPracticeBank.length;
+ nmPracticeUI.kicker.textContent=vi?'BƯỚC 4 · LUYỆN TẬP':'STEP 4 · PRACTISE';
+ nmPracticeUI.title.textContent=vi?'Kiểm tra kiến thức':'Test your understanding';
+ nmPracticeUI.intro.textContent=vi?'Vận dụng quy luật qua từng câu hỏi.':'Apply the trends, one question at a time.';
+ nmPracticeUI.count.textContent=done?(vi?'Hoàn thành':'Completed'):`${vi?'Câu':'Question'} ${p.index+1}/${nmPracticeBank.length}`;
+ nmPracticeUI.score.textContent=`${vi?'Điểm':'Score'}: ${p.score}/${nmPracticeBank.length}`;
+ nmPracticeUI.bar.style.width=`${100*(done?nmPracticeBank.length:p.index+(p.chosen!==null?1:0))/nmPracticeBank.length}%`;
+ nmPracticeUI.choices.replaceChildren();
+ nmPracticeUI.next.hidden=done;
+ nmPracticeUI.restart.textContent=vi?'Làm lại':'Restart';
+ if(done){
+  nmPracticeUI.question.textContent=vi?`Bạn đạt ${p.score}/${nmPracticeBank.length} điểm!`:`You scored ${p.score}/${nmPracticeBank.length}!`;
+  nmPracticeUI.feedback.textContent=vi?'Bạn có thể làm lại để luyện tập thêm.':'You can restart to practise again.';
+  return;
+ }
+ nmPracticeUI.question.textContent=q[t];
+ if(q.type==='short'){
+   const wrap=document.createElement('div');wrap.className='nm-practice-short';
+   const input=document.createElement('input');input.type='text';input.maxLength=45;
+   input.autocomplete='off';input.setAttribute('aria-label',vi?'Câu trả lời ngắn':'Short answer');
+   input.placeholder=vi?'Nhập tên tiếng Anh hoặc kí hiệu':'Type English name or symbol';
+   input.value=p.typed;input.disabled=p.chosen!==null;
+   input.addEventListener('input',()=>{p.typed=input.value;check.disabled=!input.value.trim()});
+   const check=document.createElement('button');check.type='button';
+   check.textContent=vi?'Kiểm tra':'Check answer';check.disabled=p.chosen!==null||!p.typed.trim();
+   check.addEventListener('click',()=>{
+     if(p.chosen!==null||!p.typed.trim())return;
+     const normalized=p.typed.trim().toLocaleLowerCase('en').replace(/[.\s]+/g,'');
+     p.chosen=q.answers.includes(normalized)?1:0;
+     if(p.chosen===1)p.score++;
+     renderNmPractice();
+   });
+   input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!check.disabled)check.click()});
+   wrap.append(input,check);nmPracticeUI.choices.append(wrap);
+   nmPracticeUI.feedback.textContent=p.chosen===null?'':`${p.chosen===1?(vi?'Chính xác! ':'Correct! '):(vi?`Chưa đúng. Đáp án: ${q.display}. `:`Not quite. Answer: ${q.display}. `)}${q[vi?'whyVi':'whyEn']}`;
+   nmPracticeUI.next.disabled=p.chosen===null;
+   nmPracticeUI.next.textContent=p.index===nmPracticeBank.length-1?(vi?'Xem kết quả →':'See results →'):(vi?'Câu tiếp theo →':'Next question →');
+   return;
+ }
+ for(let i=0;i<q.opts.length;i++){
+  const btn=document.createElement('button');btn.type='button';btn.textContent=`${String.fromCharCode(65+i)}. ${q.opts[i]}`;
+  if(p.chosen!==null){btn.disabled=true;if(i===q.correct)btn.dataset.state='correct';else if(i===p.chosen)btn.dataset.state='incorrect'}
+  else btn.addEventListener('click',()=>{p.chosen=i;if(i===q.correct)p.score++;renderNmPractice()});
+  nmPracticeUI.choices.append(btn);
+ }
+ nmPracticeUI.feedback.textContent=p.chosen===null?'':`${p.chosen===q.correct?(vi?'Chính xác! ':'Correct! '):(vi?'Chưa đúng. ':'Not quite. ')}${q[vi?'whyVi':'whyEn']}`;
+ nmPracticeUI.next.disabled=p.chosen===null;
+ nmPracticeUI.next.textContent=p.index===nmPracticeBank.length-1?(vi?'Xem kết quả →':'See results →'):(vi?'Câu tiếp theo →':'Next question →');
+ nmPracticeUI.restart.textContent=vi?'Làm lại':'Restart';
+}
+nmPracticeUI.next.addEventListener('click',()=>{if(nmPracticeState.chosen===null)return;nmPracticeState.index++;nmPracticeState.chosen=null;nmPracticeState.typed='';renderNmPractice()});
+nmPracticeUI.restart.addEventListener('click',()=>{nmPracticeState.index=0;nmPracticeState.score=0;nmPracticeState.chosen=null;nmPracticeState.typed='';renderNmPractice()});
+const nmPracticePriorRender=renderNonmetalTrends;renderNonmetalTrends=function(){nmPracticePriorRender();renderNmPractice()};
+renderNmPractice();
 </script>
 
 </body>
