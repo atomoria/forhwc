@@ -1393,6 +1393,25 @@ html[lang="vi"] .nm-practice-overlay,html[lang="vi"] .nm-celebration-card {font-
   letter-spacing:normal!important;
   word-spacing:normal!important;
 }
+
+/* Vietnamese glyph fix: ensure actual language state matches the selected UI.
+   Noto Sans has reliable Vietnamese glyph shaping for headings. */
+html[lang="vi"] .nm-lesson .nm-practice-heading h3,
+html[lang="vi"] .nm-lesson #nmPracticeQuestion,
+html[lang="vi"] .nm-lesson .nm-lab-heading h3,
+html[lang="vi"] .nm-lesson .nm-lesson-head h2,
+html[lang="vi"] .nm-lesson .nm-workspace-title h3,
+html[lang="vi"] .nm-lesson .nm-takeaway h3,
+html[lang="vi"] .nm-lesson .nm-demo-explanation h4,
+html[lang="vi"] .book-contents .contents-panel h2,
+html[lang="vi"] .book-contents .chapter-choice strong {
+ font-family: "Noto Sans", "Segoe UI", Arial, sans-serif !important;
+ font-feature-settings: normal !important;
+ font-kerning: normal !important;
+ letter-spacing: 0 !important;
+ word-spacing: normal !important;
+ text-transform: none !important;
+}
 </style>
 </head>
 
@@ -2440,6 +2459,7 @@ function translateStaticUI() {
 }
 function setLanguage(language) {
     currentLanguage = language;
+    document.documentElement.lang = language;
     try { localStorage.setItem('periodic-table-language', language); } catch (e) {}
     translateStaticUI();
     renderBookNavigation();
@@ -4697,6 +4717,7 @@ document.querySelectorAll('h1, .subtitle, .clear-btn, .legend button, .info-labe
 document.getElementById('langEN').addEventListener('click', () => setLanguage('en'));
 document.getElementById('langVI').addEventListener('click', () => setLanguage('vi'));
 try { currentLanguage = localStorage.getItem('periodic-table-language') === 'vi' ? 'vi' : 'en'; } catch (e) {}
+document.documentElement.lang = currentLanguage;
 translateStaticUI();
 renderNonmetalTrends();
 showBookPage(location.hash==="#trends"?"trends":"table",{updateHash:false});
