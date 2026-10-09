@@ -1270,6 +1270,44 @@ body.book-at-cover{overflow:hidden}
 </style>
 <style>
 .nm-lab{margin-top:22px;padding:clamp(14px,2.5vw,26px);background:#fffaf1;border:1px solid #dbc8aa;border-radius:18px;color:#263b4b}.nm-lab-heading h3{font-family:'Noto Serif',Georgia,serif;font-size:clamp(21px,2.8vw,30px);margin:8px 0;color:#263b4b}.nm-lab-heading p{color:#667485;line-height:1.6}.nm-lab-grid{display:grid;grid-template-columns:repeat(18,minmax(0,1fr));gap:4px;margin:18px 0}.nm-lab-tile{grid-column:var(--g);grid-row:var(--p);min-width:0;min-height:56px;border:1px solid #b9c9c8;border-radius:7px;background:#e7f1ed;color:#264e51;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px}.nm-lab-tile b{font-size:clamp(11px,1.5vw,19px)}.nm-lab-tile small{font-size:9px}.nm-lab-tile[data-picked="a"]{background:#285b70;color:#fff;border-color:#285b70}.nm-lab-tile[data-picked="b"]{background:#a97b3d;color:#fff;border-color:#a97b3d}.nm-lab-tile:focus-visible,.nm-lab-actions button:focus-visible{outline:3px solid #07998e;outline-offset:2px}.nm-lab-selection{border-top:1px solid #e7dccb;padding-top:15px}.nm-lab-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.nm-lab-actions button{padding:9px 12px;border-radius:10px;border:1px solid #bca886;background:#fff8eb;color:#314b5c;cursor:pointer;font-weight:700}.nm-lab-actions button[aria-pressed="true"],#nmLabReveal{background:#28495e;color:white}.nm-lab-actions button:disabled{opacity:.5;cursor:not-allowed}#nmLabFeedback{min-height:24px;color:#355d59;line-height:1.6}.nm-lab-deep{margin-top:18px;border-top:1px solid #e7dccb;padding-top:16px}.nm-lab-deep summary{cursor:pointer;font-weight:700}.nm-shell-controls{margin:12px 0;display:flex;align-items:center;gap:12px}.nm-shell-controls select{border:1px solid #c7b79c;border-radius:8px;padding:8px;background:white;color:#263b4b}.nm-shell-model{display:flex;justify-content:center;min-height:235px}.nm-shell-model svg{width:min(100%,360px);height:235px}.nm-lab-deep p{font-size:13px;color:#647383;line-height:1.6}@media(max-width:640px){.nm-lab-grid{gap:2px}.nm-lab-tile{min-height:40px;border-radius:4px}.nm-lab-tile b{font-size:10px}.nm-lab-tile small{font-size:7px}.nm-lab-actions button{font-size:12px;padding:8px}}
+
+/* Vietnamese typography consistency audit: book and chapter 2 */
+:root { --book-vietnamese-serif: "Noto Serif", "DejaVu Serif", "Times New Roman", serif; }
+.book-contents .contents-panel h2,
+.book-contents .chapter-choice strong,
+.book-turn-layer .book-turn-sheet,
+.nm-lesson .nm-lesson-head h2,
+.nm-lesson .nm-takeaway h3,
+.nm-lesson .nm-workspace-title h3,
+.nm-lesson .nm-demo-explanation h4,
+.nm-lesson .nm-custom h3,
+.nm-lesson .nm-lab-heading h3,
+.nm-lesson .nm-practice-heading h3,
+.nm-lesson #nmPracticeQuestion {
+  font-family:var(--book-vietnamese-serif)!important;
+  font-kerning:normal!important;
+  font-variant-ligatures:normal!important;
+  font-feature-settings:"kern" 1!important;
+  letter-spacing:0!important;
+  word-spacing:normal!important;
+  text-transform:none!important;
+  line-height:1.45!important;
+  overflow-wrap:break-word;
+}
+.nm-lesson .nm-practice-heading h3 {font-size:clamp(22px,2.8vw,30px)}
+.nm-lesson #nmPracticeQuestion {font-size:clamp(18px,2.3vw,24px)}
+.nm-lesson .nm-lab-heading h3 {font-size:clamp(21px,2.8vw,30px)}
+.nm-lesson .nm-practice-choices button,
+.nm-lesson .nm-practice-short input,
+.nm-lesson .nm-practice-short button,
+.nm-lesson .nm-practice-feedback,
+.nm-lesson .nm-lab-actions button,
+.nm-lesson .nm-footnote summary,
+.nm-lesson .nm-footnote #nmCaution {
+  font-family:"Noto Sans","Segoe UI",Arial,sans-serif!important;
+  letter-spacing:normal!important;
+  word-spacing:normal!important;
+}
 </style>
 </head>
 
