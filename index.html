@@ -1267,6 +1267,10 @@ body.book-at-cover{overflow:hidden}
 #nmPracticeNext{background:#28495e;color:white}
 #nmPracticeNext:disabled{opacity:.4;cursor:not-allowed}
 @media(max-width:580px){.nm-practice-choices{grid-template-columns:1fr}}
+
+.answer-sound-toggle{display:inline-flex;align-items:center;justify-content:center;float:right;min-height:36px;padding:7px 12px;margin:0 0 10px 12px;border:1px solid #cbb99d;border-radius:20px;background:#fffaf0;color:#34516a;font:600 12px/1.3 system-ui,sans-serif;cursor:pointer}
+.answer-sound-toggle:hover{background:#f4e9d7}
+.answer-sound-toggle:focus-visible{outline:3px solid #078f86;outline-offset:2px}
 </style>
 <style>
 .nm-lab{margin-top:22px;padding:clamp(14px,2.5vw,26px);background:#fffaf1;border:1px solid #dbc8aa;border-radius:18px;color:#263b4b}.nm-lab-heading h3{font-family:'Noto Serif',Georgia,serif;font-size:clamp(21px,2.8vw,30px);margin:8px 0;color:#263b4b}.nm-lab-heading p{color:#667485;line-height:1.6}.nm-lab-grid{display:grid;grid-template-columns:repeat(18,minmax(0,1fr));gap:4px;margin:18px 0}.nm-lab-tile{grid-column:var(--g);grid-row:var(--p);min-width:0;min-height:56px;border:1px solid #b9c9c8;border-radius:7px;background:#e7f1ed;color:#264e51;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px}.nm-lab-tile b{font-size:clamp(11px,1.5vw,19px)}.nm-lab-tile small{font-size:9px}.nm-lab-tile[data-picked="a"]{background:#285b70;color:#fff;border-color:#285b70}.nm-lab-tile[data-picked="b"]{background:#a97b3d;color:#fff;border-color:#a97b3d}.nm-lab-tile:focus-visible,.nm-lab-actions button:focus-visible{outline:3px solid #07998e;outline-offset:2px}.nm-lab-selection{border-top:1px solid #e7dccb;padding-top:15px}.nm-lab-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.nm-lab-actions button{padding:9px 12px;border-radius:10px;border:1px solid #bca886;background:#fff8eb;color:#314b5c;cursor:pointer;font-weight:700}.nm-lab-actions button[aria-pressed="true"],#nmLabReveal{background:#28495e;color:white}.nm-lab-actions button:disabled{opacity:.5;cursor:not-allowed}#nmLabFeedback{min-height:24px;color:#355d59;line-height:1.6}.nm-lab-deep{margin-top:18px;border-top:1px solid #e7dccb;padding-top:16px}.nm-lab-deep summary{cursor:pointer;font-weight:700}.nm-shell-controls{margin:12px 0;display:flex;align-items:center;gap:12px}.nm-shell-controls select{border:1px solid #c7b79c;border-radius:8px;padding:8px;background:white;color:#263b4b}.nm-shell-model{display:flex;justify-content:center;min-height:235px}.nm-shell-model svg{width:min(100%,360px);height:235px}.nm-lab-deep p{font-size:13px;color:#647383;line-height:1.6}@media(max-width:640px){.nm-lab-grid{gap:2px}.nm-lab-tile{min-height:40px;border-radius:4px}.nm-lab-tile b{font-size:10px}.nm-lab-tile small{font-size:7px}.nm-lab-actions button{font-size:12px;padding:8px}}
@@ -4298,6 +4302,38 @@ const quizUI = {
   feedback:document.getElementById('quizFeedback'),score:document.getElementById('quizScore'),
   next:document.getElementById('quizNext'),progress:document.getElementById('quizProgress')
 };
+
+/* Gentle, self-contained answer feedback sounds. No audio files or network needed. */
+let answerSoundEnabled=true;
+let answerAudioContext=null;
+function playAnswerSound(correct){
+ if(!answerSoundEnabled)return;
+ try{
+  const AudioContextClass=window.AudioContext||window.webkitAudioContext;
+  if(!AudioContextClass)return;
+  if(!answerAudioContext)answerAudioContext=new AudioContextClass();
+  const ctx=answerAudioContext;
+  if(ctx.state==='suspended')ctx.resume().catch(()=>{});
+  const now=ctx.currentTime;
+  const notes=correct?[{hz:523.25,at:0,duration:.11},{hz:659.25,at:.11,duration:.11},{hz:783.99,at:.22,duration:.20}]:[{hz:392,at:0,duration:.14},{hz:329.63,at:.14,duration:.20}];
+  notes.forEach(({hz,at,duration})=>{
+   const osc=ctx.createOscillator(),gain=ctx.createGain();
+   osc.type=correct?'sine':'triangle';osc.frequency.setValueAtTime(hz,now+at);
+   gain.gain.setValueAtTime(.0001,now+at);
+   gain.gain.exponentialRampToValueAtTime(correct?.085:.055,now+at+.015);
+   gain.gain.exponentialRampToValueAtTime(.0001,now+at+duration);
+   osc.connect(gain);gain.connect(ctx.destination);
+   osc.start(now+at);osc.stop(now+at+duration+.015);
+  });
+ }catch(err){/* Sound is optional; answers must still work if audio is blocked. */}
+}
+function createAnswerSoundToggle(container){
+ const button=document.createElement('button');button.type='button';button.className='answer-sound-toggle';
+ const update=()=>{const vi=currentLanguage==='vi';button.textContent=answerSoundEnabled?(vi?'♪ Âm thanh: Bật':'♪ Sound: On'):(vi?'♪ Âm thanh: Tắt':'♪ Sound: Off');button.setAttribute('aria-pressed',String(answerSoundEnabled));button.title=vi?'Bật hoặc tắt âm thanh đáp án':'Toggle answer feedback sounds'};
+ button.addEventListener('click',()=>{answerSoundEnabled=!answerSoundEnabled;document.querySelectorAll('.answer-sound-toggle').forEach(b=>{const vi=currentLanguage==='vi';b.textContent=answerSoundEnabled?(vi?'♪ Âm thanh: Bật':'♪ Sound: On'):(vi?'♪ Âm thanh: Tắt':'♪ Sound: Off');b.setAttribute('aria-pressed',String(answerSoundEnabled))})});
+ container.prepend(button);update();return update;
+}
+
 let quizQuestions=[],quizIndex=0,quizCorrect=0,quizAnswered=false,quizSelectedAnswer=null,quizPreviousFocus=null;
 const quizText = {
  en:{title:'Chemistry Challenge',intro:'10 harder questions · Electron shells, periodic groups and atomic structure',
@@ -4421,6 +4457,7 @@ function startChemQuiz(){
  quizIndex=0;quizCorrect=0;quizAnswered=false;quizSelectedAnswer=null;renderChemQuiz();
 }
 function renderChemQuiz(){
+ document.querySelectorAll('.answer-sound-toggle').forEach(b=>{const vi=currentLanguage==='vi';b.textContent=answerSoundEnabled?(vi?'♪ Âm thanh: Bật':'♪ Sound: On'):(vi?'♪ Âm thanh: Tắt':'♪ Sound: Off');b.setAttribute('aria-pressed',String(answerSoundEnabled))});
  const t=quizText[currentLanguage==='vi'?'vi':'en'];
  quizUI.heading.textContent=t.title;quizUI.intro.textContent=t.intro;
  updateQuizLearning(quizQuestions[quizIndex]?.type ?? 0);
@@ -4441,7 +4478,7 @@ function renderChemQuiz(){
   const button=document.createElement('button');button.type='button';button.className='quiz-option';button.textContent=opt;
   button.addEventListener('click',()=>{
    if(quizAnswered)return;quizAnswered=true;quizSelectedAnswer=opt;
-   const right=opt===q.answer;if(right)quizCorrect++;
+   const right=opt===q.answer;if(right)quizCorrect++;playAnswerSound(right);
    quizUI.options.querySelectorAll('button').forEach(b=>{b.disabled=true;if(b.textContent===q.answer)b.classList.add('correct');else if(b===button)b.classList.add('incorrect')});
    quizUI.feedback.textContent=(right?t.correct:`${t.wrong} ${t.answer}${q.answer}. `)+q.explain[currentLanguage==='vi'?'vi':'en'];
    quizUI.score.textContent=`${t.score}: ${quizCorrect} / ${quizQuestions.length}`;
@@ -4693,6 +4730,7 @@ const nmPracticeBank=[
 const nmPracticeState={index:0,score:0,chosen:null,typed:''};
 const nmPracticeUI={title:document.getElementById('nmPracticeTitle'),kicker:document.getElementById('nmPracticeKicker'),intro:document.getElementById('nmPracticeIntro'),count:document.getElementById('nmPracticeCount'),score:document.getElementById('nmPracticeScore'),bar:document.getElementById('nmPracticeBar'),question:document.getElementById('nmPracticeQuestion'),choices:document.getElementById('nmPracticeChoices'),feedback:document.getElementById('nmPracticeFeedback'),next:document.getElementById('nmPracticeNext'),restart:document.getElementById('nmPracticeRestart')};
 function renderNmPractice(){
+ document.querySelectorAll('.answer-sound-toggle').forEach(b=>{const vi=currentLanguage==='vi';b.textContent=answerSoundEnabled?(vi?'♪ Âm thanh: Bật':'♪ Sound: On'):(vi?'♪ Âm thanh: Tắt':'♪ Sound: Off');b.setAttribute('aria-pressed',String(answerSoundEnabled))});
  const vi=currentLanguage==='vi',t=vi?'vi':'en',p=nmPracticeState,q=nmPracticeBank[p.index],done=p.index>=nmPracticeBank.length;
  nmPracticeUI.kicker.textContent=vi?'BƯỚC 4 · LUYỆN TẬP':'STEP 4 · PRACTISE';
  nmPracticeUI.title.textContent=vi?'Kiểm tra kiến thức':'Test your understanding';
@@ -4723,7 +4761,7 @@ function renderNmPractice(){
      const normalized=p.typed.trim().toLocaleLowerCase('en').replace(/[.\s]+/g,'');
      p.chosen=q.answers.includes(normalized)?1:0;
      if(p.chosen===1)p.score++;
-     renderNmPractice();
+     playAnswerSound(p.chosen===1);renderNmPractice();
    });
    input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!check.disabled)check.click()});
    wrap.append(input,check);nmPracticeUI.choices.append(wrap);
@@ -4735,7 +4773,7 @@ function renderNmPractice(){
  for(let i=0;i<q.opts.length;i++){
   const btn=document.createElement('button');btn.type='button';btn.textContent=`${String.fromCharCode(65+i)}. ${q.opts[i]}`;
   if(p.chosen!==null){btn.disabled=true;if(i===q.correct)btn.dataset.state='correct';else if(i===p.chosen)btn.dataset.state='incorrect'}
-  else btn.addEventListener('click',()=>{p.chosen=i;if(i===q.correct)p.score++;renderNmPractice()});
+  else btn.addEventListener('click',()=>{p.chosen=i;if(i===q.correct)p.score++;playAnswerSound(i===q.correct);renderNmPractice()});
   nmPracticeUI.choices.append(btn);
  }
  nmPracticeUI.feedback.textContent=p.chosen===null?'':`${p.chosen===q.correct?(vi?'Chính xác! ':'Correct! '):(vi?'Chưa đúng. ':'Not quite. ')}${q[vi?'whyVi':'whyEn']}`;
@@ -4745,6 +4783,10 @@ function renderNmPractice(){
 }
 nmPracticeUI.next.addEventListener('click',()=>{if(nmPracticeState.chosen===null)return;nmPracticeState.index++;nmPracticeState.chosen=null;nmPracticeState.typed='';renderNmPractice()});
 nmPracticeUI.restart.addEventListener('click',()=>{nmPracticeState.index=0;nmPracticeState.score=0;nmPracticeState.chosen=null;nmPracticeState.typed='';renderNmPractice()});
+const soundToggleRefreshers=[
+ createAnswerSoundToggle(document.querySelector('.nm-practice-heading')),
+ createAnswerSoundToggle(quizUI.dialog)
+];
 const nmPracticePriorRender=renderNonmetalTrends;renderNonmetalTrends=function(){nmPracticePriorRender();renderNmPractice()};
 renderNmPractice();
 </script>
