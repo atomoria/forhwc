@@ -1207,6 +1207,10 @@ body.book-at-cover{overflow:hidden}
 .contents-panel h2 {line-height:1.4}
 .chapter-choice {min-width:0}
 
+
+/* Chapter 2: focused, progressive lesson */
+.nm-lesson{max-width:1120px;margin:0 auto!important;padding:clamp(18px,3vw,38px)!important;background:#fcf6e9!important;color:#273a4c!important;border:1px solid #d9c49c!important;border-radius:18px!important}
+.nm-lesson-head{text-align:center;margin-bottom:24px}.nm-lesson-head h2{font-family:'Noto Serif',Georgia,serif;font-size:clamp(30px,4vw,46px);color:#243749;margin:8px 0}.nm-lesson-head p{color:#657285;font-size:16px}.nm-kicker,.nm-lesson-head #nmTag{font-size:11px;letter-spacing:2px;color:#a27435;font-weight:800}.nm-takeaway{background:#fff;border:2px solid #d9b77d;border-radius:16px;padding:22px;margin-bottom:22px;box-shadow:0 8px 22px #513a1210}.nm-rule-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}.nm-rule-grid>div{display:flex;align-items:center;gap:12px;background:#f5eddf;padding:15px;border-radius:12px}.nm-rule-grid strong{font-size:clamp(14px,1.7vw,18px);line-height:1.5}.nm-rule-arrow{font-size:44px;color:#0b8b81;line-height:1}#nmCoreNote{margin:6px 0 0;color:#667181;font-size:13px}.nm-lesson-workspace{background:#fff;border:1px solid #e1d2ba;border-radius:18px;padding:22px}.nm-workspace-title{display:flex;justify-content:space-between;align-items:center;gap:12px}.nm-workspace-title h3{font-family:'Noto Serif',Georgia,serif;font-size:25px;color:#263a4a;margin:6px 0 14px}.nm-step{font-size:12px;color:#8a765b}.nm-example-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.nm-example-tabs button{cursor:pointer;border:1px solid #c7b69c;border-radius:999px;padding:10px 15px;color:#334b5b;background:#fff;font-weight:700}.nm-example-tabs button.active,.nm-example-tabs button[aria-pressed=true]{background:#27445b;color:#fff;border-color:#27445b}.nm-example-tabs button:focus-visible{outline:3px solid #0c9c8c;outline-offset:3px}.nm-demo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}.nm-demo-diagram{background:linear-gradient(145deg,#203d55,#172d41);border-radius:16px;min-height:255px;padding:24px;color:#fff;display:flex;flex-direction:column;justify-content:space-between}.nm-demo-axis{font-size:12px;color:#c9d9e5}.nm-demo-elements{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap}.nm-demo-element{width:90px;height:104px;border:1px solid #a6d8ce;background:#205f68;border-radius:12px;text-align:center;display:flex;flex-direction:column;justify-content:center;gap:4px}.nm-demo-element b{font-size:32px;color:#fff}.nm-demo-element small{font-size:12px;color:#cbe9e6}.nm-demo-between{font-size:28px;color:#f0d28f}.nm-demo-direction{color:#f1d69c;font-size:14px;text-align:center;font-weight:700}.nm-demo-explanation{padding:15px 8px;align-self:center}.nm-demo-explanation h4{font-size:24px;color:#243b4c;margin:12px 0}.nm-demo-explanation p{color:#374e60;line-height:1.7;font-size:16px}.nm-reason{margin-top:16px;border-left:3px solid #0b938a;background:#edf8f4;padding:12px 14px;color:#29534e;font-size:14px;line-height:1.6}.nm-custom{padding-top:20px}.nm-custom h3{color:#263a4a}.nm-custom .nm-controls{display:grid;grid-template-columns:1fr 1fr;gap:12px}.nm-custom label{display:flex;flex-direction:column;gap:8px;color:#425669}.nm-custom select{max-width:100%;min-width:0;padding:10px;border-radius:9px;background:#fff;color:#243b4c;border:1px solid #c8bba7}.nm-deeper{background:#f7f0e3;border:1px solid #ddc9a7;border-radius:12px;padding:18px;margin-top:20px;color:#2c4554}.nm-deeper summary{cursor:pointer;font-weight:750}.nm-deeper p{line-height:1.7}.nm-lesson .nm-note{color:#657284;font-size:13px;line-height:1.6;margin:18px 0 0}@media(max-width:720px){.nm-rule-grid,.nm-demo,.nm-custom .nm-controls{grid-template-columns:1fr}.nm-lesson-workspace{padding:14px}.nm-demo-diagram{min-height:220px}}
 </style>
 </head>
 
@@ -1291,10 +1295,15 @@ body.book-at-cover{overflow:hidden}
 
 </section>
 
-<section class="nm-section" id="nonmetallicTrends" aria-labelledby="nmTitle">
- <div class="nm-head"><div><h2 id="nmTitle">Periodic Trends: Nonmetallic Character</h2><p id="nmSubtitle">Explore how the tendency to attract electrons changes across the periodic table.</p></div><span class="nm-tag" id="nmTag">INTERACTIVE CHEMISTRY</span></div>
- <div class="nm-grid"><div class="nm-visual"><h3 id="nmDiagramTitle">General direction of increase</h3><div class="nm-arrows" role="img" aria-label="Nonmetallic character generally increases upward and to the right on the periodic table"><div class="nm-right"><span id="nmAcross">Across a period</span><span class="nm-arrow">⟶</span></div><div class="nm-up"><span class="nm-arrow">↑</span><span id="nmDown">Up a group</span></div><div class="nm-map" aria-hidden="true"><span class="nm-cell nm-weak"></span><span class="nm-cell nm-weak"></span><span class="nm-cell nm-medium"></span><span class="nm-cell nm-medium"></span><span class="nm-cell nm-strong"></span><span class="nm-cell nm-strong"></span><span class="nm-cell nm-strong"></span><span class="nm-cell nm-marker nm-strong">F</span><span class="nm-cell nm-weak"></span><span class="nm-cell nm-weak"></span><span class="nm-cell nm-medium"></span><span class="nm-cell nm-medium"></span><span class="nm-cell nm-medium"></span><span class="nm-cell nm-strong"></span><span class="nm-cell nm-strong"></span><span class="nm-cell nm-strong"></span><span class="nm-cell nm-weak"></span><span class="nm-cell nm-weak"></span><span class="nm-cell nm-weak"></span><span class="nm-cell nm-medium"></span><span class="nm-cell nm-medium"></span><span class="nm-cell nm-medium"></span><span class="nm-cell nm-strong"></span><span class="nm-cell nm-strong"></span><span class="nm-cell nm-weak"></span><span class="nm-cell nm-weak"></span><span class="nm-cell nm-weak"></span><span class="nm-cell nm-weak"></span><span class="nm-cell nm-medium"></span><span class="nm-cell nm-medium"></span><span class="nm-cell nm-medium"></span><span class="nm-cell nm-strong"></span><span class="nm-cell nm-weak"></span><span class="nm-cell nm-weak"></span><span class="nm-cell nm-weak"></span><span class="nm-cell nm-weak"></span><span class="nm-cell nm-weak"></span><span class="nm-cell nm-medium"></span><span class="nm-cell nm-medium"></span><span class="nm-cell nm-medium"></span></div></div><p class="nm-legend" id="nmDiagramNote">Schematic only · darker blue → teal indicates the general direction, not measured values.</p></div>
- <div class="nm-detail"><h3 id="nmWhyTitle">Why does it happen?</h3><p id="nmWhy">Across a period, increasing effective nuclear attraction generally makes atoms attract shared electrons more strongly. Down a group, additional electron shells and shielding generally reduce this attraction.</p><div class="nm-compare"><h3 id="nmCompareTitle">Compare two elements</h3><div class="nm-controls"><label><span id="nmLabelA">First element</span><select id="nmElementA"></select></label><label><span id="nmLabelB">Second element</span><select id="nmElementB"></select></label></div><div id="nmResult" class="nm-result" aria-live="polite"></div></div><p class="nm-note" id="nmCaution">Nonmetallic character is qualitative. The simple arrows are most useful for comparing main-group elements in the same period or group. Noble gases and transition metals need additional care.</p></div></div>
+<section class="nm-section nm-lesson" id="nonmetallicTrends" aria-labelledby="nmTitle">
+ <header class="nm-lesson-head"><span id="nmTag">CHAPTER 02 · THE BIG IDEA</span><h2 id="nmTitle">Nonmetallic character</h2><p id="nmSubtitle">Learn one pattern, then test it yourself.</p></header>
+ <div class="nm-takeaway"><span class="nm-kicker" id="nmTakeawayLabel">REMEMBER THIS</span><div class="nm-rule-grid"><div><span class="nm-rule-arrow">→</span><strong id="nmAcross">Across a period: increases to the right</strong></div><div><span class="nm-rule-arrow">↑</span><strong id="nmDown">Up a group: increases upward</strong></div></div><p id="nmCoreNote">These are general trends, especially useful for main-group elements.</p></div>
+ <div class="nm-lesson-workspace"><div class="nm-workspace-title"><div><span class="nm-kicker" id="nmDiagramTitle">EXPLORE THE PATTERN</span><h3 id="nmExploreTitle">Tap an example</h3></div><span class="nm-step" id="nmStepLabel">STEP 1 OF 2</span></div>
+ <div class="nm-example-tabs" role="group" aria-label="Choose a trend example"><button type="button" class="nm-example active" data-nm-example="period" id="nmPresetPeriod" aria-pressed="true">Across a period</button><button type="button" class="nm-example" data-nm-example="group" id="nmPresetGroup" aria-pressed="false">Up a group</button><button type="button" class="nm-example" data-nm-example="custom" id="nmPresetCustom" aria-pressed="false">Try your own</button></div>
+ <div class="nm-demo"><div class="nm-demo-diagram" aria-label="Interactive element position model"><div class="nm-demo-axis" id="nmDiagramNote">Compare positions, not a measured strength scale</div><div class="nm-demo-elements" id="nmDemoElements"></div><div class="nm-demo-direction" id="nmDemoDirection">Increasing nonmetallic character →</div></div><div class="nm-demo-explanation"><span class="nm-kicker" id="nmObservationLabel">WHAT TO NOTICE</span><h4 id="nmDemoHeading">Sodium vs Chlorine</h4><p id="nmResult" aria-live="polite"></p><div class="nm-reason" id="nmReason"></div></div></div>
+ <div class="nm-custom" id="nmCustom" hidden><h3 id="nmCompareTitle">Choose two elements</h3><div class="nm-controls"><label><span id="nmLabelA">First element</span><select id="nmElementA"></select></label><label><span id="nmLabelB">Second element</span><select id="nmElementB"></select></label></div></div></div>
+ <details class="nm-deeper"><summary id="nmWhyTitle">Why does this happen? Explore the science</summary><p id="nmWhy">Across a period, effective nuclear attraction generally increases. Down a group, additional shells and shielding generally reduce attraction.</p></details>
+ <p class="nm-note" id="nmCaution">This is a qualitative trend. Avoid treating it as an exact ranking for every pair of elements.</p>
 </section>
 
 <div id="elementGuideOverlay" class="quiz-overlay" role="presentation">
@@ -4494,6 +4503,46 @@ document.getElementById('langEN').addEventListener('click',renderBookEntry);
 document.getElementById('langVI').addEventListener('click',renderBookEntry);
 renderBookEntry();
 
+
+/* Chapter 2 progressive teaching interaction. */
+const nmLessonCopy={
+ en:{remember:'REMEMBER THIS',core:'A general trend for main-group elements — not a numerical measurement.',explore:'Tap an example',step:'STEP 2 · EXPLORE',observe:'WHAT TO NOTICE',periodTab:'Across a period',groupTab:'Up a group',customTab:'Try your own',diagram:'Compare where elements sit on the table',periodDir:'Nonmetallic character generally increases →',groupDir:'Nonmetallic character generally increases ↑',customDir:'Use the period and group numbers to compare',reasonPeriod:'Why? Across a period, nuclear charge increases while shielding changes relatively little. Attraction for bonding electrons generally becomes stronger.',reasonGroup:'Why? Higher in a group, atoms have fewer occupied shells and generally less shielding, so they tend to attract bonding electrons more strongly.',reasonCustom:'Use the position rule carefully: comparisons within the same period or group are the clearest.',pairPeriod:'Sodium and Chlorine',pairGroup:'Chlorine and Fluorine'},
+ vi:{remember:'GHI NHỚ',core:'Đây là xu hướng chung của các nguyên tố nhóm chính, không phải một đại lượng đo trực tiếp.',explore:'Chọn ví dụ để khám phá',step:'BƯỚC 2 · KHÁM PHÁ',observe:'ĐIỀU CẦN CHÚ Ý',periodTab:'Trong một chu kì',groupTab:'Đi lên trong nhóm',customTab:'Tự so sánh',diagram:'So sánh vị trí của các nguyên tố trên bảng',periodDir:'Tính phi kim nhìn chung tăng →',groupDir:'Tính phi kim nhìn chung tăng ↑',customDir:'Dựa vào số chu kì và nhóm để so sánh',reasonPeriod:'Vì sao? Trong một chu kì, điện tích hạt nhân tăng còn hiệu ứng chắn thay đổi không nhiều. Khả năng hút electron liên kết nhìn chung mạnh hơn.',reasonGroup:'Vì sao? Ở phía trên cùng một nhóm, nguyên tử có ít lớp electron hơn và hiệu ứng chắn nhìn chung nhỏ hơn, nên thường hút electron liên kết mạnh hơn.',reasonCustom:'Hãy dùng quy tắc vị trí thận trọng: dễ so sánh nhất khi hai nguyên tố cùng chu kì hoặc cùng nhóm.',pairPeriod:'Natri và Clo',pairGroup:'Clo và Flo'}
+};
+let nmExampleMode='period';
+const nmOriginalRender=renderNonmetalTrends;
+renderNonmetalTrends=function(){
+ nmOriginalRender();
+ const lang=currentLanguage==='vi'?'vi':'en',t=nmLessonCopy[lang];
+ const set=(id,val)=>document.getElementById(id).textContent=val;
+ set('nmTakeawayLabel',t.remember);set('nmCoreNote',t.core);set('nmExploreTitle',t.explore);set('nmStepLabel',t.step);set('nmObservationLabel',t.observe);
+ set('nmPresetPeriod',t.periodTab);set('nmPresetGroup',t.groupTab);set('nmPresetCustom',t.customTab);set('nmDiagramNote',t.diagram);
+ document.getElementById('nmCustom').hidden=nmExampleMode!=='custom';
+ for(const btn of document.querySelectorAll('[data-nm-example]')){const active=btn.dataset.nmExample===nmExampleMode;btn.classList.toggle('active',active);btn.setAttribute('aria-pressed',String(active));}
+ let a=nmCandidates.find(e=>e.n===Number(nmA.value)),b=nmCandidates.find(e=>e.n===Number(nmB.value));
+ if(nmExampleMode==='period'){a=elements.find(e=>e.n===11);b=elements.find(e=>e.n===17)}
+ if(nmExampleMode==='group'){a=elements.find(e=>e.n===17);b=elements.find(e=>e.n===9)}
+ if(!a||!b)return;
+ const l=nmText[lang];let explanation;
+ if(a.n===b.n)explanation=l.same;
+ else if(a.period===b.period)explanation=l.period(a.name,b.name,a.group>b.group?a.name:b.name);
+ else if(a.group===b.group)explanation=l.group(a.name,b.name,a.period<b.period?a.name:b.name);
+ else explanation=l.other;
+ set('nmResult',explanation);
+ set('nmDemoHeading',nmExampleMode==='period'?t.pairPeriod:nmExampleMode==='group'?t.pairGroup:`${a.name} / ${b.name}`);
+ set('nmReason',nmExampleMode==='period'?t.reasonPeriod:nmExampleMode==='group'?t.reasonGroup:t.reasonCustom);
+ set('nmDemoDirection',nmExampleMode==='period'?t.periodDir:nmExampleMode==='group'?t.groupDir:t.customDir);
+ const demo=document.getElementById('nmDemoElements');demo.replaceChildren();
+ for(const [i,e] of [a,b].entries()){
+  if(i){const sep=document.createElement('span');sep.className='nm-demo-between';sep.textContent=nmExampleMode==='group'?'↑':nmExampleMode==='period'?'→':'↔';demo.append(sep)}
+  const tile=document.createElement('div');tile.className='nm-demo-element';
+  const sym=document.createElement('b');sym.textContent=e.symbol;
+  const label=document.createElement('small');label.textContent=`P${e.period} · G${e.group}`;
+  tile.append(sym,label);demo.append(tile);
+ }
+};
+for(const button of document.querySelectorAll('[data-nm-example]'))button.addEventListener('click',()=>{nmExampleMode=button.dataset.nmExample;if(nmExampleMode==='period'){nmA.value='11';nmB.value='17'}else if(nmExampleMode==='group'){nmA.value='17';nmB.value='9'}renderNonmetalTrends()});
+renderNonmetalTrends();
 </script>
 
 </body>
