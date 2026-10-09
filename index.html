@@ -1147,7 +1147,7 @@ body[data-book-page="trends"] .main-layout{display:block!important}
 .book-turn-sheet::before{content:'✧';font-size:3rem;color:#a58351}
 .book-turn-sheet small{font:500 .85rem Georgia,serif;letter-spacing:.22em;text-transform:uppercase;color:#94734b}
 .main-layout.book-turning .book-turn-layer{visibility:visible}
-.main-layout.book-turning .book-turn-sheet{animation:bookPageTurn .82s cubic-bezier(.32,.02,.18,.99) both}
+.main-layout.book-turning .book-turn-sheet{animation:bookPageTurn 1.6s cubic-bezier(.32,.02,.18,.99) both}
 @keyframes bookPageTurn{0%{transform:rotateY(0);opacity:0}7%{opacity:1}48%{transform:rotateY(-86deg);opacity:1}85%{opacity:1}100%{transform:rotateY(-180deg);opacity:0}}
 .book-navigation button{transition:transform .2s,background .2s,box-shadow .2s}
 .book-navigation button:hover{transform:translateY(-2px);box-shadow:0 5px 10px #0005}
@@ -4401,7 +4401,7 @@ function showBookPage(page,{updateHash=true,animate=false}={}){
  document.getElementById('bookTurnTitle').textContent=page==='table'?t.titleTable:t.titleTrends;
  bookSurface.classList.remove('book-turning');void bookSurface.offsetWidth;
  bookSurface.classList.add('book-turning');
- bookTurnTimer=setTimeout(()=>{commit();bookTurnTimer=setTimeout(()=>{bookSurface.classList.remove('book-turning');bookTurnTimer=null},430)},390);
+ bookTurnTimer=setTimeout(()=>{commit();bookTurnTimer=setTimeout(()=>{bookSurface.classList.remove('book-turning');bookTurnTimer=null},840)},760);
 }
 document.getElementById('bookTable').addEventListener('click',()=>showBookPage('table',{animate:true}));
 document.getElementById('bookTrends').addEventListener('click',()=>showBookPage('trends',{animate:true}));
