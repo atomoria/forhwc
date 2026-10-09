@@ -1154,10 +1154,58 @@ body[data-book-page="trends"] .main-layout{display:block!important}
 @media(max-width:650px){.main-layout{padding:24px 10px 30px!important;border-left-width:8px!important;min-height:420px}.book-page-label{right:16px;top:6px;font-size:.6rem}}
 @media(prefers-reduced-motion:reduce){.main-layout.book-turning .book-turn-sheet{animation:none}.book-turn-layer{display:none!important}.book-navigation button{transition:none}}
 
+
+/* Introductory book cover and chapter contents */
+body.book-at-cover{overflow:hidden}
+.book-intro{position:fixed;inset:0;z-index:3000;display:grid;place-items:center;overflow:auto;padding:24px;background:radial-gradient(ellipse at 50% 38%,#253e5a 0%,#111d30 56%,#070e1b 100%);color:#f5e9d3;transition:opacity .55s,visibility .55s}
+.book-intro.is-hidden{opacity:0;visibility:hidden;pointer-events:none}
+.book-intro-inner{width:min(100%,940px);text-align:center}
+.book-intro-eyebrow{font:600 .75rem system-ui,sans-serif;letter-spacing:.3em;color:#e4c58b;text-transform:uppercase;margin-bottom:22px}
+.cover-stage{perspective:1600px;min-height:390px;display:flex;align-items:center;justify-content:center}
+.cover-object{position:relative;width:min(300px,65vw);height:390px;transform-style:preserve-3d;filter:drop-shadow(22px 28px 24px #0009)}
+.cover-pages{position:absolute;inset:7px -13px 7px 12px;border-radius:5px 15px 15px 5px;background:repeating-linear-gradient(90deg,#d9c9ab 0px,#f8efdd 2px,#d7c5a5 3px);box-shadow:8px 3px 0 #a38c65}
+.cover-front{position:absolute;inset:0;transform-origin:5% center;backface-visibility:hidden;border-radius:6px 15px 15px 6px;border:2px solid #b99457;background:linear-gradient(100deg,#081528 0%,#183b52 13%,#14364c 22%,#102d42 76%,#0a1b30 100%);box-shadow:inset 10px 0 15px #0008,inset 0 0 0 9px #d5b57b33,inset 0 0 0 12px #081524;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:25px;gap:19px}
+.cover-front:before{content:'';position:absolute;inset:21px;border:1px solid #e2bf78aa;border-radius:4px 11px 11px 4px;pointer-events:none}
+.cover-atom{font-size:75px;line-height:1;color:#edca8a;text-shadow:0 0 30px #dfb66b88}
+.cover-front h2{font:normal 2.1rem/1.15 Georgia,serif;color:#f5e4c2;margin:0;letter-spacing:.02em}
+.cover-front p{font:500 .7rem system-ui,sans-serif;letter-spacing:.25em;color:#d9bc86;text-transform:uppercase;margin:0}
+.book-intro.is-opening .cover-front{animation:openFrontCover 1.05s cubic-bezier(.22,.65,.2,1) forwards}
+@keyframes openFrontCover{0%{transform:rotateY(0)}100%{transform:rotateY(-155deg)}}
+.cover-start{margin-top:25px;border:1px solid #e8cc9b;border-radius:40px;background:#e9c995;color:#192b3b;padding:13px 33px;font:700 1rem system-ui,sans-serif;cursor:pointer;box-shadow:0 6px 20px #0005}
+.cover-start:hover,.chapter-choice:hover{transform:translateY(-3px);filter:brightness(1.08)}
+.cover-start:focus-visible,.chapter-choice:focus-visible,.contents-back:focus-visible,.open-contents:focus-visible{outline:3px solid #f7d58f;outline-offset:4px}
+.book-contents{position:fixed;inset:0;z-index:2990;display:grid;place-items:center;overflow:auto;padding:24px;background:radial-gradient(ellipse at center,#243b51,#0b1423);color:#f5e9d3;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .45s,visibility .45s}
+.book-contents.is-visible{opacity:1;visibility:visible;pointer-events:auto}
+.contents-panel{width:min(850px,100%);padding:clamp(22px,5vw,50px);border:2px solid #ae9064;border-radius:12px;background:linear-gradient(90deg,#e3d5b7,#fff8e9 5%,#fff8e9 49%,#cbbda0 50%,#fff8e9 51%,#fff8e9 96%,#e3d5b7);box-shadow:0 25px 70px #000a;color:#293746;text-align:center}
+.contents-panel h2{font:normal clamp(1.8rem,4vw,3rem) Georgia,serif;margin:4px 0 12px}
+.contents-panel>p{margin:0 0 26px;color:#566171}
+.chapter-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;text-align:left}
+.chapter-choice{display:flex;flex-direction:column;gap:13px;min-height:195px;text-align:left;border:1px solid #bfa67f;border-radius:10px;padding:22px;background:#fffaf0;color:#24364a;cursor:pointer;transition:transform .2s,filter .2s;box-shadow:0 5px 14px #0002}
+.chapter-choice .chapter-number{font:600 .75rem system-ui,sans-serif;letter-spacing:.17em;color:#99713d}
+.chapter-choice strong{font:normal 1.65rem Georgia,serif}
+.chapter-choice .chapter-description{font:.93rem/1.5 system-ui,sans-serif;color:#53606d}
+.contents-back{margin-top:24px;background:transparent;border:1px solid #997b51;border-radius:20px;padding:9px 18px;color:#465262;cursor:pointer}
+.open-contents{border:1px solid #ad8b58;border-radius:8px;padding:9px 14px;background:#f0d8ac;color:#24364a;font-weight:700;cursor:pointer}
+.book-intro.is-opening .cover-start{visibility:hidden}
+@media(max-width:640px){.chapter-choices{grid-template-columns:1fr}.chapter-choice{min-height:145px}.cover-stage{min-height:320px}.cover-object{height:310px;width:240px}.cover-front h2{font-size:1.6rem}.cover-atom{font-size:60px}.book-contents{align-items:start}.contents-panel{margin:auto}}
+@media(prefers-reduced-motion:reduce){.book-intro,.book-contents,.cover-front,.chapter-choice{animation:none!important;transition:none!important}}
+
 </style>
 </head>
 
-<body>
+<body class="book-at-cover">
+<section id="bookIntro" class="book-intro" aria-label="Chemistry book cover">
+ <div class="book-intro-inner"><div class="book-intro-eyebrow" id="introEyebrow">An interactive chemistry experience</div>
+ <div class="cover-stage"><div class="cover-object"><div class="cover-pages"></div><div class="cover-front"><div class="cover-atom" aria-hidden="true">⚛</div><h2>CHEMISTRY<br>EXPLORER</h2><p id="coverSubtitle">An interactive textbook</p></div></div></div>
+ <button type="button" class="cover-start" id="openBookStart">Open the book →</button></div>
+</section>
+<section id="bookContents" class="book-contents" aria-label="Table of contents" aria-hidden="true">
+ <div class="contents-panel"><div class="book-intro-eyebrow" id="contentsEyebrow">Chemistry Explorer</div><h2 id="contentsHeading">Choose your chapter</h2><p id="contentsDescription">What would you like to learn today?</p>
+ <div class="chapter-choices"><button type="button" class="chapter-choice" data-open-chapter="table"><span class="chapter-number" id="choiceTableNumber">CHAPTER 01</span><strong id="choiceTableTitle">Periodic Table</strong><span class="chapter-description" id="choiceTableDescription">Explore 118 elements, their properties, and the chemistry quiz.</span></button>
+ <button type="button" class="chapter-choice" data-open-chapter="trends"><span class="chapter-number" id="choiceTrendsNumber">CHAPTER 02</span><strong id="choiceTrendsTitle">Nonmetallic Character</strong><span class="chapter-description" id="choiceTrendsDescription">Discover how nonmetallic character changes across periods and groups.</span></button></div>
+ <button type="button" class="contents-back" id="contentsBack">← Back to cover</button></div>
+</section>
+
 
 <div class="container">
 
@@ -1191,6 +1239,7 @@ body[data-book-page="trends"] .main-layout{display:block!important}
 </header>
 
 <nav class="book-navigation" aria-label="Chemistry book chapters" id="bookNavigation">
+ <button type="button" class="open-contents" id="openBookContents">☰ Contents / Mục lục</button>
  <div><div class="book-caption" id="bookCaption">CHEMISTRY EXPLORER · INTERACTIVE BOOK</div><div class="book-title" id="bookCurrentTitle">Chapter 1 · Periodic Table</div></div>
  <div class="book-actions" role="group" aria-label="Choose a chapter"><button type="button" id="bookTable" aria-current="page">01 · Periodic Table</button><button type="button" id="bookTrends">02 · Nonmetallic Trends →</button></div>
 </nav>
@@ -4384,6 +4433,49 @@ const defaultElement =
     elements.find(e => e.n === 6);
 
 selectElement(defaultElement, false);
+
+
+/* Cover -> animated opening -> chapter chooser -> selected chapter. */
+const bookEntryText={
+ en:{eyebrow:'An interactive chemistry experience',subtitle:'An interactive textbook',start:'Open the book →',contentsEyebrow:'Chemistry Explorer',heading:'Choose your chapter',description:'What would you like to learn today?',table:'Periodic Table',tableDesc:'Explore 118 elements, their properties, and the chemistry quiz.',trends:'Nonmetallic Character',trendsDesc:'Discover how nonmetallic character changes across periods and groups.',back:'← Back to cover',contents:'☰ Contents',chapter:'CHAPTER'},
+ vi:{eyebrow:'Khám phá hóa học qua sách tương tác',subtitle:'Sách giáo khoa tương tác',start:'Mở sách →',contentsEyebrow:'Khám phá Hóa học',heading:'Chọn chương học',description:'Hôm nay bạn muốn khám phá nội dung nào?',table:'Bảng tuần hoàn',tableDesc:'Khám phá 118 nguyên tố, tính chất và câu đố hóa học.',trends:'Tính phi kim',trendsDesc:'Tìm hiểu sự biến đổi tính phi kim theo chu kì và nhóm.',back:'← Trở lại bìa sách',contents:'☰ Mục lục',chapter:'CHƯƠNG'}
+};
+const introScreen=document.getElementById('bookIntro');
+const contentsScreen=document.getElementById('bookContents');
+let coverOpening=false;
+function renderBookEntry(){
+ const t=bookEntryText[currentLanguage==='vi'?'vi':'en'];
+ const mapping={introEyebrow:t.eyebrow,coverSubtitle:t.subtitle,openBookStart:t.start,contentsEyebrow:t.contentsEyebrow,contentsHeading:t.heading,contentsDescription:t.description,choiceTableTitle:t.table,choiceTableDescription:t.tableDesc,choiceTrendsTitle:t.trends,choiceTrendsDescription:t.trendsDesc,contentsBack:t.back,openBookContents:t.contents,choiceTableNumber:t.chapter+' 01',choiceTrendsNumber:t.chapter+' 02'};
+ for(const [id,value] of Object.entries(mapping))document.getElementById(id).textContent=value;
+}
+function showContents(){
+ introScreen.classList.add('is-hidden');introScreen.setAttribute('aria-hidden','true');
+ contentsScreen.classList.add('is-visible');contentsScreen.setAttribute('aria-hidden','false');
+ document.body.classList.add('book-at-cover');
+ document.querySelector('[data-open-chapter="table"]').focus();
+}
+function showCover(){
+ coverOpening=false;introScreen.classList.remove('is-opening','is-hidden');introScreen.removeAttribute('aria-hidden');
+ contentsScreen.classList.remove('is-visible');contentsScreen.setAttribute('aria-hidden','true');
+ document.body.classList.add('book-at-cover');document.getElementById('openBookStart').focus();
+}
+document.getElementById('openBookStart').addEventListener('click',()=>{
+ if(coverOpening)return;coverOpening=true;introScreen.classList.add('is-opening');
+ const delay=window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:1050;
+ setTimeout(()=>{showContents();coverOpening=false;},delay);
+});
+document.getElementById('contentsBack').addEventListener('click',showCover);
+document.getElementById('openBookContents').addEventListener('click',showContents);
+document.querySelectorAll('[data-open-chapter]').forEach(button=>button.addEventListener('click',()=>{
+ showBookPage(button.dataset.openChapter,{animate:false});
+ contentsScreen.classList.remove('is-visible');contentsScreen.setAttribute('aria-hidden','true');
+ document.body.classList.remove('book-at-cover');
+ document.getElementById('openBookContents').focus();
+}));
+// Keep the book cover and contents bilingual when the existing language controls change.
+document.getElementById('langEN').addEventListener('click',renderBookEntry);
+document.getElementById('langVI').addEventListener('click',renderBookEntry);
+renderBookEntry();
 
 </script>
 
