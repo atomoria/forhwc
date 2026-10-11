@@ -1443,6 +1443,35 @@ html[lang="vi"] .nm-scroll-panel h3{font-family:Arial,'Noto Sans',sans-serif;let
 .nm-ocean-finish{position:relative;z-index:5;text-align:center;padding:12px;margin-top:12px;background:#d2f0dc18;border:1px solid #e2c68e88;border-radius:12px;color:#ffe3a6;font-weight:700}
 .nm-ocean-finish[hidden]{display:none!important}
 @media(prefers-reduced-motion:reduce){.nm-ocean-bubbles i,.nm-ocean-fish{animation:none!important}}
+
+/* Phase 3: pirate voyage and refined treasure feedback */
+.nm-pirate-scene[hidden],.nm-treasure-modal[hidden]{display:none!important}
+.nm-pirate-scene{position:relative;isolation:isolate;overflow:hidden;margin:12px 0 22px;border:1px solid #ad7c4c;border-radius:19px;min-height:220px;padding:18px;color:#fff1d3;background:radial-gradient(ellipse at 65% 8%,#edb77550,transparent 36%),linear-gradient(#132f4a 0%,#183b54 52%,#123249 53%,#081e35 100%)}
+.nm-pirate-scene:before{content:'☾';position:absolute;right:12%;top:2px;color:#f5d99a;font-size:46px;opacity:.7}
+.nm-pirate-heading{position:relative;z-index:2;display:flex;justify-content:space-between;gap:12px;font-size:12px;font-weight:800;letter-spacing:.09em}
+.nm-pirate-battle{position:relative;display:flex;justify-content:space-around;align-items:center;gap:12px;margin:23px auto 12px;max-width:540px}
+.nm-pirate-ship{font-size:clamp(42px,8vw,72px);filter:drop-shadow(0 6px 6px #001423);transition:transform .5s}
+.nm-pirate-ship.enemy{transform:scaleX(-1)}
+.nm-pirate-projectile{position:absolute;left:27%;top:35%;font-size:24px;opacity:0;pointer-events:none}
+.nm-pirate-scene.is-hit .nm-pirate-projectile{animation:nmCannon .85s ease-out}
+.nm-pirate-scene.is-hit .nm-pirate-ship.enemy{animation:nmShipShake .55s .5s}
+@keyframes nmCannon{0%{opacity:1;transform:translate(0,0) scale(.6)}75%{opacity:1;transform:translate(180px,-12px) scale(1.2)}100%{opacity:0;transform:translate(210px,-15px) scale(1.5)}}
+@keyframes nmShipShake{25%{transform:scaleX(-1) translateX(8px) rotate(4deg)}60%{transform:scaleX(-1) translateX(-6px) rotate(-3deg)}}
+.nm-pirate-hp{position:relative;z-index:2;display:flex;align-items:center;gap:12px;justify-content:center;font-size:12px;font-weight:700}
+.nm-pirate-hp progress{width:min(270px,48%);height:14px;accent-color:#d7a05d}
+.nm-pirate-message{text-align:center;position:relative;z-index:2;min-height:21px;font-size:13px;line-height:1.6;color:#f6e4c6}
+.nm-ocean-finish{font-size:15px;padding:15px;animation:nmTreasureGlow 2.2s ease-in-out infinite alternate}
+@keyframes nmTreasureGlow{to{box-shadow:0 0 24px #f2c77c66;background:#f1d59429}}
+.nm-treasure-modal{position:fixed;inset:0;z-index:99999;background:#06182ddc;display:grid;place-items:center;padding:20px}
+.nm-treasure-card{width:min(100%,480px);padding:26px;border:2px solid #e4c88d;border-radius:22px;background:linear-gradient(145deg,#fffaf0,#eee0c6);color:#243b4e;text-align:center;box-shadow:0 22px 80px #0009;animation:nmTreasureEnter .55s ease both}
+.nm-treasure-emoji{font-size:70px;display:block;animation:nmTreasureBounce 1s ease-in-out infinite alternate}
+.nm-treasure-card h3{font-family:Georgia,serif;font-size:clamp(22px,4vw,32px);line-height:1.4;margin:10px 0}
+html[lang="vi"] .nm-treasure-card h3{font-family:Arial,'Noto Sans',sans-serif;letter-spacing:normal}
+.nm-treasure-card p{line-height:1.6}
+.nm-treasure-card button{border:0;border-radius:10px;padding:11px 20px;background:#29495d;color:white;font-weight:700;cursor:pointer}
+@keyframes nmTreasureEnter{from{opacity:0;transform:translateY(28px) scale(.9)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes nmTreasureBounce{to{transform:translateY(-8px) rotate(3deg)}}
+@media(prefers-reduced-motion:reduce){.nm-pirate-scene.is-hit .nm-pirate-projectile,.nm-pirate-scene.is-hit .nm-pirate-ship.enemy,.nm-ocean-finish,.nm-treasure-card,.nm-treasure-emoji{animation:none!important}}
 </style>
 <style>
 .nm-lab{margin-top:22px;padding:clamp(14px,2.5vw,26px);background:#fffaf1;border:1px solid #dbc8aa;border-radius:18px;color:#263b4b}.nm-lab-heading h3{font-family:'Noto Serif',Georgia,serif;font-size:clamp(21px,2.8vw,30px);margin:8px 0;color:#263b4b}.nm-lab-heading p{color:#667485;line-height:1.6}.nm-lab-grid{display:grid;grid-template-columns:repeat(18,minmax(0,1fr));gap:4px;margin:18px 0}.nm-lab-tile{grid-column:var(--g);grid-row:var(--p);min-width:0;min-height:56px;border:1px solid #b9c9c8;border-radius:7px;background:#e7f1ed;color:#264e51;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px}.nm-lab-tile b{font-size:clamp(11px,1.5vw,19px)}.nm-lab-tile small{font-size:9px}.nm-lab-tile[data-picked="a"]{background:#285b70;color:#fff;border-color:#285b70}.nm-lab-tile[data-picked="b"]{background:#a97b3d;color:#fff;border-color:#a97b3d}.nm-lab-tile:focus-visible,.nm-lab-actions button:focus-visible{outline:3px solid #07998e;outline-offset:2px}.nm-lab-selection{border-top:1px solid #e7dccb;padding-top:15px}.nm-lab-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.nm-lab-actions button{padding:9px 12px;border-radius:10px;border:1px solid #bca886;background:#fff8eb;color:#314b5c;cursor:pointer;font-weight:700}.nm-lab-actions button[aria-pressed="true"],#nmLabReveal{background:#28495e;color:white}.nm-lab-actions button:disabled{opacity:.5;cursor:not-allowed}#nmLabFeedback{min-height:24px;color:#355d59;line-height:1.6}.nm-lab-deep{margin-top:18px;border-top:1px solid #e7dccb;padding-top:16px}.nm-lab-deep summary{cursor:pointer;font-weight:700}.nm-shell-controls{margin:12px 0;display:flex;align-items:center;gap:12px}.nm-shell-controls select{border:1px solid #c7b79c;border-radius:8px;padding:8px;background:white;color:#263b4b}.nm-shell-model{display:flex;justify-content:center;min-height:235px}.nm-shell-model svg{width:min(100%,360px);height:235px}.nm-lab-deep p{font-size:13px;color:#647383;line-height:1.6}@media(max-width:640px){.nm-lab-grid{gap:2px}.nm-lab-tile{min-height:40px;border-radius:4px}.nm-lab-tile b{font-size:10px}.nm-lab-tile small{font-size:7px}.nm-lab-actions button{font-size:12px;padding:8px}}
@@ -1671,6 +1700,12 @@ html[lang="vi"] #nmFailureScore{font-weight:500!important;line-height:1.65!impor
     <div class="nm-ocean-discovery" id="nmOceanDiscovery" role="status" aria-live="polite" hidden></div>
     <div class="nm-ocean-finish" id="nmOceanFinish" hidden></div>
 
+  </section>
+  <section id="nmPirateScene" class="nm-pirate-scene" aria-label="Pirate challenge battle progress" hidden>
+    <div class="nm-pirate-heading"><span id="nmPirateStage">BATTLE 01 / 12</span><span id="nmPirateHits">HITS 0</span></div>
+    <div class="nm-pirate-battle" aria-hidden="true"><span class="nm-pirate-ship">⛵</span><span class="nm-pirate-projectile">💥</span><span class="nm-pirate-ship enemy">🏴‍☠️</span></div>
+    <div class="nm-pirate-hp"><span id="nmPirateHpLabel">ENEMY SHIELD</span><progress id="nmPirateHp" max="12" value="12"></progress></div>
+    <p class="nm-pirate-message" id="nmPirateMessage" aria-live="polite"></p>
   </section>
   <div class="nm-practice-heading"><span class="nm-kicker" id="nmPracticeKicker">STEP 4 · PRACTISE</span><h3 id="nmPracticeTitle">Test your understanding</h3><p id="nmPracticeIntro">Apply the trends, one question at a time.</p></div>
   <div class="nm-practice-progress"><span id="nmPracticeCount"></span><span id="nmPracticeScore"></span></div>
@@ -5168,7 +5203,7 @@ nmOceanFind.addEventListener('click',()=>{
  if(!unlocked)return;
  const fact=nmOceanFacts[unlocked-1];nmOceanDiscovery.hidden=false;
  nmOceanDiscovery.replaceChildren();const strong=document.createElement('strong');strong.textContent=vi?'Kho báu kiến thức':'Knowledge treasure';
- const detail=document.createElement('span');detail.textContent=fact[vi?'vi':'en'];nmOceanDiscovery.append(strong,detail);
+ const detail=document.createElement('span');detail.textContent=fact[vi?'vi':'en'];nmOceanDiscovery.append(strong,detail);openNmTreasure(unlocked);
 });
 
 for(let n=0;n<12;n++){const node=document.createElement('span');node.className='nm-ocean-node';node.textContent=String(n+1);nmOceanRoute.append(node)}
@@ -5181,7 +5216,7 @@ function nmRenderOcean(){
  nmOceanFind.disabled=unlocked===0;
  nmOceanFind.textContent=(vi?'🗝️ Khám phá ':'🗝️ Discoveries ')+`${unlocked} / 3`;
  nmOceanFinish.hidden=p.index<12;
- nmOceanFinish.textContent=p.index>=12?(vi?`🏆 Hoàn thành hành trình! Bạn tìm thấy ${unlocked}/3 kho báu.`:`🏆 Journey complete! You discovered ${unlocked}/3 treasures.`):'';
+ nmOceanFinish.textContent=p.index>=12?(vi?`🎁 Hoàn thành hành trình! Bạn tìm thấy ${unlocked}/3 kho báu. Nhấn Khám phá để mở rương.`:`🎁 Journey complete! You discovered ${unlocked}/3 treasures. Select Discoveries to open the chest.`):'';
 
  document.getElementById('nmOceanStage').textContent=vi?`CHẶNG ${String(Math.min(12,p.index+1)).padStart(2,'0')} / 12`:`DIVE ${String(Math.min(12,p.index+1)).padStart(2,'0')} / 12`;
  document.getElementById('nmOceanDepth').textContent=vi?`ĐỘ SÂU ${complete*25} m`:`DEPTH ${complete*25} m`;
@@ -5192,6 +5227,38 @@ function nmRenderOcean(){
  p.chosen===null?(vi?'Trả lời để tiến sâu hơn vào đại dương.':'Answer to explore deeper waters.'):
  (p.chosen===(nmPracticeRound[p.index].type==='short'?1:nmPracticeRound[p.index].correct)?(vi?'Chính xác! Tàu tiến lên.':'Correct! Your vessel advances.'):(vi?'Hãy xem lời giải rồi tiếp tục.':'Review the explanation and continue.'));
 }
+const nmPirateScene=document.getElementById('nmPirateScene');
+let nmPirateLastHit=-1;
+function nmRenderPirate(){
+ const visible=nmMode==='pirate'&&!nmPracticePanel.hidden;
+ nmPirateScene.hidden=!visible;if(!visible)return;
+ const vi=currentLanguage==='vi',p=nmPracticeState;
+ const complete=Math.min(12,p.index+(p.chosen!==null?1:0));
+ document.getElementById('nmPirateStage').textContent=(vi?'TRẬN':'BATTLE')+` ${String(Math.min(12,p.index+1)).padStart(2,'0')} / 12`;
+ document.getElementById('nmPirateHits').textContent=(vi?'TRÚNG ĐÍCH ':'HITS ')+p.score;
+ document.getElementById('nmPirateHpLabel').textContent=vi?'KHIÊN ĐỊCH':'ENEMY SHIELD';
+ document.getElementById('nmPirateHp').value=12-p.score;
+ let correct=false;
+ if(p.index<12&&p.chosen!==null){const q=nmPracticeRound[p.index];correct=p.chosen===(q.type==='short'?1:q.correct);}
+ const message=document.getElementById('nmPirateMessage');
+ message.textContent=p.index>=12?(vi?'Trận chiến kết thúc!':'Battle complete!'):
+ p.chosen===null?(vi?'Trả lời đúng để khai hỏa!':'Answer correctly to fire your cannon!'):
+ correct?(vi?'Trúng đích! Pháo đã bắn.':'Direct hit! Cannon fired.'):(vi?'Chưa trúng. Đọc lời giải rồi thử câu tiếp theo.':'Missed. Review the explanation and continue.');
+ if(correct&&nmPirateLastHit!==p.index){nmPirateLastHit=p.index;nmPirateScene.classList.remove('is-hit');void nmPirateScene.offsetWidth;nmPirateScene.classList.add('is-hit');}
+}
+const nmTreasureModal=document.getElementById('nmTreasureModal');
+const nmTreasureClose=document.getElementById('nmTreasureClose');
+let nmTreasurePreviousFocus=null;
+function openNmTreasure(unlocked){
+ const vi=currentLanguage==='vi';nmTreasurePreviousFocus=document.activeElement;
+ document.getElementById('nmTreasureTitle').textContent=vi?'Kho báu dưới đại dương!':'Ocean treasure unlocked!';
+ document.getElementById('nmTreasureDescription').textContent=vi?`Bạn đã khám phá ${unlocked}/3 bí mật đại dương. Tiếp tục tìm hiểu hóa học để khám phá thêm!`:`You discovered ${unlocked}/3 ocean secrets. Keep exploring chemistry to discover more!`;
+ nmTreasureClose.textContent=vi?'Tiếp tục':'Continue';nmTreasureModal.hidden=false;nmTreasureClose.focus();
+}
+function closeNmTreasure(){nmTreasureModal.hidden=true;if(nmTreasurePreviousFocus?.isConnected)nmTreasurePreviousFocus.focus();}
+nmTreasureClose.addEventListener('click',closeNmTreasure);
+nmTreasureModal.addEventListener('click',e=>{if(e.target===nmTreasureModal)closeNmTreasure()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!nmTreasureModal.hidden){e.preventDefault();e.stopImmediatePropagation();closeNmTreasure()}},true);
 const nmModeLabels={training:{en:'Training Grounds',vi:'Luyện tập cơ bản'},explorer:{en:'Ocean Explorer',vi:'Khám phá đại dương'},pirate:{en:'Pirate Challenge',vi:'Thử thách hải tặc'}};
 function nmStopTimer(){if(nmTimerHandle!==null){clearInterval(nmTimerHandle);nmTimerHandle=null;}}
 function nmTimerText(){const el=document.getElementById('nmModeTimer');el.textContent=nmMode==='training'?'':`${String(Math.floor(nmRemaining/60)).padStart(2,'0')}:${String(nmRemaining%60).padStart(2,'0')}`;el.setAttribute('aria-label',nmMode==='training'?'':`${nmRemaining} seconds remaining`);}
@@ -5206,7 +5273,7 @@ function nmStartTimer(){
   if(nmRemaining===0){nmTimedOut=true;nmStopTimer();nmPracticeState.index=nmPracticeRound.length;nmPracticeState.chosen=null;renderNmPractice();}
  },250);
 }
-function nmResetRound(){nmOceanEarned.clear();nmOceanDiscovery.hidden=true;nmStopTimer();nmPracticeRound=nmNewRound();nmPracticeState.index=0;nmPracticeState.score=0;nmPracticeState.chosen=null;nmPracticeState.typed='';nmTimedOut=false;nmCelebrationShown=false;nmFailureShown=false;nmFailure.hidden=true;closeNmCelebration();renderNmPractice();}
+function nmResetRound(){nmOceanEarned.clear();nmOceanDiscovery.hidden=true;nmPirateLastHit=-1;nmPirateScene.classList.remove('is-hit');closeNmTreasure();nmStopTimer();nmPracticeRound=nmNewRound();nmPracticeState.index=0;nmPracticeState.score=0;nmPracticeState.chosen=null;nmPracticeState.typed='';nmTimedOut=false;nmCelebrationShown=false;nmFailureShown=false;nmFailure.hidden=true;closeNmCelebration();renderNmPractice();}
 document.querySelectorAll('.nm-mode-choice').forEach(button=>button.addEventListener('click',()=>{nmMode=button.dataset.mode;document.querySelectorAll('.nm-mode-choice').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));nmResetRound();}));
 const nmFailure=document.getElementById('nmFailure');
 let nmPracticePriorFocus=null;
@@ -5214,8 +5281,8 @@ let nmFailureShown=false;
 nmPracticePanel.hidden=true;
 // Move practice out of the book page so the exercise occupies the entire viewport.
 document.body.append(nmPracticePanel);
-function openNmPractice(){nmResetRound();nmPracticePriorFocus=document.activeElement;nmPracticePanel.hidden=false;document.body.classList.add('nm-practice-open');nmRenderOcean();nmStartTimer();document.getElementById('nmExitPractice').focus();}
-function closeNmPractice(){nmStopTimer();nmPracticePanel.hidden=true;document.body.classList.remove('nm-practice-open');if(nmPracticePriorFocus?.isConnected)nmPracticePriorFocus.focus();}
+function openNmPractice(){nmResetRound();nmPracticePriorFocus=document.activeElement;nmPracticePanel.hidden=false;document.body.classList.add('nm-practice-open');nmRenderOcean();nmRenderPirate();nmStartTimer();document.getElementById('nmExitPractice').focus();}
+function closeNmPractice(){closeNmTreasure();nmStopTimer();nmPracticePanel.hidden=true;document.body.classList.remove('nm-practice-open');if(nmPracticePriorFocus?.isConnected)nmPracticePriorFocus.focus();}
 nmPracticeLaunch.addEventListener('click',openNmPractice);
 document.getElementById('nmExitPractice').addEventListener('click',closeNmPractice);
 function closeNmFailure(){nmFailure.hidden=true;document.getElementById('nmPracticeRestart').focus();}
@@ -5258,7 +5325,7 @@ function renderNmPractice(){
  document.documentElement.lang=currentLanguage==='vi'?'vi':'en';
  document.querySelectorAll('.answer-sound-toggle').forEach(b=>{const vi=currentLanguage==='vi';b.textContent=answerSoundEnabled?(vi?'♪ Âm thanh: Bật':'♪ Sound: On'):(vi?'♪ Âm thanh: Tắt':'♪ Sound: Off');b.setAttribute('aria-pressed',String(answerSoundEnabled))});
  const vi=currentLanguage==='vi',t=vi?'vi':'en',p=nmPracticeState,q=nmPracticeRound[p.index],done=p.index>=nmPracticeRound.length;
- nmRenderOcean();
+ nmRenderOcean();nmRenderPirate();
  document.getElementById('nmPracticeModeLabel').textContent=(vi?'CHƯƠNG 2 · ':'CHAPTER 2 · ')+nmModeLabels[nmMode][t];nmPracticeLaunch.textContent=vi?`✦ Bắt đầu luyện tập · ${nmPracticeRound.length} câu hỏi ↗`:`✦ Start practice · ${nmPracticeRound.length} questions ↗`;
  nmPracticeUI.kicker.textContent=vi?'BƯỚC 4 · LUYỆN TẬP':'STEP 4 · PRACTISE';
  nmPracticeUI.title.textContent=vi?'Kiểm tra kiến thức':'Test your understanding';
@@ -5352,5 +5419,5 @@ nmRenderLessonLanguage();
 </script>
 
 
-</body>
+<div id="nmTreasureModal" class="nm-treasure-modal" role="dialog" aria-modal="true" aria-labelledby="nmTreasureTitle" hidden><div class="nm-treasure-card"><span class="nm-treasure-emoji" aria-hidden="true">🏆</span><h3 id="nmTreasureTitle"></h3><p id="nmTreasureDescription"></p><button type="button" id="nmTreasureClose">Continue</button></div></div></body>
 </html>
