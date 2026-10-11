@@ -1372,14 +1372,33 @@ html[lang="vi"] .nm-scroll-panel h3{font-family:Arial,'Noto Sans',sans-serif;let
 .nm-bond-tabs button[aria-pressed="true"]{background:#294b60;color:white}
 .nm-bond-stage{height:220px;background:radial-gradient(ellipse,#eaf1ee,#e7ddc9);border:1px solid #d5c4a8;border-radius:16px;display:flex;align-items:center;justify-content:space-evenly;position:relative;overflow:hidden}
 .nm-bond-atom{height:92px;width:92px;display:grid;place-items:center;border-radius:50%;border:3px solid #537c86;background:#fffaf1;color:#28495b;font-size:29px;font-weight:800;box-shadow:0 0 0 12px rgba(83,124,134,.08)}
-.nm-bond-electron{position:absolute;left:30%;top:43%;z-index:2;background:#b17d3f;color:white;padding:8px;border-radius:50%;font-weight:800;animation:nmTransfer 2.8s ease-in-out forwards}
-.nm-bond-stage[data-mode="covalent"] .nm-bond-electron{animation:nmShare 2.8s ease-in-out forwards}
-@keyframes nmTransfer{from{left:30%}to{left:68%}}
-@keyframes nmShare{from{left:35%}to{left:57%}}
+/* Atomic shell populations are schematic, not electron trajectories. */
+.nm-bond-svg{width:100%;height:100%;max-width:900px;overflow:visible}
+#nmBondElectron{transform:translate(292px,140px);animation:nmElectronTransfer 3.4s ease-in-out forwards}
+.nm-bond-stage[data-mode="covalent"] #nmBondElectron{animation:nmElectronShare 3.4s ease-in-out forwards}
+@keyframes nmElectronTransfer{0%,14%{transform:translate(292px,140px)}85%,100%{transform:translate(468px,140px)}}
+@keyframes nmElectronShare{0%,14%{transform:translate(327px,140px)}85%,100%{transform:translate(403px,140px)}}
+@media(prefers-reduced-motion:reduce){#nmBondElectron,.nm-bond-stage[data-mode="covalent"] #nmBondElectron{animation:none;transform:translate(380px,140px)}}
 .nm-bond-explain{min-height:55px}
 .nm-bond-caution{font-size:13px;border-left:3px solid #b78a4c;padding-left:12px}
 @media(max-width:650px){.nm-concept-cards{grid-template-columns:1fr}.nm-bond-atom{width:65px;height:65px;font-size:22px}.nm-lesson-jump{position:relative;top:auto}}
 @media(prefers-reduced-motion:reduce){.nm-bond-electron,.nm-bond-stage[data-mode="covalent"] .nm-bond-electron{animation:none;left:50%}}
+
+/* Polar covalent model: two contributed electrons converge into a shared, polarized bond. */
+#nmBondCovalentModel{display:none}
+.nm-bond-stage[data-mode="covalent"] #nmBondCovalentModel{display:block}
+.nm-bond-stage[data-mode="covalent"] #nmBondElectron{display:none}
+.nm-bond-stage[data-mode="covalent"] #nmBondLeftShells,
+.nm-bond-stage[data-mode="covalent"] #nmBondRightShells{display:none}
+.nm-hcl-pair{animation:nmPairReveal 3.5s ease both}
+.nm-hcl-h-electron{animation:nmHContribute 3.5s ease both}
+.nm-hcl-cl-electron{animation:nmClContribute 3.5s ease both}
+.nm-hcl-polarity{animation:nmPolarReveal 3.5s ease both}
+@keyframes nmPairReveal{0%,32%{opacity:0}52%,100%{opacity:1}}
+@keyframes nmHContribute{0%,12%{transform:translate(-70px,0)}55%,100%{transform:translate(0,0)}}
+@keyframes nmClContribute{0%,12%{transform:translate(70px,0)}55%,100%{transform:translate(0,0)}}
+@keyframes nmPolarReveal{0%,58%{opacity:0}90%,100%{opacity:1}}
+@media(prefers-reduced-motion:reduce){.nm-hcl-pair,.nm-hcl-h-electron,.nm-hcl-cl-electron,.nm-hcl-polarity{animation:none!important}}
 </style>
 <style>
 .nm-lab{margin-top:22px;padding:clamp(14px,2.5vw,26px);background:#fffaf1;border:1px solid #dbc8aa;border-radius:18px;color:#263b4b}.nm-lab-heading h3{font-family:'Noto Serif',Georgia,serif;font-size:clamp(21px,2.8vw,30px);margin:8px 0;color:#263b4b}.nm-lab-heading p{color:#667485;line-height:1.6}.nm-lab-grid{display:grid;grid-template-columns:repeat(18,minmax(0,1fr));gap:4px;margin:18px 0}.nm-lab-tile{grid-column:var(--g);grid-row:var(--p);min-width:0;min-height:56px;border:1px solid #b9c9c8;border-radius:7px;background:#e7f1ed;color:#264e51;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px}.nm-lab-tile b{font-size:clamp(11px,1.5vw,19px)}.nm-lab-tile small{font-size:9px}.nm-lab-tile[data-picked="a"]{background:#285b70;color:#fff;border-color:#285b70}.nm-lab-tile[data-picked="b"]{background:#a97b3d;color:#fff;border-color:#a97b3d}.nm-lab-tile:focus-visible,.nm-lab-actions button:focus-visible{outline:3px solid #07998e;outline-offset:2px}.nm-lab-selection{border-top:1px solid #e7dccb;padding-top:15px}.nm-lab-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.nm-lab-actions button{padding:9px 12px;border-radius:10px;border:1px solid #bca886;background:#fff8eb;color:#314b5c;cursor:pointer;font-weight:700}.nm-lab-actions button[aria-pressed="true"],#nmLabReveal{background:#28495e;color:white}.nm-lab-actions button:disabled{opacity:.5;cursor:not-allowed}#nmLabFeedback{min-height:24px;color:#355d59;line-height:1.6}.nm-lab-deep{margin-top:18px;border-top:1px solid #e7dccb;padding-top:16px}.nm-lab-deep summary{cursor:pointer;font-weight:700}.nm-shell-controls{margin:12px 0;display:flex;align-items:center;gap:12px}.nm-shell-controls select{border:1px solid #c7b79c;border-radius:8px;padding:8px;background:white;color:#263b4b}.nm-shell-model{display:flex;justify-content:center;min-height:235px}.nm-shell-model svg{width:min(100%,360px);height:235px}.nm-lab-deep p{font-size:13px;color:#647383;line-height:1.6}@media(max-width:640px){.nm-lab-grid{gap:2px}.nm-lab-tile{min-height:40px;border-radius:4px}.nm-lab-tile b{font-size:10px}.nm-lab-tile small{font-size:7px}.nm-lab-actions button{font-size:12px;padding:8px}}
@@ -1575,7 +1594,19 @@ html[lang="vi"] #nmFailureScore{font-weight:500!important;line-height:1.65!impor
   <details class="nm-lab-deep" id="nmShellDetails"><summary id="nmShellSummary">Explore deeper · electron shells</summary><div class="nm-shell-controls"><label id="nmShellLabel" for="nmShellSelect">Element</label><select id="nmShellSelect"></select></div><div id="nmShellModel" class="nm-shell-model" role="img" aria-label="Simplified electron-shell diagram"></div><p id="nmShellCaption"></p></details>
  </div>
 </div><!-- /nm-lab-panel -->
- <article class="nm-scroll-panel nm-bonding-panel" id="nmBonding"><div class="nm-panel-kicker" data-en="04 / WATCH ELECTRONS" data-vi="04 / QUAN SÁT ELECTRON">04 / WATCH ELECTRONS</div><h3 data-en="Two ways electrons behave in bonds" data-vi="Hai cách electron tham gia liên kết">Two ways electrons behave in bonds</h3><p data-en="Switch between ionic electron transfer and unequal electron sharing. These are simplified teaching models, not real-time recordings of reactions." data-vi="Chuyển giữa mô hình chuyển electron tạo liên kết ion và mô hình dùng chung electron không đều. Đây là mô phỏng phục vụ học tập, không phải video ghi lại phản ứng thực tế.">Switch between ionic electron transfer and unequal electron sharing. These are simplified teaching models, not real-time recordings of reactions.</p><div class="nm-bond-tabs"><button type="button" id="nmBondIonic" aria-pressed="true">Na + Cl</button><button type="button" id="nmBondCovalent" aria-pressed="false">H + Cl</button><button type="button" id="nmBondReplay" data-en="↻ Replay" data-vi="↻ Xem lại">↻ Replay</button></div><div class="nm-bond-stage" id="nmBondStage" role="img" aria-label="Simplified electron interaction"><div class="nm-bond-atom" id="nmBondLeft">Na</div><span class="nm-bond-electron" id="nmBondElectron">e⁻</span><div class="nm-bond-atom" id="nmBondRight">Cl</div></div><p class="nm-bond-explain" id="nmBondExplain"></p><p class="nm-bond-caution" data-en="Scientific note: NaCl is an ionic solid, while HCl has a polar covalent H–Cl bond. The moving dot is only a conceptual visual aid." data-vi="Lưu ý khoa học: NaCl là chất rắn ion, còn HCl có liên kết cộng hóa trị phân cực H–Cl. Chấm chuyển động chỉ là hình ảnh minh họa khái niệm.">Scientific note: NaCl is an ionic solid, while HCl has a polar covalent H–Cl bond. The moving dot is only a conceptual visual aid.</p></article>
+ <article class="nm-scroll-panel nm-bonding-panel" id="nmBonding"><div class="nm-panel-kicker" data-en="04 / WATCH ELECTRONS" data-vi="04 / QUAN SÁT ELECTRON">04 / WATCH ELECTRONS</div><h3 data-en="Two ways electrons behave in bonds" data-vi="Hai cách electron tham gia liên kết">Two ways electrons behave in bonds</h3><p data-en="Switch between ionic electron transfer and unequal electron sharing. These are simplified teaching models, not real-time recordings of reactions." data-vi="Chuyển giữa mô hình chuyển electron tạo liên kết ion và mô hình dùng chung electron không đều. Đây là mô phỏng phục vụ học tập, không phải video ghi lại phản ứng thực tế.">Switch between ionic electron transfer and unequal electron sharing. These are simplified teaching models, not real-time recordings of reactions.</p><div class="nm-bond-tabs"><button type="button" id="nmBondIonic" aria-pressed="true">Na + Cl</button><button type="button" id="nmBondCovalent" aria-pressed="false">H + Cl</button><button type="button" id="nmBondReplay" data-en="↻ Replay" data-vi="↻ Xem lại">↻ Replay</button></div><div class="nm-bond-stage" id="nmBondStage" role="img" aria-label="Simplified electron interaction"><svg class="nm-bond-svg" viewBox="0 0 760 280" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><g id="nmBondLeftShells"></g><g id="nmBondRightShells"></g><g id="nmBondElectron"><circle r="13" fill="#b17d3f"/><text text-anchor="middle" dy="5" font-size="15" font-weight="800" fill="white">e⁻</text></g>
+<g id="nmBondCovalentModel" aria-hidden="true">
+ <circle cx="310" cy="140" r="54" fill="#74a4b6" fill-opacity=".08" stroke="#5b8290" stroke-width="2" stroke-dasharray="5 5"/>
+ <circle cx="470" cy="140" r="76" fill="#c6a06c" fill-opacity=".08" stroke="#b48b51" stroke-width="2" stroke-dasharray="5 5"/>
+ <circle cx="310" cy="140" r="21" fill="#fff8e9" stroke="#a88451" stroke-width="2"/>
+ <text x="310" y="146" text-anchor="middle" font-size="20" font-weight="800" fill="#28495b">H</text>
+ <circle cx="470" cy="140" r="23" fill="#fff8e9" stroke="#a88451" stroke-width="2"/>
+ <text x="470" y="146" text-anchor="middle" font-size="20" font-weight="800" fill="#28495b">Cl</text>
+ <g class="nm-hcl-pair"><ellipse cx="410" cy="140" rx="62" ry="33" fill="#b98c4e" fill-opacity=".23"/><ellipse cx="425" cy="140" rx="41" ry="23" fill="#b98c4e" fill-opacity=".18"/></g>
+ <g class="nm-hcl-h-electron"><circle cx="393" cy="133" r="7" fill="#4b91af" stroke="#fffaf1" stroke-width="2"/></g>
+ <g class="nm-hcl-cl-electron"><circle cx="410" cy="147" r="7" fill="#b27b40" stroke="#fffaf1" stroke-width="2"/></g>
+ <g class="nm-hcl-polarity"><text x="310" y="70" text-anchor="middle" font-size="19" font-weight="700" fill="#42778d">δ+</text><text x="470" y="43" text-anchor="middle" font-size="19" font-weight="700" fill="#98632e">δ−</text><text x="400" y="220" text-anchor="middle" font-size="15" fill="#365769" id="nmBondPairCaption">Shared electron pair → Cl</text></g>
+</g></svg></div><p class="nm-bond-explain" id="nmBondExplain"></p><p class="nm-bond-caution" data-en="Scientific note: NaCl is an ionic solid, while HCl has a polar covalent H–Cl bond. These are conceptual models: electrons do not travel along fixed circular paths, and the H–Cl pair is shared rather than transferred." data-vi="Lưu ý khoa học: NaCl là chất rắn ion, còn HCl có liên kết cộng hóa trị phân cực H–Cl. Đây là các mô hình khái niệm: electron không chuyển động theo quỹ đạo tròn cố định; trong H–Cl, cặp electron được dùng chung chứ không chuyển hẳn sang Chlorine.">Scientific note: NaCl is an ionic solid, while HCl has a polar covalent H–Cl bond. These are conceptual models: electrons do not travel along fixed circular paths, and the H–Cl pair is shared rather than transferred.</p></article>
 <div class="nm-practice-launch-wrap"><button type="button" id="nmLaunchPractice" class="nm-practice-launch">✦ Start practice · 12 questions ↗</button></div>
 <section class="nm-practice" id="nmPractice" aria-labelledby="nmPracticeTitle">
   <div class="nm-practice-topbar"><span id="nmPracticeModeLabel">CHAPTER 2 · PRACTICE</span><button type="button" id="nmExitPractice" aria-label="Close practice">✕</button></div>
@@ -5131,14 +5162,24 @@ let nmBondMode='ionic';
 const nmBondStage=document.getElementById('nmBondStage');
 function nmRenderBond(){
  const vi=currentLanguage==='vi';
- document.getElementById('nmBondLeft').textContent=nmBondMode==='ionic'?'Na':'H';
- document.getElementById('nmBondRight').textContent='Cl';
+ const svgNS='http://www.w3.org/2000/svg';
+ const draw=(id,x,symbol,counts)=>{const g=document.getElementById(id);g.replaceChildren();const center=140;
+  const add=(tag,attrs,parent=g)=>{const el=document.createElementNS(svgNS,tag);Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,String(v)));parent.append(el);return el};
+  const radii=counts.length===1?[54]:counts.length===2?[37,68]:[30,54,82];
+  radii.forEach((r,i)=>{add('circle',{cx:x,cy:center,r,fill:'none',stroke:'#5b8290','stroke-width':1.8,opacity:.62});
+   const n=counts[i];for(let j=0;j<n;j++){const a=2*Math.PI*j/n-Math.PI/2;add('circle',{cx:x+r*Math.cos(a),cy:center+r*Math.sin(a),r:4.2,fill:'#477b8c'})}});
+  add('circle',{cx:x,cy:center,r:21,fill:'#fff8e9',stroke:'#a88451','stroke-width':2});
+  const t=add('text',{x,y:center+5,'text-anchor':'middle',fill:'#28495b','font-size':17,'font-weight':800});t.textContent=symbol;
+ };
+ draw('nmBondLeftShells',210,nmBondMode==='ionic'?'Na':'H',nmBondMode==='ionic'?[2,8,1]:[1]);
+ draw('nmBondRightShells',550,'Cl',[2,8,7]);
  nmBondStage.dataset.mode=nmBondMode;
+ document.getElementById('nmBondPairCaption').textContent=vi?'Cặp electron dùng chung, lệch về Cl':'Shared electron pair, shifted toward Cl';
  document.getElementById('nmBondIonic').setAttribute('aria-pressed',String(nmBondMode==='ionic'));
  document.getElementById('nmBondCovalent').setAttribute('aria-pressed',String(nmBondMode==='covalent'));
  document.getElementById('nmBondExplain').textContent=nmBondMode==='ionic'?(vi?'Sodium có thể nhường một electron cho Chlorine, hình thành Na⁺ và Cl⁻. Lực hút tĩnh điện giữa các ion tạo nên liên kết ion trong NaCl.':'Sodium can transfer one electron to Chlorine, forming Na⁺ and Cl⁻. Electrostatic attraction between ions produces ionic bonding in NaCl.'):(vi?'Trong phân tử HCl, Hydrogen và Chlorine dùng chung một cặp electron, nhưng cặp electron bị hút lệch về phía Chlorine: đây là liên kết cộng hóa trị phân cực.':'In HCl, Hydrogen and Chlorine share a pair of electrons, but the electron density is drawn toward Chlorine: a polar covalent bond.');
 }
-function nmReplayBond(){const dot=document.getElementById('nmBondElectron');dot.style.animation='none';void dot.offsetWidth;dot.style.animation='';}
+function nmReplayBond(){const stage=document.getElementById('nmBondStage');const svg=stage.querySelector('.nm-bond-svg');const fresh=svg.cloneNode(true);svg.replaceWith(fresh);}
 document.getElementById('nmBondIonic').addEventListener('click',()=>{nmBondMode='ionic';nmRenderBond();nmReplayBond()});
 document.getElementById('nmBondCovalent').addEventListener('click',()=>{nmBondMode='covalent';nmRenderBond();nmReplayBond()});
 document.getElementById('nmBondReplay').addEventListener('click',nmReplayBond);
