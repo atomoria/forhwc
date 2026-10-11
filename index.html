@@ -1353,6 +1353,33 @@ html[lang="vi"] .nm-celebration-card h3 {
 html[lang="vi"] #nmFailureTitle {font-family: Georgia, "Times New Roman", serif !important;letter-spacing:.04em !important;}
 html[lang="vi"] .nm-practice-overlay,html[lang="vi"] .nm-celebration-card {font-family:"Segoe UI","Noto Sans",Arial,sans-serif;}
 
+
+/* Phase 1: scroll-first chapter presentation */
+#nonmetallicTrends{scroll-behavior:smooth}
+.nm-lesson-jump{position:sticky;top:8px;z-index:6;display:flex;gap:8px;flex-wrap:wrap;padding:10px;background:rgba(255,249,238,.94);border:1px solid #e0ceb0;border-radius:14px;backdrop-filter:blur(10px);margin:18px 0}
+.nm-lesson-jump a{color:#345366;text-decoration:none;font-size:13px;font-weight:700;padding:8px 10px;border-radius:9px}
+.nm-lesson-jump a:hover,.nm-lesson-jump a:focus-visible{background:#e9decb;outline-offset:2px}
+.nm-scroll-panel{background:#fffaf0;border:1px solid #e0ceb0;border-radius:18px;padding:clamp(20px,3.5vw,42px);margin:28px 0;scroll-margin-top:95px}
+.nm-scroll-panel h3{font-family:Georgia,'Noto Serif',serif;color:#243a4d;font-size:clamp(24px,3vw,34px);line-height:1.5;margin:12px 0}
+html[lang="vi"] .nm-scroll-panel h3{font-family:Arial,'Noto Sans',sans-serif;letter-spacing:normal}
+.nm-scroll-panel p{line-height:1.85;color:#536879;max-width:78ch}
+.nm-panel-kicker{color:#a06d32;font-size:12px;font-weight:800;letter-spacing:.12em}
+.nm-concept-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:25px}
+.nm-concept-cards>div{display:flex;flex-direction:column;gap:8px;align-items:center;padding:20px;background:#f4ead8;border-radius:14px;text-align:center;color:#294b5b}
+.nm-large-arrow{font-size:48px;color:#a4793d;line-height:1}
+.nm-bond-tabs{display:flex;gap:9px;flex-wrap:wrap;margin:22px 0}
+.nm-bond-tabs button{background:#fff8e9;color:#284a60;border:1px solid #c7b18e;border-radius:10px;padding:11px 17px;cursor:pointer;font-weight:700}
+.nm-bond-tabs button[aria-pressed="true"]{background:#294b60;color:white}
+.nm-bond-stage{height:220px;background:radial-gradient(ellipse,#eaf1ee,#e7ddc9);border:1px solid #d5c4a8;border-radius:16px;display:flex;align-items:center;justify-content:space-evenly;position:relative;overflow:hidden}
+.nm-bond-atom{height:92px;width:92px;display:grid;place-items:center;border-radius:50%;border:3px solid #537c86;background:#fffaf1;color:#28495b;font-size:29px;font-weight:800;box-shadow:0 0 0 12px rgba(83,124,134,.08)}
+.nm-bond-electron{position:absolute;left:30%;top:43%;z-index:2;background:#b17d3f;color:white;padding:8px;border-radius:50%;font-weight:800;animation:nmTransfer 2.8s ease-in-out forwards}
+.nm-bond-stage[data-mode="covalent"] .nm-bond-electron{animation:nmShare 2.8s ease-in-out forwards}
+@keyframes nmTransfer{from{left:30%}to{left:68%}}
+@keyframes nmShare{from{left:35%}to{left:57%}}
+.nm-bond-explain{min-height:55px}
+.nm-bond-caution{font-size:13px;border-left:3px solid #b78a4c;padding-left:12px}
+@media(max-width:650px){.nm-concept-cards{grid-template-columns:1fr}.nm-bond-atom{width:65px;height:65px;font-size:22px}.nm-lesson-jump{position:relative;top:auto}}
+@media(prefers-reduced-motion:reduce){.nm-bond-electron,.nm-bond-stage[data-mode="covalent"] .nm-bond-electron{animation:none;left:50%}}
 </style>
 <style>
 .nm-lab{margin-top:22px;padding:clamp(14px,2.5vw,26px);background:#fffaf1;border:1px solid #dbc8aa;border-radius:18px;color:#263b4b}.nm-lab-heading h3{font-family:'Noto Serif',Georgia,serif;font-size:clamp(21px,2.8vw,30px);margin:8px 0;color:#263b4b}.nm-lab-heading p{color:#667485;line-height:1.6}.nm-lab-grid{display:grid;grid-template-columns:repeat(18,minmax(0,1fr));gap:4px;margin:18px 0}.nm-lab-tile{grid-column:var(--g);grid-row:var(--p);min-width:0;min-height:56px;border:1px solid #b9c9c8;border-radius:7px;background:#e7f1ed;color:#264e51;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px}.nm-lab-tile b{font-size:clamp(11px,1.5vw,19px)}.nm-lab-tile small{font-size:9px}.nm-lab-tile[data-picked="a"]{background:#285b70;color:#fff;border-color:#285b70}.nm-lab-tile[data-picked="b"]{background:#a97b3d;color:#fff;border-color:#a97b3d}.nm-lab-tile:focus-visible,.nm-lab-actions button:focus-visible{outline:3px solid #07998e;outline-offset:2px}.nm-lab-selection{border-top:1px solid #e7dccb;padding-top:15px}.nm-lab-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.nm-lab-actions button{padding:9px 12px;border-radius:10px;border:1px solid #bca886;background:#fff8eb;color:#314b5c;cursor:pointer;font-weight:700}.nm-lab-actions button[aria-pressed="true"],#nmLabReveal{background:#28495e;color:white}.nm-lab-actions button:disabled{opacity:.5;cursor:not-allowed}#nmLabFeedback{min-height:24px;color:#355d59;line-height:1.6}.nm-lab-deep{margin-top:18px;border-top:1px solid #e7dccb;padding-top:16px}.nm-lab-deep summary{cursor:pointer;font-weight:700}.nm-shell-controls{margin:12px 0;display:flex;align-items:center;gap:12px}.nm-shell-controls select{border:1px solid #c7b79c;border-radius:8px;padding:8px;background:white;color:#263b4b}.nm-shell-model{display:flex;justify-content:center;min-height:235px}.nm-shell-model svg{width:min(100%,360px);height:235px}.nm-lab-deep p{font-size:13px;color:#647383;line-height:1.6}@media(max-width:640px){.nm-lab-grid{gap:2px}.nm-lab-tile{min-height:40px;border-radius:4px}.nm-lab-tile b{font-size:10px}.nm-lab-tile small{font-size:7px}.nm-lab-actions button{font-size:12px;padding:8px}}
@@ -1529,18 +1556,26 @@ html[lang="vi"] #nmFailureScore{font-weight:500!important;line-height:1.65!impor
 
 <section class="nm-section nm-lesson" id="nonmetallicTrends" aria-labelledby="nmTitle">
  <header class="nm-lesson-head"><span id="nmTag">CHAPTER 02 · THE BIG IDEA</span><h2 id="nmTitle">Nonmetallic character</h2><p id="nmSubtitle">Learn one pattern, then test it yourself.</p></header>
+
+ <nav class="nm-lesson-jump" aria-label="Chapter lesson sections" id="nmLessonJump"><a href="#nmConcept" data-en="01 · Concept" data-vi="01 · Khái niệm">01 · Concept</a><a href="#nmPattern" data-en="02 · Trend" data-vi="02 · Xu hướng">02 · Trend</a><a href="#nmLab" data-en="03 · Explore" data-vi="03 · Khám phá">03 · Explore</a><a href="#nmBonding" data-en="04 · Bonding" data-vi="04 · Liên kết">04 · Bonding</a><a href="#nmLaunchPractice" data-en="05 · Practice" data-vi="05 · Luyện tập">05 · Practice</a></nav>
+ <article class="nm-scroll-panel nm-concept-panel" id="nmConcept"><div class="nm-panel-kicker" data-en="01 / UNDERSTAND" data-vi="01 / HIỂU BẢN CHẤT">01 / UNDERSTAND</div><h3 data-en="What does nonmetallic character mean?" data-vi="Tính phi kim là gì?">What does nonmetallic character mean?</h3><p data-en="In introductory chemistry, nonmetallic character describes how strongly an element tends to attract electrons in chemical interactions. Many nonmetals can gain electrons to form negative ions, but not every bond involves full electron transfer." data-vi="Trong hóa học phổ thông, tính phi kim mô tả xu hướng hút electron của nguyên tố khi tương tác hóa học. Nhiều phi kim có thể nhận electron tạo ion âm, nhưng không phải liên kết nào cũng có sự chuyển electron hoàn toàn.">In introductory chemistry, nonmetallic character describes how strongly an element tends to attract electrons in chemical interactions. Many nonmetals can gain electrons to form negative ions, but not every bond involves full electron transfer.</p><div class="nm-concept-cards"><div><b data-en="Across a period" data-vi="Trong một chu kì">Across a period</b><span class="nm-large-arrow">→</span><small data-en="Generally increases" data-vi="Nhìn chung tăng dần">Generally increases</small></div><div><b data-en="Up a group" data-vi="Trong một nhóm, đi lên">Up a group</b><span class="nm-large-arrow">↑</span><small data-en="Generally increases" data-vi="Nhìn chung tăng dần">Generally increases</small></div></div></article>
+ <div class="nm-scroll-panel nm-pattern-panel" id="nmPattern"><div class="nm-panel-kicker" data-en="02 / NOTICE THE PATTERN" data-vi="02 / QUAN SÁT QUY LUẬT">02 / NOTICE THE PATTERN</div>
  <div class="nm-takeaway"><span class="nm-kicker" id="nmTakeawayLabel">REMEMBER THIS</span><div class="nm-rule-grid"><div><span class="nm-rule-arrow">→</span><strong id="nmAcross">Across a period: increases to the right</strong></div><div><span class="nm-rule-arrow">↑</span><strong id="nmDown">Up a group: increases upward</strong></div></div><p id="nmCoreNote">These are general trends, especially useful for main-group elements.</p></div>
  <div class="nm-lesson-workspace"><div class="nm-workspace-title"><div><span class="nm-kicker" id="nmDiagramTitle">EXPLORE THE PATTERN</span><h3 id="nmExploreTitle">Tap an example</h3></div><span class="nm-step" id="nmStepLabel">STEP 1 OF 2</span></div>
  <div class="nm-example-tabs" role="group" aria-label="Choose a trend example"><button type="button" class="nm-example active" data-nm-example="period" id="nmPresetPeriod" aria-pressed="true">Across a period</button><button type="button" class="nm-example" data-nm-example="group" id="nmPresetGroup" aria-pressed="false">Up a group</button><button type="button" class="nm-example" data-nm-example="custom" id="nmPresetCustom" aria-pressed="false">Try your own</button></div>
  <div class="nm-demo"><div class="nm-demo-diagram" aria-label="Interactive element position model"><div class="nm-demo-axis" id="nmDiagramNote">Compare positions, not a measured strength scale</div><div class="nm-demo-elements" id="nmDemoElements"></div><div class="nm-demo-direction" id="nmDemoDirection">Increasing nonmetallic character →</div></div><div class="nm-demo-explanation"><span class="nm-kicker" id="nmObservationLabel">WHAT TO NOTICE</span><h4 id="nmDemoHeading">Sodium vs Chlorine</h4><p id="nmResult" aria-live="polite"></p><div class="nm-reason" id="nmReason"></div></div></div>
  <div class="nm-custom" id="nmCustom" hidden><h3 id="nmCompareTitle">Choose two elements</h3><div class="nm-controls"><label><span id="nmLabelA">First element</span><select id="nmElementA"></select></label><label><span id="nmLabelB">Second element</span><select id="nmElementB"></select></label></div></div></div>
 
+ </div><!-- /nmPattern -->
+ <div class="nm-scroll-panel nm-lab-panel"><div class="nm-panel-kicker" data-en="03 / EXPERIMENT" data-vi="03 / THỰC HÀNH">03 / EXPERIMENT</div>
  <div class="nm-lab" id="nmLab">
   <div class="nm-lab-heading"><span class="nm-kicker" id="nmLabKicker">STEP 3 · EXPERIMENT</span><h3 id="nmLabTitle">Explore the elements yourself</h3><p id="nmLabSubtitle">Choose two highlighted elements, predict the stronger nonmetal, then reveal the explanation.</p></div>
   <div class="nm-lab-grid" id="nmLabGrid" aria-label="Clickable simplified periodic table"></div>
   <div class="nm-lab-selection"><div id="nmLabPicked" aria-live="polite"></div><div class="nm-lab-actions"><button type="button" id="nmLabPredictA">Element A</button><button type="button" id="nmLabPredictB">Element B</button><button type="button" id="nmLabReveal">Reveal explanation</button><button type="button" id="nmLabReset">Reset</button></div><p id="nmLabFeedback" aria-live="polite"></p></div>
   <details class="nm-lab-deep" id="nmShellDetails"><summary id="nmShellSummary">Explore deeper · electron shells</summary><div class="nm-shell-controls"><label id="nmShellLabel" for="nmShellSelect">Element</label><select id="nmShellSelect"></select></div><div id="nmShellModel" class="nm-shell-model" role="img" aria-label="Simplified electron-shell diagram"></div><p id="nmShellCaption"></p></details>
  </div>
+</div><!-- /nm-lab-panel -->
+ <article class="nm-scroll-panel nm-bonding-panel" id="nmBonding"><div class="nm-panel-kicker" data-en="04 / WATCH ELECTRONS" data-vi="04 / QUAN SÁT ELECTRON">04 / WATCH ELECTRONS</div><h3 data-en="Two ways electrons behave in bonds" data-vi="Hai cách electron tham gia liên kết">Two ways electrons behave in bonds</h3><p data-en="Switch between ionic electron transfer and unequal electron sharing. These are simplified teaching models, not real-time recordings of reactions." data-vi="Chuyển giữa mô hình chuyển electron tạo liên kết ion và mô hình dùng chung electron không đều. Đây là mô phỏng phục vụ học tập, không phải video ghi lại phản ứng thực tế.">Switch between ionic electron transfer and unequal electron sharing. These are simplified teaching models, not real-time recordings of reactions.</p><div class="nm-bond-tabs"><button type="button" id="nmBondIonic" aria-pressed="true">Na + Cl</button><button type="button" id="nmBondCovalent" aria-pressed="false">H + Cl</button><button type="button" id="nmBondReplay" data-en="↻ Replay" data-vi="↻ Xem lại">↻ Replay</button></div><div class="nm-bond-stage" id="nmBondStage" role="img" aria-label="Simplified electron interaction"><div class="nm-bond-atom" id="nmBondLeft">Na</div><span class="nm-bond-electron" id="nmBondElectron">e⁻</span><div class="nm-bond-atom" id="nmBondRight">Cl</div></div><p class="nm-bond-explain" id="nmBondExplain"></p><p class="nm-bond-caution" data-en="Scientific note: NaCl is an ionic solid, while HCl has a polar covalent H–Cl bond. The moving dot is only a conceptual visual aid." data-vi="Lưu ý khoa học: NaCl là chất rắn ion, còn HCl có liên kết cộng hóa trị phân cực H–Cl. Chấm chuyển động chỉ là hình ảnh minh họa khái niệm.">Scientific note: NaCl is an ionic solid, while HCl has a polar covalent H–Cl bond. The moving dot is only a conceptual visual aid.</p></article>
 <div class="nm-practice-launch-wrap"><button type="button" id="nmLaunchPractice" class="nm-practice-launch">✦ Start practice · 12 questions ↗</button></div>
 <section class="nm-practice" id="nmPractice" aria-labelledby="nmPracticeTitle">
   <div class="nm-practice-topbar"><span id="nmPracticeModeLabel">CHAPTER 2 · PRACTICE</span><button type="button" id="nmExitPractice" aria-label="Close practice">✕</button></div>
@@ -5090,6 +5125,26 @@ const soundToggleRefreshers=[
 ];
 const nmPracticePriorRender=renderNonmetalTrends;renderNonmetalTrends=function(){nmPracticePriorRender();renderNmPractice()};
 renderNmPractice();
+
+/* Phase 1 bilingual lesson interactions */
+let nmBondMode='ionic';
+const nmBondStage=document.getElementById('nmBondStage');
+function nmRenderBond(){
+ const vi=currentLanguage==='vi';
+ document.getElementById('nmBondLeft').textContent=nmBondMode==='ionic'?'Na':'H';
+ document.getElementById('nmBondRight').textContent='Cl';
+ nmBondStage.dataset.mode=nmBondMode;
+ document.getElementById('nmBondIonic').setAttribute('aria-pressed',String(nmBondMode==='ionic'));
+ document.getElementById('nmBondCovalent').setAttribute('aria-pressed',String(nmBondMode==='covalent'));
+ document.getElementById('nmBondExplain').textContent=nmBondMode==='ionic'?(vi?'Sodium có thể nhường một electron cho Chlorine, hình thành Na⁺ và Cl⁻. Lực hút tĩnh điện giữa các ion tạo nên liên kết ion trong NaCl.':'Sodium can transfer one electron to Chlorine, forming Na⁺ and Cl⁻. Electrostatic attraction between ions produces ionic bonding in NaCl.'):(vi?'Trong phân tử HCl, Hydrogen và Chlorine dùng chung một cặp electron, nhưng cặp electron bị hút lệch về phía Chlorine: đây là liên kết cộng hóa trị phân cực.':'In HCl, Hydrogen and Chlorine share a pair of electrons, but the electron density is drawn toward Chlorine: a polar covalent bond.');
+}
+function nmReplayBond(){const dot=document.getElementById('nmBondElectron');dot.style.animation='none';void dot.offsetWidth;dot.style.animation='';}
+document.getElementById('nmBondIonic').addEventListener('click',()=>{nmBondMode='ionic';nmRenderBond();nmReplayBond()});
+document.getElementById('nmBondCovalent').addEventListener('click',()=>{nmBondMode='covalent';nmRenderBond();nmReplayBond()});
+document.getElementById('nmBondReplay').addEventListener('click',nmReplayBond);
+function nmRenderLessonLanguage(){const vi=currentLanguage==='vi';document.querySelectorAll('#nonmetallicTrends [data-en][data-vi]').forEach(el=>{el.textContent=el.dataset[vi?'vi':'en']});nmRenderBond()}
+const nmLessonPriorRender=renderNonmetalTrends;renderNonmetalTrends=function(){nmLessonPriorRender();nmRenderLessonLanguage()};
+nmRenderLessonLanguage();
 </script>
 
 
