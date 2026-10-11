@@ -5434,7 +5434,7 @@ function nmRenderHistory(reviewId=null){
  const clear=document.createElement('button');clear.textContent=nmHistoryText('Clear local history','Xóa lịch sử trên thiết bị');clear.onclick=()=>{if(confirm(nmHistoryText('Delete all saved attempts on this device?','Xóa toàn bộ lượt làm đã lưu trên thiết bị này?'))){try{localStorage.removeItem(nmHistoryKey)}catch{}nmRenderHistory()}};nmHistoryList.append(clear);
 }
 nmHistoryButton.onclick=()=>{nmHistoryPanel.hidden=false;nmRenderHistory();nmHistoryPanel.scrollTop=0};
-const nmHistoryHeading=document.querySelector('.nm-practice-heading');nmHistoryHeading.append(nmHistoryButton);
+/* History now lives in the pre-game lobby; do not duplicate its button in the lesson. */
 const nmOldRenderHistoryLabels=renderNmPractice;
 renderNmPractice=function(){nmOldRenderHistoryLabels();nmHistoryButton.textContent=nmHistoryText('▤ History & personal bests','▤ Lịch sử & thành tích cá nhân')};
 renderNmPractice();
