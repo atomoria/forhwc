@@ -1407,6 +1407,23 @@ html[lang="vi"] .nm-scroll-panel h3{font-family:Arial,'Noto Sans',sans-serif;let
 .nm-mode-choice:focus-visible{outline:3px solid #168d88;outline-offset:3px}
 #nmModeTimer{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:800;color:#a87836}
 @media(max-width:700px){.nm-mode-chooser{grid-template-columns:1fr}}
+
+/* Ocean Explorer: self-contained lightweight journey map. */
+.nm-ocean-scene[hidden]{display:none!important}
+.nm-ocean-scene{position:relative;overflow:hidden;isolation:isolate;min-height:192px;margin:12px 0 22px;border-radius:19px;padding:17px 20px 14px;color:#e8f9ff;background:linear-gradient(180deg,#124b69 0%,#0b3759 57%,#062940 100%);border:1px solid #397b90;box-shadow:inset 0 1px #b1e5ee40}
+.nm-ocean-scene::before{content:"";position:absolute;inset:-70px -20px auto;height:150px;background:radial-gradient(ellipse at 35% 0%,#b8e7e63a,transparent 65%);pointer-events:none}
+.nm-ocean-stars{position:absolute;right:17px;top:47px;opacity:.35;font-size:21px;letter-spacing:15px}
+.nm-ocean-top{display:flex;justify-content:space-between;gap:8px;font-size:11px;font-weight:800;letter-spacing:1.5px;position:relative;z-index:1}
+.nm-ocean-route{position:relative;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:3px;margin:47px 0 22px;z-index:2}
+.nm-ocean-route::before{content:"";position:absolute;top:50%;height:2px;left:2%;right:2%;background:#c5e8ec70;z-index:-1}
+.nm-ocean-node{aspect-ratio:1;max-width:24px;width:100%;margin:auto;border:1.5px solid #c7e8e8a0;border-radius:50%;background:#0c4260;display:grid;place-items:center;font-size:9px;color:#e2f8ff;transition:background .3s,transform .3s}
+.nm-ocean-node.is-done{background:#55b3ac;border-color:#b8e7dc;color:#082c3d}
+.nm-ocean-node.is-current{background:#f0c87c;border-color:white;color:#15364b;transform:scale(1.28);box-shadow:0 0 0 4px #f5d79533}
+.nm-ocean-sub{position:absolute;top:72px;left:5%;font-size:27px;transition:left .65s ease;z-index:3;filter:drop-shadow(0 4px 3px #001a2c)}
+.nm-ocean-floor{position:absolute;bottom:7px;left:0;right:0;opacity:.55;text-align:center;font-size:20px;letter-spacing:clamp(6px,3vw,32px)}
+.nm-ocean-message{position:relative;z-index:3;text-align:center;font-size:12px;font-weight:700;margin:0 0 18px;color:#dbf4ef;min-height:19px}
+@media(max-width:550px){.nm-ocean-scene{padding:14px 10px;min-height:175px}.nm-ocean-route{gap:1px}.nm-ocean-node{font-size:8px}.nm-ocean-sub{top:64px;font-size:23px}}
+@media(prefers-reduced-motion:reduce){.nm-ocean-sub,.nm-ocean-node{transition:none}}
 </style>
 <style>
 .nm-lab{margin-top:22px;padding:clamp(14px,2.5vw,26px);background:#fffaf1;border:1px solid #dbc8aa;border-radius:18px;color:#263b4b}.nm-lab-heading h3{font-family:'Noto Serif',Georgia,serif;font-size:clamp(21px,2.8vw,30px);margin:8px 0;color:#263b4b}.nm-lab-heading p{color:#667485;line-height:1.6}.nm-lab-grid{display:grid;grid-template-columns:repeat(18,minmax(0,1fr));gap:4px;margin:18px 0}.nm-lab-tile{grid-column:var(--g);grid-row:var(--p);min-width:0;min-height:56px;border:1px solid #b9c9c8;border-radius:7px;background:#e7f1ed;color:#264e51;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px}.nm-lab-tile b{font-size:clamp(11px,1.5vw,19px)}.nm-lab-tile small{font-size:9px}.nm-lab-tile[data-picked="a"]{background:#285b70;color:#fff;border-color:#285b70}.nm-lab-tile[data-picked="b"]{background:#a97b3d;color:#fff;border-color:#a97b3d}.nm-lab-tile:focus-visible,.nm-lab-actions button:focus-visible{outline:3px solid #07998e;outline-offset:2px}.nm-lab-selection{border-top:1px solid #e7dccb;padding-top:15px}.nm-lab-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.nm-lab-actions button{padding:9px 12px;border-radius:10px;border:1px solid #bca886;background:#fff8eb;color:#314b5c;cursor:pointer;font-weight:700}.nm-lab-actions button[aria-pressed="true"],#nmLabReveal{background:#28495e;color:white}.nm-lab-actions button:disabled{opacity:.5;cursor:not-allowed}#nmLabFeedback{min-height:24px;color:#355d59;line-height:1.6}.nm-lab-deep{margin-top:18px;border-top:1px solid #e7dccb;padding-top:16px}.nm-lab-deep summary{cursor:pointer;font-weight:700}.nm-shell-controls{margin:12px 0;display:flex;align-items:center;gap:12px}.nm-shell-controls select{border:1px solid #c7b79c;border-radius:8px;padding:8px;background:white;color:#263b4b}.nm-shell-model{display:flex;justify-content:center;min-height:235px}.nm-shell-model svg{width:min(100%,360px);height:235px}.nm-lab-deep p{font-size:13px;color:#647383;line-height:1.6}@media(max-width:640px){.nm-lab-grid{gap:2px}.nm-lab-tile{min-height:40px;border-radius:4px}.nm-lab-tile b{font-size:10px}.nm-lab-tile small{font-size:7px}.nm-lab-actions button{font-size:12px;padding:8px}}
@@ -1622,6 +1639,14 @@ html[lang="vi"] #nmFailureScore{font-weight:500!important;line-height:1.65!impor
 </div><div class="nm-practice-launch-wrap"><button type="button" id="nmLaunchPractice" class="nm-practice-launch">✦ Start practice · 12 questions ↗</button></div>
 <section class="nm-practice" id="nmPractice" aria-labelledby="nmPracticeTitle">
   <div class="nm-practice-topbar"><span id="nmPracticeModeLabel">CHAPTER 2 · PRACTICE</span><span id="nmModeTimer" role="timer" aria-live="off"></span><button type="button" id="nmExitPractice" aria-label="Close practice">✕</button></div>
+  <section id="nmOceanScene" class="nm-ocean-scene" aria-label="Ocean exploration progress" hidden>
+    <div class="nm-ocean-stars" aria-hidden="true">✧ &nbsp; ✦ &nbsp; ✧</div>
+    <div class="nm-ocean-top"><span id="nmOceanStage">DIVE 01 / 12</span><span id="nmOceanDepth">DEPTH 0 m</span></div>
+    <div class="nm-ocean-route" id="nmOceanRoute" aria-hidden="true"></div>
+    <div class="nm-ocean-sub" id="nmOceanSub" aria-hidden="true">🚤</div>
+    <div class="nm-ocean-floor" aria-hidden="true">🪸 &nbsp; 🐚 &nbsp; 🪸 &nbsp; 🐠</div>
+    <p class="nm-ocean-message" id="nmOceanMessage" aria-live="polite"></p>
+  </section>
   <div class="nm-practice-heading"><span class="nm-kicker" id="nmPracticeKicker">STEP 4 · PRACTISE</span><h3 id="nmPracticeTitle">Test your understanding</h3><p id="nmPracticeIntro">Apply the trends, one question at a time.</p></div>
   <div class="nm-practice-progress"><span id="nmPracticeCount"></span><span id="nmPracticeScore"></span></div>
   <div class="nm-practice-track"><div id="nmPracticeBar"></div></div>
@@ -5100,6 +5125,22 @@ const nmPracticePanel=document.getElementById('nmPractice');
 const nmPracticeLaunch=document.getElementById('nmLaunchPractice');
 let nmMode='training',nmTimerHandle=null,nmRemaining=0,nmDeadline=0,nmTimedOut=false;
 nmPracticeRound=nmNewRound();
+const nmOceanScene=document.getElementById('nmOceanScene');
+const nmOceanRoute=document.getElementById('nmOceanRoute');
+for(let n=0;n<12;n++){const node=document.createElement('span');node.className='nm-ocean-node';node.textContent=String(n+1);nmOceanRoute.append(node)}
+function nmRenderOcean(){
+ const visible=nmMode==='explorer'&&!nmPracticePanel.hidden;
+ nmOceanScene.hidden=!visible;if(!visible)return;
+ const vi=currentLanguage==='vi',p=nmPracticeState,complete=Math.min(12,p.index+(p.chosen!==null?1:0));
+ document.getElementById('nmOceanStage').textContent=vi?`CHẶNG ${String(Math.min(12,p.index+1)).padStart(2,'0')} / 12`:`DIVE ${String(Math.min(12,p.index+1)).padStart(2,'0')} / 12`;
+ document.getElementById('nmOceanDepth').textContent=vi?`ĐỘ SÂU ${complete*25} m`:`DEPTH ${complete*25} m`;
+ nmOceanRoute.querySelectorAll('.nm-ocean-node').forEach((node,i)=>{node.classList.toggle('is-done',i<complete);node.classList.toggle('is-current',i===Math.min(p.index,11)&&p.index<12)});
+ document.getElementById('nmOceanSub').style.left=`calc(${5+complete/12*86}% - 12px)`;
+ const msg=document.getElementById('nmOceanMessage');
+ msg.textContent=p.index>=12?(vi?'Chuyến thám hiểm hoàn thành!':'Expedition complete!'):
+ p.chosen===null?(vi?'Trả lời để tiến sâu hơn vào đại dương.':'Answer to explore deeper waters.'):
+ (p.chosen===(nmPracticeRound[p.index].type==='short'?1:nmPracticeRound[p.index].correct)?(vi?'Chính xác! Tàu tiến lên.':'Correct! Your vessel advances.'):(vi?'Hãy xem lời giải rồi tiếp tục.':'Review the explanation and continue.'));
+}
 const nmModeLabels={training:{en:'Training Grounds',vi:'Luyện tập cơ bản'},explorer:{en:'Ocean Explorer',vi:'Khám phá đại dương'},pirate:{en:'Pirate Challenge',vi:'Thử thách hải tặc'}};
 function nmStopTimer(){if(nmTimerHandle!==null){clearInterval(nmTimerHandle);nmTimerHandle=null;}}
 function nmTimerText(){const el=document.getElementById('nmModeTimer');el.textContent=nmMode==='training'?'':`${String(Math.floor(nmRemaining/60)).padStart(2,'0')}:${String(nmRemaining%60).padStart(2,'0')}`;el.setAttribute('aria-label',nmMode==='training'?'':`${nmRemaining} seconds remaining`);}
@@ -5122,7 +5163,7 @@ let nmFailureShown=false;
 nmPracticePanel.hidden=true;
 // Move practice out of the book page so the exercise occupies the entire viewport.
 document.body.append(nmPracticePanel);
-function openNmPractice(){nmResetRound();nmPracticePriorFocus=document.activeElement;nmPracticePanel.hidden=false;document.body.classList.add('nm-practice-open');nmStartTimer();document.getElementById('nmExitPractice').focus();}
+function openNmPractice(){nmResetRound();nmPracticePriorFocus=document.activeElement;nmPracticePanel.hidden=false;document.body.classList.add('nm-practice-open');nmRenderOcean();nmStartTimer();document.getElementById('nmExitPractice').focus();}
 function closeNmPractice(){nmStopTimer();nmPracticePanel.hidden=true;document.body.classList.remove('nm-practice-open');if(nmPracticePriorFocus?.isConnected)nmPracticePriorFocus.focus();}
 nmPracticeLaunch.addEventListener('click',openNmPractice);
 document.getElementById('nmExitPractice').addEventListener('click',closeNmPractice);
@@ -5166,6 +5207,7 @@ function renderNmPractice(){
  document.documentElement.lang=currentLanguage==='vi'?'vi':'en';
  document.querySelectorAll('.answer-sound-toggle').forEach(b=>{const vi=currentLanguage==='vi';b.textContent=answerSoundEnabled?(vi?'♪ Âm thanh: Bật':'♪ Sound: On'):(vi?'♪ Âm thanh: Tắt':'♪ Sound: Off');b.setAttribute('aria-pressed',String(answerSoundEnabled))});
  const vi=currentLanguage==='vi',t=vi?'vi':'en',p=nmPracticeState,q=nmPracticeRound[p.index],done=p.index>=nmPracticeRound.length;
+ nmRenderOcean();
  document.getElementById('nmPracticeModeLabel').textContent=(vi?'CHƯƠNG 2 · ':'CHAPTER 2 · ')+nmModeLabels[nmMode][t];nmPracticeLaunch.textContent=vi?`✦ Bắt đầu luyện tập · ${nmPracticeRound.length} câu hỏi ↗`:`✦ Start practice · ${nmPracticeRound.length} questions ↗`;
  nmPracticeUI.kicker.textContent=vi?'BƯỚC 4 · LUYỆN TẬP':'STEP 4 · PRACTISE';
  nmPracticeUI.title.textContent=vi?'Kiểm tra kiến thức':'Test your understanding';
