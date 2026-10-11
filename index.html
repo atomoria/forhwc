@@ -4802,7 +4802,27 @@ function showBookPage(page,{updateHash=true,animate=false}={}){
 }
 document.getElementById('bookTable').addEventListener('click',()=>showBookPage('table',{animate:true}));
 document.getElementById('bookTrends').addEventListener('click',()=>showBookPage('trends',{animate:true}));
-window.addEventListener('hashchange',()=>showBookPage(location.hash==='#trends'?'trends':'table',{updateHash:false,animate:true}));
+/* Chapter section hashes must not be interpreted as a request for Chapter 1. */
+const nmSectionIds=new Set(['nmConcept','nmPattern','nmLab','nmBonding','nmLaunchPractice']);
+document.querySelectorAll('#nmLessonJump a[href^="#"]').forEach(link=>{
+ link.addEventListener('click',event=>{
+  const targetId=link.getAttribute('href').slice(1);
+  if(!nmSectionIds.has(targetId))return;
+  const target=document.getElementById(targetId);
+  if(!target)return;
+  event.preventDefault();
+  /* Avoid modifying location.hash: hashchange is reserved for book chapters. */
+  target.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});
+ });
+});
+window.addEventListener('hashchange',()=>{
+ const hash=decodeURIComponent(location.hash.slice(1));
+ if(nmSectionIds.has(hash)){
+  if(activeBookPage==='trends')document.getElementById(hash)?.scrollIntoView({block:'start'});
+  return;
+ }
+ if(hash==='trends'||hash==='table')showBookPage(hash,{updateHash:false,animate:true});
+});
 
 /* =========================================================
    INITIALIZE
