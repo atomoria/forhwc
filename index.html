@@ -1898,6 +1898,7 @@ html[lang="vi"] #nmFailureScore{font-weight:500!important;line-height:1.65!impor
   <div class="nm-failure-actions"><button id="nmFailureRetry" type="button">Try again</button><button id="nmFailureReview" type="button">Review the lesson</button></div>
  </div>
 </div>
+<div id="nmTreasureModal" class="nm-treasure-modal" role="dialog" aria-modal="true" aria-labelledby="nmTreasureTitle" hidden><div class="nm-treasure-card"><span class="nm-treasure-emoji" aria-hidden="true">🏆</span><h3 id="nmTreasureTitle"></h3><p id="nmTreasureDescription"></p><button type="button" id="nmTreasureClose">Continue</button></div></div>
 <script>
 
 /* =========================================================
@@ -5184,6 +5185,7 @@ const nmLowScorePhotos=['data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBD
 const nmPracticePanel=document.getElementById('nmPractice');
 const nmPracticeLaunch=document.getElementById('nmLaunchPractice');
 let nmMode='training',nmTimerHandle=null,nmRemaining=0,nmDeadline=0,nmTimedOut=false;
+let nmAttemptAnswers=[],nmAttemptSaved=false,nmAttemptStarted=Date.now();
 nmPracticeRound=nmNewRound();
 const nmOceanScene=document.getElementById('nmOceanScene');
 const nmOceanRoute=document.getElementById('nmOceanRoute');
@@ -5273,7 +5275,7 @@ function nmStartTimer(){
   if(nmRemaining===0){nmTimedOut=true;nmStopTimer();nmPracticeState.index=nmPracticeRound.length;nmPracticeState.chosen=null;renderNmPractice();}
  },250);
 }
-function nmResetRound(){nmOceanEarned.clear();nmOceanDiscovery.hidden=true;nmPirateLastHit=-1;nmPirateScene.classList.remove('is-hit');closeNmTreasure();nmStopTimer();nmPracticeRound=nmNewRound();nmPracticeState.index=0;nmPracticeState.score=0;nmPracticeState.chosen=null;nmPracticeState.typed='';nmTimedOut=false;nmCelebrationShown=false;nmFailureShown=false;nmFailure.hidden=true;closeNmCelebration();renderNmPractice();}
+function nmResetRound(){nmAttemptAnswers=[];nmAttemptSaved=false;nmAttemptStarted=Date.now();nmOceanEarned.clear();nmOceanDiscovery.hidden=true;nmPirateLastHit=-1;nmPirateScene.classList.remove('is-hit');closeNmTreasure();nmStopTimer();nmPracticeRound=nmNewRound();nmPracticeState.index=0;nmPracticeState.score=0;nmPracticeState.chosen=null;nmPracticeState.typed='';nmTimedOut=false;nmCelebrationShown=false;nmFailureShown=false;nmFailure.hidden=true;closeNmCelebration();renderNmPractice();}
 document.querySelectorAll('.nm-mode-choice').forEach(button=>button.addEventListener('click',()=>{nmMode=button.dataset.mode;document.querySelectorAll('.nm-mode-choice').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));nmResetRound();}));
 const nmFailure=document.getElementById('nmFailure');
 let nmPracticePriorFocus=null;
@@ -5337,10 +5339,10 @@ function renderNmPractice(){
  nmPracticeUI.next.hidden=done;
  nmPracticeUI.restart.textContent=vi?'Làm lại':'Restart';
  if(done){
-  nmStopTimer();
-  if(nmMode!=='training'&&!nmCelebrationShown){nmCelebrationShown=true;if(p.score/nmPracticeRound.length>=2/3)openNmCelebration(p.score,nmPracticeRound.length);else if(p.score/nmPracticeRound.length<.5&&!nmFailureShown){nmFailureShown=true;showNmFailure(p.score,nmPracticeRound.length)}}
+  nmStopTimer();nmSaveAttempt();
+  if(nmMode!=='training'&&!nmCelebrationShown){nmCelebrationShown=true;if(p.score/nmPracticeRound.length<.5&&!nmFailureShown){nmFailureShown=true;showNmFailure(p.score,nmPracticeRound.length)}}
   nmPracticeUI.question.textContent=nmMode==='training'?(vi?'Bạn đã hoàn thành phần luyện tập!':'Practice complete!'):nmTimedOut?(vi?`Hết giờ! Bạn đạt ${p.score}/${nmPracticeRound.length} điểm.`:`Time is up! You scored ${p.score}/${nmPracticeRound.length}.`):(vi?`Bạn đạt ${p.score}/${nmPracticeRound.length} điểm!`:`You scored ${p.score}/${nmPracticeRound.length}!`);
-  nmPracticeUI.feedback.textContent=vi?'Bạn có thể làm lại để luyện tập thêm.':'You can restart to practise again.';
+  nmPracticeUI.feedback.textContent=(nmMode!=='training'&&p.score>=10)?(vi?'🏆 Bạn đã mở khóa Phòng trưng bày chiến thắng! Xem phần thưởng trong màn hình chọn chế độ.':'🏆 Victory Gallery unlocked! Open your rewards from the pre-game screen.'):(vi?'Bạn có thể làm lại để luyện tập thêm.':'You can restart to practise again.');
   return;
  }
  nmPracticeUI.question.textContent=q[t];
@@ -5358,7 +5360,7 @@ function renderNmPractice(){
      const normalized=p.typed.trim().toLocaleLowerCase('en').replace(/[.\s]+/g,'');
      p.chosen=q.answers.includes(normalized)?1:0;
      if(p.chosen===1)p.score++;
-     playAnswerSound(p.chosen===1);renderNmPractice();
+     nmRecordAnswer(q,p.chosen===1,p.typed);playAnswerSound(p.chosen===1);renderNmPractice();
    });
    input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!check.disabled)check.click()});
    wrap.append(input,check);nmPracticeUI.choices.append(wrap);
@@ -5370,7 +5372,7 @@ function renderNmPractice(){
  for(let i=0;i<q.opts.length;i++){
   const btn=document.createElement('button');btn.type='button';btn.textContent=`${String.fromCharCode(65+i)}. ${vi?q.optsVi[i]:q.opts[i]}`;
   if(p.chosen!==null){btn.disabled=true;if(i===q.correct)btn.dataset.state='correct';else if(i===p.chosen)btn.dataset.state='incorrect'}
-  else btn.addEventListener('click',()=>{p.chosen=i;if(i===q.correct)p.score++;playAnswerSound(i===q.correct);renderNmPractice()});
+  else btn.addEventListener('click',()=>{p.chosen=i;if(i===q.correct)p.score++;nmRecordAnswer(q,i===q.correct,q.opts[i]);playAnswerSound(i===q.correct);renderNmPractice()});
   nmPracticeUI.choices.append(btn);
  }
  nmPracticeUI.feedback.textContent=p.chosen===null?'':`${p.chosen===q.correct?(vi?'Chính xác! ':'Correct! '):(vi?'Chưa đúng. ':'Not quite. ')}${q[vi?'whyVi':'whyEn']}`;
@@ -5386,6 +5388,125 @@ const soundToggleRefreshers=[
 ];
 const nmPracticePriorRender=renderNonmetalTrends;renderNonmetalTrends=function(){nmPracticePriorRender();renderNmPractice()};
 renderNmPractice();
+
+
+/* Phase 4: private, device-local attempt history, mistake review and personal bests. */
+const nmHistoryKey='chemistry-explorer-nonmetal-attempts-v1';
+function nmLoadHistory(){try{const value=JSON.parse(localStorage.getItem(nmHistoryKey)||'[]');return Array.isArray(value)?value:[]}catch{return []}}
+function nmRecordAnswer(q,correct,answer){
+ nmAttemptAnswers.push({en:q.en,vi:q.vi,type:q.type,answer:String(answer),correct,expected:q.type==='short'?q.display:q.opts[q.correct],expectedVi:q.type==='short'?q.display:q.optsVi[q.correct],whyEn:q.whyEn,whyVi:q.whyVi});
+}
+function nmSaveAttempt(){
+ if(nmAttemptSaved)return;nmAttemptSaved=true;
+ const attempt={id:Date.now(),mode:nmMode,date:new Date().toISOString(),score:nmPracticeState.score,total:nmPracticeRound.length,timedOut:nmTimedOut,elapsed:Math.max(0,Math.round((Date.now()-nmAttemptStarted)/1000)),answers:nmAttemptAnswers.slice()};
+ try{localStorage.setItem(nmHistoryKey,JSON.stringify([attempt,...nmLoadHistory()].slice(0,30)))}catch(e){/* Local storage can be disabled or full. */}
+ nmRenderHistory();
+}
+const nmHistoryButton=document.createElement('button');nmHistoryButton.type='button';nmHistoryButton.className='nm-history-trigger';
+const nmHistoryPanel=document.createElement('section');nmHistoryPanel.className='nm-history-panel';nmHistoryPanel.hidden=true;
+nmHistoryPanel.setAttribute('aria-label','Practice history');
+nmPracticePanel.append(nmHistoryPanel);
+const nmHistoryCss=document.createElement('style');nmHistoryCss.textContent=`
+.nm-history-trigger{margin:8px 0 12px;padding:10px 16px;border:1px solid #b9a47d;border-radius:9px;background:#fff8e9;color:#25445c;font:600 14px/1.5 'Segoe UI',Arial,sans-serif;cursor:pointer}
+.nm-history-panel{position:fixed;inset:0;z-index:20010;overflow:auto;background:#f7f1e6;color:#203c51;padding:clamp(18px,4vw,48px);box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+.nm-history-panel[hidden]{display:none!important}
+.nm-history-inner{max-width:940px;margin:auto}.nm-history-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.nm-history-top button,.nm-history-card button{padding:8px 13px;border:1px solid #ad9a78;border-radius:8px;background:#fffaf0;color:#24465b;cursor:pointer}
+.nm-history-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:20px 0}.nm-history-stat,.nm-history-card,.nm-history-mistake{border:1px solid #d6c7a9;background:#fffdf7;border-radius:12px;padding:15px}.nm-history-stat strong{display:block;font-size:24px}.nm-history-card{margin:12px 0}.nm-history-card p{margin:5px 0}.nm-history-mistake{margin:10px 0}.nm-history-mistake small{display:block;line-height:1.7}.nm-history-muted{color:#647587}.nm-history-list{margin-top:18px}.nm-history-panel h2,.nm-history-panel h3{font-family:'Segoe UI',Arial,sans-serif;letter-spacing:normal}`;
+document.head.append(nmHistoryCss);
+const nmHistoryHome=document.createElement('div');nmHistoryHome.className='nm-history-home';
+const nmHistoryList=document.createElement('div');nmHistoryList.className='nm-history-list';
+nmHistoryPanel.append(nmHistoryHome,nmHistoryList);
+function nmHistoryText(en,vi){return currentLanguage==='vi'?vi:en}
+function nmRenderHistory(reviewId=null){
+ const vi=currentLanguage==='vi',history=nmLoadHistory(),competitive=history.filter(a=>a.mode!=='training'),best=competitive.length?Math.max(...competitive.map(a=>a.score)):null;
+ nmHistoryHome.replaceChildren();nmHistoryList.replaceChildren();
+ const top=document.createElement('div');top.className='nm-history-top';
+ const heading=document.createElement('h2');heading.textContent=nmHistoryText('My learning journal','Nhật ký học tập');
+ const close=document.createElement('button');close.textContent=nmHistoryText('← Back to practice','← Quay lại luyện tập');close.onclick=()=>{nmHistoryPanel.hidden=true;nmHistoryButton.focus()};top.append(heading,close);nmHistoryHome.append(top);
+ const note=document.createElement('p');note.className='nm-history-muted';note.textContent=nmHistoryText('Stored only in this browser on this device. Training is not ranked.','Chỉ lưu trong trình duyệt trên thiết bị này. Chế độ luyện tập không được xếp hạng.');nmHistoryHome.append(note);
+ const stats=document.createElement('div');stats.className='nm-history-grid';
+ [[history.length,nmHistoryText('Attempts','Lượt làm')],[best===null?'—':`${best}/12`,nmHistoryText('Personal best','Kỷ lục cá nhân')],[competitive.length,nmHistoryText('Ranked attempts','Lượt tính điểm')]].forEach(([val,label])=>{const item=document.createElement('div');item.className='nm-history-stat';const strong=document.createElement('strong');strong.textContent=val;const span=document.createElement('span');span.textContent=label;item.append(strong,span);stats.append(item)});nmHistoryHome.append(stats);
+ const title=document.createElement('h3');title.textContent=nmHistoryText('Attempt history','Lịch sử làm bài');nmHistoryList.append(title);
+ if(!history.length){const p=document.createElement('p');p.textContent=nmHistoryText('Finish a round to see your results here.','Hoàn thành một lượt để xem kết quả tại đây.');nmHistoryList.append(p)}
+ history.forEach(a=>{const card=document.createElement('article');card.className='nm-history-card';const head=document.createElement('strong');head.textContent=`${nmModeLabels[a.mode]?.[vi?'vi':'en']||a.mode} · ${a.mode==='training'?nmHistoryText('Unscored','Không tính điểm'):`${a.score}/${a.total}`}`;const detail=document.createElement('p');detail.className='nm-history-muted';detail.textContent=`${new Date(a.date).toLocaleString(vi?'vi-VN':'en-US')} · ${a.elapsed}s${a.timedOut?nmHistoryText(' · Time expired',' · Hết giờ'):''}`;const review=document.createElement('button');review.textContent=nmHistoryText('Review mistakes','Xem lại câu sai');review.onclick=()=>nmRenderHistory(a.id);card.append(head,detail,review);nmHistoryList.append(card);
+ if(reviewId===a.id){const wrong=a.answers.filter(x=>!x.correct);const h=document.createElement('h3');h.textContent=nmHistoryText(`Mistake review (${wrong.length})`,`Ôn tập câu sai (${wrong.length})`);card.append(h);if(!wrong.length){const p=document.createElement('p');p.textContent=nmHistoryText('No incorrect answers recorded.','Không có câu trả lời sai nào được ghi nhận.');card.append(p)}wrong.forEach((x,i)=>{const box=document.createElement('div');box.className='nm-history-mistake';const question=document.createElement('strong');question.textContent=`${i+1}. ${vi?x.vi:x.en}`;const given=document.createElement('small');given.textContent=nmHistoryText('Your answer: ','Bạn trả lời: ')+x.answer;const expected=document.createElement('small');expected.textContent=nmHistoryText('Correct answer: ','Đáp án đúng: ')+(vi?x.expectedVi:x.expected);const why=document.createElement('small');why.textContent=vi?x.whyVi:x.whyEn;box.append(question,given,expected,why);card.append(box)})}
+ });
+ const clear=document.createElement('button');clear.textContent=nmHistoryText('Clear local history','Xóa lịch sử trên thiết bị');clear.onclick=()=>{if(confirm(nmHistoryText('Delete all saved attempts on this device?','Xóa toàn bộ lượt làm đã lưu trên thiết bị này?'))){try{localStorage.removeItem(nmHistoryKey)}catch{}nmRenderHistory()}};nmHistoryList.append(clear);
+}
+nmHistoryButton.onclick=()=>{nmHistoryPanel.hidden=false;nmRenderHistory();nmHistoryPanel.scrollTop=0};
+const nmHistoryHeading=document.querySelector('.nm-practice-heading');nmHistoryHeading.append(nmHistoryButton);
+const nmOldRenderHistoryLabels=renderNmPractice;
+renderNmPractice=function(){nmOldRenderHistoryLabels();nmHistoryButton.textContent=nmHistoryText('▤ History & personal bests','▤ Lịch sử & thành tích cá nhân')};
+renderNmPractice();
+
+/* Phase 4 UX: choose a mode, inspect its records, then explicitly begin. */
+const nmLobby=document.createElement('section');
+nmLobby.id='nmModeLobby';nmLobby.className='nm-mode-lobby';nmLobby.hidden=true;
+nmLobby.setAttribute('role','dialog');nmLobby.setAttribute('aria-modal','true');nmLobby.setAttribute('aria-labelledby','nmLobbyTitle');
+nmLobby.innerHTML=`<div class="nm-lobby-card"><div class="nm-lobby-top"><span class="nm-lobby-eyebrow" id="nmLobbyEyebrow"></span><button type="button" id="nmLobbyClose" aria-label="Close">✕</button></div><h2 id="nmLobbyTitle"></h2><p id="nmLobbyDesc"></p><div class="nm-lobby-stats" id="nmLobbyStats"></div><button type="button" class="nm-lobby-play" id="nmLobbyPlay"></button><button type="button" id="nmLobbyGallery" class="nm-lobby-gallery" disabled></button><div class="nm-lobby-records"><h3 id="nmLobbyHistoryTitle"></h3><p id="nmLobbyHistoryNote"></p><div id="nmLobbyHistoryList"></div></div></div>`;
+document.body.append(nmLobby);
+const nmLobbyStyles=document.createElement('style');nmLobbyStyles.textContent=`
+.nm-mode-lobby{position:fixed;inset:0;z-index:20005;overflow-y:auto;background:rgba(17,37,54,.75);padding:clamp(12px,4vw,42px);box-sizing:border-box;display:flex;align-items:flex-start;justify-content:center;font-family:'Segoe UI',Arial,sans-serif;color:#244459}
+.nm-mode-lobby[hidden]{display:none!important}.nm-lobby-card{width:min(100%,780px);margin:auto;background:#f9f3e8;border:1px solid #d3c2a3;border-radius:20px;padding:clamp(20px,4vw,38px);box-shadow:0 25px 90px #091d3060;box-sizing:border-box}
+.nm-lobby-top{display:flex;justify-content:space-between;align-items:center;gap:12px}.nm-lobby-eyebrow{font-size:12px;letter-spacing:.13em;font-weight:800;color:#95703c}.nm-lobby-top button{border:1px solid #c6b494;border-radius:8px;background:#fffaf1;padding:8px 12px;cursor:pointer;color:#244459}.nm-lobby-card h2{font:700 clamp(25px,4vw,38px)/1.25 'Segoe UI',Arial,sans-serif;margin:15px 0 8px}.nm-lobby-card p{line-height:1.65}.nm-lobby-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:22px 0}.nm-lobby-stat{padding:15px 10px;background:#fffdf8;border:1px solid #decfb5;border-radius:12px;text-align:center}.nm-lobby-stat strong{display:block;font-size:23px}.nm-lobby-stat span{font-size:12px;color:#647587}.nm-lobby-play{width:100%;padding:16px;border:0;border-radius:12px;background:#214e66;color:white;font:700 17px 'Segoe UI',Arial,sans-serif;cursor:pointer}.nm-lobby-play:hover{background:#17394d}.nm-lobby-records{margin-top:27px;border-top:1px solid #d8c9af;padding-top:16px}.nm-lobby-records h3{font-size:19px;margin:0}.nm-lobby-records>p{font-size:13px;color:#647587}.nm-lobby-attempt{background:#fffdf8;border:1px solid #decfb5;border-radius:12px;padding:13px 16px;margin:10px 0}.nm-lobby-attempt-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.nm-lobby-attempt button{background:#f4ebdb;border:1px solid #b9a581;border-radius:7px;padding:7px 11px;color:#244459;cursor:pointer}.nm-lobby-attempt small{display:block;margin:5px 0;color:#647587}.nm-lobby-review{margin-top:12px;padding:10px;border-top:1px solid #e1d3bb}.nm-lobby-review p{margin:7px 0;font-size:13px}.nm-lobby-empty{padding:14px;border:1px dashed #b9a581;border-radius:10px}.nm-lobby-no-scroll{overflow:hidden}@media(max-width:490px){.nm-lobby-stats{grid-template-columns:1fr 1fr}.nm-lobby-stat:last-child{grid-column:span 2}}
+`;
+document.head.append(nmLobbyStyles);
+let nmLobbyPriorFocus=null;
+const nmLobbyEl=id=>document.getElementById(id);
+function nmCloseLobby(){nmLobby.hidden=true;document.body.classList.remove('nm-lobby-no-scroll');if(nmLobbyPriorFocus?.isConnected)nmLobbyPriorFocus.focus()}
+function nmFillLobby(){
+ const vi=currentLanguage==='vi',history=nmLoadHistory().filter(a=>a.mode===nmMode),best=history.length&&nmMode!=='training'?Math.max(...history.map(a=>a.score)):null;
+ nmLobbyEl('nmLobbyEyebrow').textContent=vi?'CHƯƠNG 2 · CHỌN CHẾ ĐỘ':'CHAPTER 2 · CHOOSE YOUR MODE';
+ nmLobbyEl('nmLobbyTitle').textContent=nmModeLabels[nmMode][vi?'vi':'en'];
+ const descriptions={training:['Build confidence with basic questions, unlimited time, and explanations.','Ôn kiến thức cơ bản, không giới hạn thời gian và có giải thích.'],explorer:['Explore the ocean through applied chemistry questions. You have 10 minutes.','Khám phá đại dương qua các câu hỏi vận dụng hóa học trong 10 phút.'],pirate:['Face challenging reasoning questions in a 7-minute pirate battle.','Chinh phục câu hỏi suy luận khó trong trận hải chiến kéo dài 7 phút.']};
+ nmLobbyEl('nmLobbyDesc').textContent=descriptions[nmMode][vi?1:0];
+ const stats=nmLobbyEl('nmLobbyStats');stats.replaceChildren();
+ [[history.length,vi?'Lượt làm':'Attempts'],[best===null?'—':`${best}/12`,vi?'Điểm cao nhất':'Personal best'],[nmMode==='training'?'∞':nmMode==='explorer'?'10:00':'07:00',vi?'Thời gian':'Time limit']].forEach(([value,label])=>{const div=document.createElement('div');div.className='nm-lobby-stat';const strong=document.createElement('strong');strong.textContent=value;const small=document.createElement('span');small.textContent=label;div.append(strong,small);stats.append(div)});
+ nmLobbyEl('nmLobbyPlay').textContent=vi?'▶ Bắt đầu chơi · 12 câu hỏi':'▶ Start playing · 12 questions';
+ const unlocked=nmLoadHistory().some(a=>a.mode!=='training'&&a.total>0&&a.score/a.total>=10/12);
+ const galleryButton=nmLobbyEl('nmLobbyGallery');galleryButton.disabled=!unlocked;galleryButton.textContent=unlocked?(vi?'🏆 Mở Phòng trưng bày chiến thắng':'🏆 Open Victory Gallery'):(vi?'🔒 Phòng trưng bày · Đạt 10/12 để mở khóa':'🔒 Victory Gallery · Score 10/12 to unlock');
+ nmLobbyEl('nmLobbyHistoryTitle').textContent=vi?'Lịch sử của chế độ này':'History for this mode';
+ nmLobbyEl('nmLobbyHistoryNote').textContent=vi?'Kết quả chỉ lưu trên trình duyệt của thiết bị này.':'Records are saved only in this browser on this device.';
+ const list=nmLobbyEl('nmLobbyHistoryList');list.replaceChildren();
+ if(!history.length){const empty=document.createElement('p');empty.className='nm-lobby-empty';empty.textContent=vi?'Chưa có lượt làm nào. Hãy bắt đầu chuyến phiêu lưu đầu tiên!':'No attempts yet. Start your first adventure!';list.append(empty)}
+ history.forEach(a=>{const card=document.createElement('article');card.className='nm-lobby-attempt';const top=document.createElement('div');top.className='nm-lobby-attempt-head';const name=document.createElement('strong');name.textContent=nmMode==='training'?(vi?'Đã hoàn thành · Không tính điểm':'Completed · Unscored'):`${a.score}/${a.total}`;const btn=document.createElement('button');btn.type='button';btn.textContent=vi?'Xem lại câu sai':'Review mistakes';top.append(name,btn);const detail=document.createElement('small');detail.textContent=`${new Date(a.date).toLocaleString(vi?'vi-VN':'en-US')} · ${a.elapsed}s${a.timedOut?(vi?' · Hết giờ':' · Time expired'):''}`;card.append(top,detail);btn.onclick=()=>{const old=card.querySelector('.nm-lobby-review');if(old){old.remove();return}const panel=document.createElement('div');panel.className='nm-lobby-review';const wrong=(a.answers||[]).filter(x=>!x.correct);if(!wrong.length){const p=document.createElement('p');p.textContent=vi?'Không ghi nhận câu sai.':'No incorrect answers recorded.';panel.append(p)}wrong.forEach((x,i)=>{const p=document.createElement('p');const q=document.createElement('strong');q.textContent=`${i+1}. ${vi?x.vi:x.en}`;p.append(q,document.createElement('br'),document.createTextNode((vi?'Bạn trả lời: ':'Your answer: ')+x.answer),document.createElement('br'),document.createTextNode((vi?'Đáp án đúng: ':'Correct answer: ')+(vi?x.expectedVi:x.expected)),document.createElement('br'),document.createTextNode(vi?x.whyVi:x.whyEn));panel.append(p)});card.append(panel)};list.append(card)});
+}
+function nmOpenLobby(){nmLobbyPriorFocus=document.activeElement;nmFillLobby();nmLobby.hidden=false;document.body.classList.add('nm-lobby-no-scroll');nmLobbyEl('nmLobbyPlay').focus()}
+/* The celebration images are now a voluntary, earned gallery, not a results interruption. */
+const nmGalleryStyle=document.createElement('style');
+nmGalleryStyle.textContent=`.nm-lobby-gallery{display:block;width:100%;margin:10px 0 24px;padding:13px 18px;border-radius:12px;border:1px solid #c7a361;background:#fff3d5;color:#60491f;font-weight:800;cursor:pointer;font-size:15px}.nm-lobby-gallery:disabled{opacity:.65;cursor:not-allowed;background:#ece8df;color:#66737b}.nm-gallery-controls{display:flex;align-items:center;justify-content:center;gap:16px;margin:12px 0}.nm-gallery-controls button{padding:8px 15px;border:1px solid #bca16f;border-radius:9px;background:#fff9ec;color:#243f54;cursor:pointer}.nm-gallery-controls span{font-weight:700}.nm-celebration-card img{max-height:52vh;object-fit:contain}`;
+document.head.append(nmGalleryStyle);
+let nmGalleryIndex=0;
+const nmGalleryControls=document.createElement('div');nmGalleryControls.className='nm-gallery-controls';
+const nmGalleryPrev=document.createElement('button');nmGalleryPrev.type='button';nmGalleryPrev.textContent='←';
+const nmGalleryCount=document.createElement('span');
+const nmGalleryNext=document.createElement('button');nmGalleryNext.type='button';nmGalleryNext.textContent='→';
+nmGalleryControls.append(nmGalleryPrev,nmGalleryCount,nmGalleryNext);
+document.getElementById('nmCelebrationPhoto').insertAdjacentElement('afterend',nmGalleryControls);
+function nmShowGalleryPhoto(){const photos=nmCelebrationPhotos;if(!photos.length)return;nmGalleryIndex=(nmGalleryIndex+photos.length)%photos.length;document.getElementById('nmCelebrationPhoto').src=photos[nmGalleryIndex];nmGalleryCount.textContent=`${nmGalleryIndex+1} / ${photos.length}`;}
+nmGalleryPrev.addEventListener('click',()=>{nmGalleryIndex--;nmShowGalleryPhoto()});
+nmGalleryNext.addEventListener('click',()=>{nmGalleryIndex++;nmShowGalleryPhoto()});
+function nmOpenVictoryGallery(){
+ const unlocked=nmLoadHistory().some(a=>a.mode!=='training'&&a.total>0&&a.score/a.total>=10/12);
+ if(!unlocked)return;
+ const vi=currentLanguage==='vi';nmCelebrationPriorFocus=document.activeElement;
+ document.getElementById('nmCelebrationEyebrow').textContent=vi?'PHẦN THƯỞNG ĐÃ MỞ KHÓA':'ACHIEVEMENT UNLOCKED';
+ document.getElementById('nmCelebrationTitle').textContent=vi?'Phòng trưng bày chiến thắng':'Victory Gallery';
+ document.getElementById('nmCelebrationMessage').textContent=vi?'Bạn đã đạt ít nhất 10/12 điểm! Khám phá bộ ảnh phần thưởng của mình.':'You earned at least 10/12! Browse your unlocked reward photos.';
+ nmCelebrationContinue.textContent=vi?'Đóng bộ sưu tập':'Close gallery';
+ nmGalleryIndex=0;nmShowGalleryPhoto();nmCelebrationModal.hidden=false;nmCelebrationClose.focus();
+}
+nmLobbyEl('nmLobbyGallery').addEventListener('click',nmOpenVictoryGallery);
+nmLobbyEl('nmLobbyClose').addEventListener('click',nmCloseLobby);
+nmLobby.addEventListener('click',e=>{if(e.target===nmLobby)nmCloseLobby()});
+nmLobbyEl('nmLobbyPlay').addEventListener('click',()=>{nmCloseLobby();openNmPractice()});
+/* Capture the launch click before the old direct-start handler runs. */
+nmPracticeLaunch.addEventListener('click',e=>{e.stopImmediatePropagation();nmOpenLobby()},true);
+/* Mode cards are also direct entry points to their own pre-game overview. */
+document.querySelectorAll('.nm-mode-choice').forEach(button=>button.addEventListener('click',()=>nmOpenLobby()));
+nmPracticeLaunch.textContent=currentLanguage==='vi'?'✦ Xem chế độ & lịch sử ↗':'✦ View mode & history ↗';
+const nmPriorRenderForLobby=renderNmPractice;
+renderNmPractice=function(){nmPriorRenderForLobby();nmPracticeLaunch.textContent=currentLanguage==='vi'?'✦ Xem chế độ & lịch sử ↗':'✦ View mode & history ↗';if(!nmLobby.hidden)nmFillLobby()};
 
 /* Phase 1 bilingual lesson interactions */
 let nmBondMode='ionic';
@@ -5419,5 +5540,5 @@ nmRenderLessonLanguage();
 </script>
 
 
-<div id="nmTreasureModal" class="nm-treasure-modal" role="dialog" aria-modal="true" aria-labelledby="nmTreasureTitle" hidden><div class="nm-treasure-card"><span class="nm-treasure-emoji" aria-hidden="true">🏆</span><h3 id="nmTreasureTitle"></h3><p id="nmTreasureDescription"></p><button type="button" id="nmTreasureClose">Continue</button></div></div></body>
+</body>
 </html>
