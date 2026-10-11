@@ -1424,6 +1424,25 @@ html[lang="vi"] .nm-scroll-panel h3{font-family:Arial,'Noto Sans',sans-serif;let
 .nm-ocean-message{position:relative;z-index:3;text-align:center;font-size:12px;font-weight:700;margin:0 0 18px;color:#dbf4ef;min-height:19px}
 @media(max-width:550px){.nm-ocean-scene{padding:14px 10px;min-height:175px}.nm-ocean-route{gap:1px}.nm-ocean-node{font-size:8px}.nm-ocean-sub{top:64px;font-size:23px}}
 @media(prefers-reduced-motion:reduce){.nm-ocean-sub,.nm-ocean-node{transition:none}}
+
+/* Ocean Explorer: decorative scenery and discoverable treasures */
+.nm-ocean-scene{min-height:270px;background:linear-gradient(180deg,#135d7b 0%,#0a3c60 48%,#051e3d 100%)}
+.nm-ocean-bubbles{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.nm-ocean-bubbles i{position:absolute;bottom:-25px;left:var(--x);width:var(--size);height:var(--size);border:1px solid #b5edff7a;border-radius:50%;background:#a5e9ff14;animation:nmBubbleRise var(--dur) linear infinite;animation-delay:var(--delay)}
+@keyframes nmBubbleRise{to{transform:translateY(-330px) translateX(25px);opacity:0}}
+.nm-ocean-fish{position:absolute;top:28%;left:-45px;font-size:23px;opacity:.68;pointer-events:none;animation:nmFishSwim 17s linear infinite}
+.nm-ocean-fish.second{top:57%;animation-duration:23s;animation-delay:-9s;font-size:17px;opacity:.5}
+@keyframes nmFishSwim{to{transform:translateX(calc(100vw + 160px))}}
+.nm-ocean-treasures{position:relative;z-index:5;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+.nm-ocean-treasure{font:inherit;font-size:12px;font-weight:700;border:1px solid #7bbbc6aa;background:#06354eeb;color:#e7f8f8;border-radius:30px;padding:8px 12px;cursor:pointer}
+.nm-ocean-treasure:disabled{opacity:.5;cursor:not-allowed}
+.nm-ocean-treasure:focus-visible{outline:3px solid #f7d083;outline-offset:3px}
+.nm-ocean-discovery{position:relative;z-index:6;background:#f8f0df;color:#24465b;border:1px solid #e2c68e;border-radius:12px;padding:12px 15px;line-height:1.5;max-width:640px;margin:12px auto 0;box-shadow:0 6px 22px #00192b55}
+.nm-ocean-discovery[hidden]{display:none!important}
+.nm-ocean-discovery strong{display:block;margin-bottom:5px}
+.nm-ocean-finish{position:relative;z-index:5;text-align:center;padding:12px;margin-top:12px;background:#d2f0dc18;border:1px solid #e2c68e88;border-radius:12px;color:#ffe3a6;font-weight:700}
+.nm-ocean-finish[hidden]{display:none!important}
+@media(prefers-reduced-motion:reduce){.nm-ocean-bubbles i,.nm-ocean-fish{animation:none!important}}
 </style>
 <style>
 .nm-lab{margin-top:22px;padding:clamp(14px,2.5vw,26px);background:#fffaf1;border:1px solid #dbc8aa;border-radius:18px;color:#263b4b}.nm-lab-heading h3{font-family:'Noto Serif',Georgia,serif;font-size:clamp(21px,2.8vw,30px);margin:8px 0;color:#263b4b}.nm-lab-heading p{color:#667485;line-height:1.6}.nm-lab-grid{display:grid;grid-template-columns:repeat(18,minmax(0,1fr));gap:4px;margin:18px 0}.nm-lab-tile{grid-column:var(--g);grid-row:var(--p);min-width:0;min-height:56px;border:1px solid #b9c9c8;border-radius:7px;background:#e7f1ed;color:#264e51;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2px}.nm-lab-tile b{font-size:clamp(11px,1.5vw,19px)}.nm-lab-tile small{font-size:9px}.nm-lab-tile[data-picked="a"]{background:#285b70;color:#fff;border-color:#285b70}.nm-lab-tile[data-picked="b"]{background:#a97b3d;color:#fff;border-color:#a97b3d}.nm-lab-tile:focus-visible,.nm-lab-actions button:focus-visible{outline:3px solid #07998e;outline-offset:2px}.nm-lab-selection{border-top:1px solid #e7dccb;padding-top:15px}.nm-lab-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.nm-lab-actions button{padding:9px 12px;border-radius:10px;border:1px solid #bca886;background:#fff8eb;color:#314b5c;cursor:pointer;font-weight:700}.nm-lab-actions button[aria-pressed="true"],#nmLabReveal{background:#28495e;color:white}.nm-lab-actions button:disabled{opacity:.5;cursor:not-allowed}#nmLabFeedback{min-height:24px;color:#355d59;line-height:1.6}.nm-lab-deep{margin-top:18px;border-top:1px solid #e7dccb;padding-top:16px}.nm-lab-deep summary{cursor:pointer;font-weight:700}.nm-shell-controls{margin:12px 0;display:flex;align-items:center;gap:12px}.nm-shell-controls select{border:1px solid #c7b79c;border-radius:8px;padding:8px;background:white;color:#263b4b}.nm-shell-model{display:flex;justify-content:center;min-height:235px}.nm-shell-model svg{width:min(100%,360px);height:235px}.nm-lab-deep p{font-size:13px;color:#647383;line-height:1.6}@media(max-width:640px){.nm-lab-grid{gap:2px}.nm-lab-tile{min-height:40px;border-radius:4px}.nm-lab-tile b{font-size:10px}.nm-lab-tile small{font-size:7px}.nm-lab-actions button{font-size:12px;padding:8px}}
@@ -1640,12 +1659,18 @@ html[lang="vi"] #nmFailureScore{font-weight:500!important;line-height:1.65!impor
 <section class="nm-practice" id="nmPractice" aria-labelledby="nmPracticeTitle">
   <div class="nm-practice-topbar"><span id="nmPracticeModeLabel">CHAPTER 2 · PRACTICE</span><span id="nmModeTimer" role="timer" aria-live="off"></span><button type="button" id="nmExitPractice" aria-label="Close practice">✕</button></div>
   <section id="nmOceanScene" class="nm-ocean-scene" aria-label="Ocean exploration progress" hidden>
+    <div class="nm-ocean-bubbles" aria-hidden="true"></div>
+    <span class="nm-ocean-fish" aria-hidden="true">🐟</span><span class="nm-ocean-fish second" aria-hidden="true">🐠</span>
     <div class="nm-ocean-stars" aria-hidden="true">✧ &nbsp; ✦ &nbsp; ✧</div>
     <div class="nm-ocean-top"><span id="nmOceanStage">DIVE 01 / 12</span><span id="nmOceanDepth">DEPTH 0 m</span></div>
     <div class="nm-ocean-route" id="nmOceanRoute" aria-hidden="true"></div>
     <div class="nm-ocean-sub" id="nmOceanSub" aria-hidden="true">🚤</div>
     <div class="nm-ocean-floor" aria-hidden="true">🪸 &nbsp; 🐚 &nbsp; 🪸 &nbsp; 🐠</div>
     <p class="nm-ocean-message" id="nmOceanMessage" aria-live="polite"></p>
+    <div class="nm-ocean-treasures"><button class="nm-ocean-treasure" type="button" id="nmOceanFind" disabled>🔒 Discoveries 0 / 3</button></div>
+    <div class="nm-ocean-discovery" id="nmOceanDiscovery" role="status" aria-live="polite" hidden></div>
+    <div class="nm-ocean-finish" id="nmOceanFinish" hidden></div>
+
   </section>
   <div class="nm-practice-heading"><span class="nm-kicker" id="nmPracticeKicker">STEP 4 · PRACTISE</span><h3 id="nmPracticeTitle">Test your understanding</h3><p id="nmPracticeIntro">Apply the trends, one question at a time.</p></div>
   <div class="nm-practice-progress"><span id="nmPracticeCount"></span><span id="nmPracticeScore"></span></div>
@@ -5127,11 +5152,37 @@ let nmMode='training',nmTimerHandle=null,nmRemaining=0,nmDeadline=0,nmTimedOut=f
 nmPracticeRound=nmNewRound();
 const nmOceanScene=document.getElementById('nmOceanScene');
 const nmOceanRoute=document.getElementById('nmOceanRoute');
+const nmOceanEarned=new Set();
+const nmOceanFacts=[
+ {en:'Coral reef · Coral reefs are built by tiny animals called coral polyps.',vi:'Rạn san hô · Rạn san hô được tạo nên bởi những động vật nhỏ gọi là polyp san hô.'},
+ {en:'Deep-sea light · Some ocean animals produce light through bioluminescence.',vi:'Ánh sáng biển sâu · Một số sinh vật biển tự phát sáng nhờ hiện tượng phát quang sinh học.'},
+ {en:'Ocean chemistry · Dissolved salts make seawater conduct electricity.',vi:'Hóa học đại dương · Muối hòa tan giúp nước biển dẫn điện.'}
+];
+const nmOceanBubbleWrap=document.querySelector('.nm-ocean-bubbles');
+for(let i=0;i<16;i++){const bubble=document.createElement('i');bubble.style.setProperty('--x',`${(i*37+11)%100}%`);bubble.style.setProperty('--size',`${6+(i*7)%15}px`);bubble.style.setProperty('--dur',`${6+(i*3)%8}s`);bubble.style.setProperty('--delay',`${-(i*5)%13}s`);nmOceanBubbleWrap.append(bubble)}
+const nmOceanFind=document.getElementById('nmOceanFind');
+const nmOceanDiscovery=document.getElementById('nmOceanDiscovery');
+const nmOceanFinish=document.getElementById('nmOceanFinish');
+nmOceanFind.addEventListener('click',()=>{
+ const vi=currentLanguage==='vi';const unlocked=Math.min(3,Math.floor(nmOceanEarned.size/3));
+ if(!unlocked)return;
+ const fact=nmOceanFacts[unlocked-1];nmOceanDiscovery.hidden=false;
+ nmOceanDiscovery.replaceChildren();const strong=document.createElement('strong');strong.textContent=vi?'Kho báu kiến thức':'Knowledge treasure';
+ const detail=document.createElement('span');detail.textContent=fact[vi?'vi':'en'];nmOceanDiscovery.append(strong,detail);
+});
+
 for(let n=0;n<12;n++){const node=document.createElement('span');node.className='nm-ocean-node';node.textContent=String(n+1);nmOceanRoute.append(node)}
 function nmRenderOcean(){
  const visible=nmMode==='explorer'&&!nmPracticePanel.hidden;
  nmOceanScene.hidden=!visible;if(!visible)return;
  const vi=currentLanguage==='vi',p=nmPracticeState,complete=Math.min(12,p.index+(p.chosen!==null?1:0));
+ if(p.index<12&&p.chosen!==null){const q=nmPracticeRound[p.index];const right=p.chosen===(q.type==='short'?1:q.correct);if(right)nmOceanEarned.add(p.index)}
+ const unlocked=Math.min(3,Math.floor(nmOceanEarned.size/3));
+ nmOceanFind.disabled=unlocked===0;
+ nmOceanFind.textContent=(vi?'🗝️ Khám phá ':'🗝️ Discoveries ')+`${unlocked} / 3`;
+ nmOceanFinish.hidden=p.index<12;
+ nmOceanFinish.textContent=p.index>=12?(vi?`🏆 Hoàn thành hành trình! Bạn tìm thấy ${unlocked}/3 kho báu.`:`🏆 Journey complete! You discovered ${unlocked}/3 treasures.`):'';
+
  document.getElementById('nmOceanStage').textContent=vi?`CHẶNG ${String(Math.min(12,p.index+1)).padStart(2,'0')} / 12`:`DIVE ${String(Math.min(12,p.index+1)).padStart(2,'0')} / 12`;
  document.getElementById('nmOceanDepth').textContent=vi?`ĐỘ SÂU ${complete*25} m`:`DEPTH ${complete*25} m`;
  nmOceanRoute.querySelectorAll('.nm-ocean-node').forEach((node,i)=>{node.classList.toggle('is-done',i<complete);node.classList.toggle('is-current',i===Math.min(p.index,11)&&p.index<12)});
@@ -5155,7 +5206,7 @@ function nmStartTimer(){
   if(nmRemaining===0){nmTimedOut=true;nmStopTimer();nmPracticeState.index=nmPracticeRound.length;nmPracticeState.chosen=null;renderNmPractice();}
  },250);
 }
-function nmResetRound(){nmStopTimer();nmPracticeRound=nmNewRound();nmPracticeState.index=0;nmPracticeState.score=0;nmPracticeState.chosen=null;nmPracticeState.typed='';nmTimedOut=false;nmCelebrationShown=false;nmFailureShown=false;nmFailure.hidden=true;closeNmCelebration();renderNmPractice();}
+function nmResetRound(){nmOceanEarned.clear();nmOceanDiscovery.hidden=true;nmStopTimer();nmPracticeRound=nmNewRound();nmPracticeState.index=0;nmPracticeState.score=0;nmPracticeState.chosen=null;nmPracticeState.typed='';nmTimedOut=false;nmCelebrationShown=false;nmFailureShown=false;nmFailure.hidden=true;closeNmCelebration();renderNmPractice();}
 document.querySelectorAll('.nm-mode-choice').forEach(button=>button.addEventListener('click',()=>{nmMode=button.dataset.mode;document.querySelectorAll('.nm-mode-choice').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));nmResetRound();}));
 const nmFailure=document.getElementById('nmFailure');
 let nmPracticePriorFocus=null;
